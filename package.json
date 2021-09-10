@@ -42,11 +42,14 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "prettier/prettier": ["error",{
-        "endOfLine":"auto",
-        "useTabs": true,
-        "tabWidth": "4"
-        }]
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto",
+          "useTabs": true,
+          "tabWidth": 4
+        }
+      ]
     }
   },
   "browserslist": [

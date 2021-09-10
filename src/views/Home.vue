@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/payments"><button type="button" class="btn btn-primary">Go to Payments</button></router-link>
       <p></p>
-      <router-link to="/shopping"><button type="button" class="btn btn-primary mt-4">Got to Shopping</button></router-link>
+      <router-link to="/shopping"><button type="button" class="btn btn-primary mt-4">Got to Shopping</button></router-link><br>
+      <router-link to="/fabric"><button type="button" class="btn btn-primary mt-4">Fabric</button></router-link>
     </div>
   </div>
 </template>

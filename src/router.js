@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import ShoppingCart from './views/ShoppingCart.vue'
 import Payments from './views/Payments.vue'
+import Fabric from './views/Fabric.vue'
+
 
 Vue.use(Router)
 
@@ -22,6 +24,11 @@ export default new Router({
       path: '/payments',
       name: 'payments',
       component: Payments
+    },
+    {
+      path: '/fabric',
+      name: 'Fabric',
+      component: Fabric
     }
   ]
 })

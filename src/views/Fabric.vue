@@ -14,7 +14,7 @@ export default {
   components: {},
   data() {
     return {
-      numberModel: 3,
+      reader: new FileReader(),
     };
   },
   created() {},
@@ -38,6 +38,14 @@ export default {
       width: 300,
       height: 300,
     });
+
+    // 이미지 넣기
+    fabric.Image.fromURL(
+      "https://lh3.googleusercontent.com/proxy/YQROzUEhEg98iyEDFHUMHglXSZ5egK5eRaZQxAucbCPbJO-qCYQfTCoqQ12b6dHP9IROgbNeL43r7DV_ftotmXUgSm-fGuBrbz6mA_35ekaTYBj3cmK0Pwi2Lud46-GgwLD75Ta-mSKBnUBfVhU_0Gw",
+      function (oImg) {
+        canvas.add(oImg);
+      }
+    );
 
     canvas.add(rect1).add(rect2).add(cir1);
   },

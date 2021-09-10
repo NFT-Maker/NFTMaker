@@ -3,7 +3,7 @@
     <!-- 이미지 업로드 버튼 -->
     <div><input id="uploader" type="file" /><br /></div>
 
-    <canvas ref="can" id="canvas" width="1000" height="1000"></canvas>
+    <canvas ref="can" id="canvas" width="800" height="800"></canvas>
   </div>
 </template>
 <script>

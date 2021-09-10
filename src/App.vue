@@ -5,7 +5,6 @@
 </template>
 
 <style lang="scss">
-  @import 'assets/css/vendor/bootstrap.min.css';
 
   #app {
     -webkit-font-smoothing: antialiased;

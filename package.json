@@ -1,32 +1,36 @@
 {
-  "name": "nftmaker",
+  "name": "ethereum-payment-vuejs",
   "version": "0.1.0",
-  "private": true,
+  "description": "Simple ethereum dapp using vuejs as UI framework",
+  "author": "formentor-studio.com",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dapp:build": "node dapp/compile.js; mocha dapp/test",
+    "dapp:test": "mocha dapp/test"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "fabric": "^4.6.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "core-js": "^2.6.5",
+    "moment": "^2.24.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1",
+    "web3": "^1.5.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.0.0",
-    "prettier": "^2.2.1"
+    "@vue/cli-plugin-babel": "^3.10.0",
+    "@vue/cli-plugin-eslint": "^3.10.0",
+    "@vue/cli-service": "^3.10.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "ganache-cli": "^6.5.1",
+    "mocha": "^6.2.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "solc": "^0.5.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
@@ -34,27 +38,25 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "@vue/prettier"
+      "plugin:vue/essential",
+      "eslint:recommended"
     ],
+    "rules": {
+      "no-console": "warn"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "endOfLine": "auto",
-          "useTabs": true,
-          "tabWidth": 4
-        }
-      ]
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
     }
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "last 2 versions"
+  ],
+  "keywords": [],
+  "license": "MIT"
 }

@@ -1,32 +1,34 @@
 <template>
-	<div id="nav">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/about">About</router-link> |
-		<router-link to="/fabric">Fabric</router-link> |
-		<router-link to="/fabricTest">FabricTest</router-link> |
-	</div>
-	<router-view />
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<style>
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-}
+<style lang="scss">
+  @import 'assets/css/vendor/bootstrap.min.css';
 
-#nav {
-	padding: 30px;
-}
+  #app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
 
-#nav a {
-	font-weight: bold;
-	color: #2c3e50;
-}
+  .loading {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+  }
 
-#nav a.router-link-exact-active {
-	color: #42b983;
-}
+  .spinner-border {
+    @extend .spinner-border;
+    height:4rem;
+    width:4rem;
+  }
 </style>

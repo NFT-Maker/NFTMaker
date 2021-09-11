@@ -8,7 +8,7 @@
     <div>{{ contract }}</div>
     <br />
     <button @click="getName()">getName</button>
-    <div>{{ this.sampleData }}</div>
+    <div>{{ sampleData }}</div>
     <br />
     <button @click="setName()">setName</button>
     <input type="text" v-model="name" />
@@ -131,14 +131,12 @@ export default {
           console.log(result);
         });
     },
-    setName() {
-      window.contract.methods
+
+    async setName() {
+      await window.contract.methods
         .setName(this.name)
-        .send({ from: window.account })
-        .then(function(receipt) {
-          // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
-          getName();
-        });
+        .send({ from: window.account });
+      this.getName();
     },
   },
 };

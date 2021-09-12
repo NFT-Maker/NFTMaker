@@ -3,9 +3,10 @@
     안녕
     <br />
     <button @click="init()">지갑연결</button>
+    <div>{{ account }}</div>
     <br />
     <button @click="getContract()">컨트랙트 연결</button>
-    <div>{{ contract }}</div>
+    <div>{{ contract._address }}</div>
     <br />
     <button @click="getName()">getName</button>
     <div>{{ sampleData }}</div>
@@ -23,11 +24,12 @@ export default {
   components: {},
   data() {
     return {
-      sampleData: "hello",
+      sampleData: "",
       web3: "",
       accounts: [],
-      account: 0,
-      contract: "",
+      account: "",
+      contract: {},
+      // 변수 선언할때 오브젝트, 배열, 숫자, 문자 잘 확인해두자
       contract1: null,
       abi: [],
       name: "",
@@ -124,19 +126,19 @@ export default {
       this.contract = 12345;
       console.log(this.contract);
       console.log(this.web3);
-
-      window.contract = new this.web3.eth.Contract(
+      // let contract2 = 2;
+      this.contract = new this.web3.eth.Contract(
         this.abi,
         "0x625acB8EC10fAFf07df49B742C30C781092b7013"
       );
-      console.log(window.contract);
+      console.log(this.contract);
       // this.contract1 = window.contract;
       // console.log(this.contract1);
     },
 
     //window , this this가 먹어야 되는데 왜 안되지?
     getName() {
-      window.contract.methods
+      this.contract.methods
         .getName()
         .call()
         .then((result) => {
@@ -146,7 +148,7 @@ export default {
     },
 
     async setName() {
-      await window.contract.methods
+      await this.contract.methods
         .setName(this.name)
         .send({ from: this.account });
       this.getName();

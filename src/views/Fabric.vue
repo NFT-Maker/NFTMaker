@@ -3,6 +3,11 @@
         <!-- 이미지 업로드 버튼 -->
         <div><input id="uploader" type="file" /><br /></div>
 
+        <!-- 이미지 다운로드 버튼 -->
+        <div>
+            <b-button @click="cheak()">다운로드</b-button>
+        </div>
+
         <canvas ref="can" id="canvas" width="800" height="800"></canvas>
     </div>
 </template>
@@ -70,6 +75,7 @@ export default {
             };
             reader.readAsDataURL(e.target.files[0]);
         };
+        
 
         // 텍스트 추가
         var text = new fabric.Text("add Text", {
@@ -113,10 +119,19 @@ export default {
             ctx.drawImage(img, -size / 2, -size / 2, size, size);
             ctx.restore();
         }
+
+   
     },
     updated() {},
     unmounted() {},
-    methods: {},
+    methods: {
+        // 캔버스 이미지 URL로 변환
+        exportDataURL () {
+            var canvas1 = document.getElementById('canvas');
+            var dataURL = canvas1.toDataURL();
+            console.log(dataURL);
+        }
+    },
 };
 </script>
 <style scoped>

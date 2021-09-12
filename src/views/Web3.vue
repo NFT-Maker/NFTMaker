@@ -15,6 +15,8 @@
     <input type="text" v-model="name" />
     <br />
     <button @click="test">test</button>
+    <br />
+    <div>{{ listening }}</div>
   </div>
 </template>
 <script>
@@ -34,6 +36,7 @@ export default {
       abi: [],
       name: "",
       test0: "",
+      listening: "",
     };
   },
   setup() {},
@@ -134,6 +137,12 @@ export default {
       console.log(this.contract);
       // this.contract1 = window.contract;
       // console.log(this.contract1);
+      this.contract.events.SetName({}, (error, event) => {
+        console.log(event);
+        this.listening =
+          event.returnValues.name + ", " + event.returnValues.sender;
+      });
+      this.listening = "Listening...";
     },
 
     //window , this this가 먹어야 되는데 왜 안되지?

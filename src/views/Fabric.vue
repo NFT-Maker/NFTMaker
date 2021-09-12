@@ -46,7 +46,7 @@ export default {
 
         // 이미지 넣기
         fabric.Image.fromURL(
-            "https://lh3.googleusercontent.com/proxy/YQROzUEhEg98iyEDFHUMHglXSZ5egK5eRaZQxAucbCPbJO-qCYQfTCoqQ12b6dHP9IROgbNeL43r7DV_ftotmXUgSm-fGuBrbz6mA_35ekaTYBj3cmK0Pwi2Lud46-GgwLD75Ta-mSKBnUBfVhU_0Gw",
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAEDCAMAAABQ/CumAAAAbFBMVEX///8AAAD09PTj4+OlpaX6+vrv7++pqanFxcXX19fm5uZnZ2eQkJC4uLjd3d3KysqBgYFRUVFBQUE1NTUnJyctLS2Xl5daWlp9fX08PDyHh4fR0dEQEBC+vr4VFRVOTk6dnZ0iIiJwcHBgYGDeHYUDAAACpklEQVR4nO3c6ZaiMBiEYYMC4jKIa0uPW/f932PP0dAKRo/QP76pmfe5gqrDkhBNej0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP5X/XRSTgZZbJ2js+ncXSwGkXWWTpKNu1r8so7TQX/paobWgVqLVq5B7jqMmw3cwjpSS+93DZxLrUO18xGooHUZomWggtbTkIUaaN1JebDC0TpWG8NghbV1rDZCLyTnBtax2ugHK+ysY7URz0MVEutYrUwCDTbWodpJft9XyKxDtZTeNXizjtTaW6PBQfDTbVZ/EAQb/LmX9tcGE+swHSXr7Tn/suxbR/mBUZZnyvkBAAAAAAAAAAAAAAAAAP+U5H232+Uj6xidRWnh/zI8X2u2SGt7YWZ6f1ON7zaFqW3Ni4r7f50frUO1c78xz4ntgxmEGkhdhyjcQOl5eHARnDvJbHsOPMvezDrai5L9wwpOZIwbPW7gSutwrwlvapN6Gp5dBZGXUmhDmNqdFNxa6M2tw71m9qSC05iyhvfZeiJbzzdPKuTW4V4zevJAq+wYzusdFuX1RIapdbZX9bfXAttpfLPlU6ZCr7f7PJ0jF5fBLFG7kc6iLB9eV2AOvoLG8Bz06Suobdy+UX1EaMzzQqoDDVbWQbqL/Gv2wzpId9UMXOpcmLqpryDy5Rnih+fCOscP6I3NTf4+2mt8LQT5sVlqWbXOn5e01x3Xqq9p4Tfq8dJA8UwVr1ob053hVdMjqXO26vyoNrbO0Z0/sGqu+zbyDVZaB4XdKn0D2eld7D83t7LXID/5J1l1QEiq5WHVmVGc+kuwEFlFbYoG1W+GIr+JNGVltaY6FlmLb0i+11MPovfQ96yueLdO0tm5wn6mOy89VyhS2bHsLFlzUh4AAAAAAAAA/K2+AH1QEuHRB+MLAAAAAElFTkSuQmCC",
             function (oImg) {
                 canvas.add(oImg);
             }
@@ -72,7 +72,13 @@ export default {
         };
 
         // 텍스트 추가
-        var text = new fabric.Text("add Text", { left: 100, top: 100});
+        var text = new fabric.Text("add Text", {
+            left: 100,
+            top: 100,
+            fontSize: 50,
+            fontWeight: "blod",
+
+            });
         canvas.add(text);
 
         //삭제기능

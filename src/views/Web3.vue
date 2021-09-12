@@ -12,6 +12,8 @@
     <br />
     <button @click="setName()">setName</button>
     <input type="text" v-model="name" />
+    <br />
+    <button @click="test">test</button>
   </div>
 </template>
 <script>
@@ -26,8 +28,10 @@ export default {
       accounts: [],
       account: 0,
       contract: "",
+      contract1: null,
       abi: [],
       name: "",
+      test0: "",
     };
   },
   setup() {},
@@ -46,10 +50,11 @@ export default {
           // Request account access if needed
           await window.ethereum.enable();
           // Acccounts now exposed
-          this.web3.eth.getAccounts().then(function(accounts) {
-            console.log(accounts[0]);
-            window.account = accounts[0];
-            console.log(window.account);
+          this.web3.eth.getAccounts().then((accounts) => {
+            // console.log(accounts[0]);
+            // window.account = accounts[0];
+            this.account = accounts[0];
+            console.log(this.account);
           });
         } catch (error) {
           console.log("error");
@@ -63,7 +68,7 @@ export default {
       }
     },
 
-    async getContract() {
+    getContract() {
       this.abi = [
         {
           anonymous: false,
@@ -111,32 +116,44 @@ export default {
           type: "function",
         },
       ];
-      console.log(this.abi);
-      console.log(window.web3);
-      console.log(this.web3);
+      // console.log(this.abi);
+      // console.log(window.web3);
+      // console.log(this.web3);
+      // console.log(this.contract);
       console.log(this.contract);
+      this.contract = 12345;
+      console.log(this.contract);
+      console.log(this.web3);
 
       window.contract = new this.web3.eth.Contract(
         this.abi,
         "0x625acB8EC10fAFf07df49B742C30C781092b7013"
       );
       console.log(window.contract);
+      // this.contract1 = window.contract;
+      // console.log(this.contract1);
     },
 
+    //window , this this가 먹어야 되는데 왜 안되지?
     getName() {
       window.contract.methods
         .getName()
         .call()
-        .then(function(result) {
+        .then((result) => {
           console.log(result);
+          this.sampleData = result;
         });
     },
 
     async setName() {
       await window.contract.methods
         .setName(this.name)
-        .send({ from: window.account });
+        .send({ from: this.account });
       this.getName();
+    },
+
+    test() {
+      alert(this.name);
     },
   },
 };

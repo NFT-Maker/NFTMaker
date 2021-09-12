@@ -15,7 +15,10 @@
             <b-button id="download">이미지 다운로드</b-button>
         </div>
 
-        <canvas ref="can" id="canvas" width="800" height="800"></canvas>
+        <!-- 캔버스 -->
+        <div>
+            <canvas class="mx-1" ref="can" id="canvas" width="800" height="800"></canvas>
+        </div>
     </div>
 </template>
 <script>
@@ -90,7 +93,6 @@
             var text = new fabric.Text("add Text", {
                 left: 100,
                 top: 100,
-                fontSize: 50,
                 fontWeight: "blod",
 
             });
@@ -104,13 +106,13 @@
             img.src = deleteIcon;
 
             fabric.Object.prototype.controls.deleteControl = new fabric.Control({
-                x: 0.5,
-                y: -0.5,
+                x: 0.55,
+                y: -0.6,
                 offsetY: 16,
                 cursorStyle: "pointer",
                 mouseUpHandler: deleteObject,
                 render: renderIcon,
-                cornerSize: 24,
+                cornerSize: 22,
             });
 
             function deleteObject(eventData, transform) {

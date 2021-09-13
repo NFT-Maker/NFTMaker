@@ -5,6 +5,7 @@ import ShoppingCart from "./views/ShoppingCart.vue";
 import Payments from "./views/Payments.vue";
 import Fabric from "./views/Fabric.vue";
 import Web3 from "./views/Web3.vue";
+import Compile from "./views/Compile.vue";
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       path: "/web3",
       name: "Web3",
       component: Web3,
+    },
+    {
+      path: "/compile",
+      name: "Compile",
+      component: Compile,
     },
   ],
 });

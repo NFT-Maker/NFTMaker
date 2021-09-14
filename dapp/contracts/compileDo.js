@@ -40,8 +40,6 @@ for (var contractName in output.contracts['testDo.sol']) {
       output.contracts['testDo.sol'][contractName].evm.bytecode.object
   );
 
-    console.log("@here@")
-
   console.log(
       output.contracts['testDo.sol'][contractName].abi
   )

@@ -48,6 +48,8 @@ export default {
     //   this.accounts = await this.web3.eth.getAccounts().then();
     //   console.log("accounts", this.accounts);
     // },
+
+    // 메타마스크 연결
     async init() {
       if (window.ethereum) {
         this.web3 = new Web3(window.ethereum);
@@ -73,6 +75,7 @@ export default {
       }
     },
 
+    //컨트랙트 연결
     getContract() {
       this.abi = [
         {
@@ -137,6 +140,8 @@ export default {
       console.log(this.contract);
       // this.contract1 = window.contract;
       // console.log(this.contract1);
+
+      // 이벤트 리슨
       this.contract.events.SetName({}, (error, event) => {
         console.log(event);
         this.listening =
@@ -146,6 +151,7 @@ export default {
     },
 
     //window , this this가 먹어야 되는데 왜 안되지?
+    // 이름 가져오기
     getName() {
       this.contract.methods
         .getName()
@@ -156,6 +162,7 @@ export default {
         });
     },
 
+    // 이름 저장하기
     async setName() {
       await this.contract.methods
         .setName(this.name)

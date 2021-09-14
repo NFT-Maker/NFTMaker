@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Fabric from "./views/Fabric.vue";
 import Web3 from "./views/Web3.vue";
 import Compile from "./views/Compile.vue";
+import Web3copy from "./views/Web3copy.vue";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/compile",
       name: "Compile",
       component: Compile,
+    },
+    {
+      path: "/Web3copy",
+      name: "Web3copy",
+      component: Web3copy,
     },
   ],
 });

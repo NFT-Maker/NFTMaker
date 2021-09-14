@@ -14,7 +14,7 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const contractsPath = path.resolve(__dirname, 'contracts');
 
-compile = (contracts) => {
+function compile(contracts) {
     console.log('Compiling smart contracts...')
     const input = {
         language: 'Solidity',
@@ -49,7 +49,7 @@ compile = (contracts) => {
 }
 
 // Add .sol of import statements
-findImports = (import_path) => {
+function findImports(import_path) {
     const sourcePath = path.resolve(contractsPath, import_path);
     const source = fs.readFileSync(sourcePath, 'utf-8');
 

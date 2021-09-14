@@ -4,8 +4,7 @@ var input = {
   language: 'Solidity',
   sources: {
     'testDo.sol': {
-        content: 
-        "pragma solidity ^0.8.7;\
+      content: "pragma solidity ^0.8.7;\
   \
         contract testDo {\
             string name;\
@@ -28,7 +27,7 @@ var input = {
             }\
             \
         }"
-      }
+    }
   },
   settings: {
     outputSelection: {
@@ -45,7 +44,10 @@ var output = JSON.parse(solc.compile(JSON.stringify(input)));
 for (var contractName in output.contracts['testDo.sol']) {
   console.log(
     contractName +
-      ': ' +
-      output.contracts['testDo.sol'][contractName].evm.bytecode.object
+    ': ' +
+    output.contracts['testDo.sol'][contractName].evm.bytecode.object
   );
+
+  var getAbi = output.contracts['testDo.sol'][contractName].abi
+  console.log(getAbi)
 }

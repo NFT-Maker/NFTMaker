@@ -6,8 +6,7 @@ var input = {
   language: 'Solidity',
   sources: {
     'testDo.sol': {
-      content: 
-      "pragma solidity ^0.8.7;\
+      content: "pragma solidity ^0.8.7;\
 \
       contract testDo {\
           string name;\
@@ -69,7 +68,6 @@ for (var contractName in output.contracts['testDo.sol']) {
     output.contracts['testDo.sol'][contractName].evm.bytecode.object
   );
 
-  console.log(
-    output.contracts['testDo.sol'][contractName].abi
-  )
+  var getAbi = output.contracts['testDo.sol'][contractName].abi
+  console.log(getAbi)
 }

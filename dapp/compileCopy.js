@@ -33,6 +33,21 @@ try{
     const output = JSON.parse(solc.compile(JSON.stringify(input)),1);
 
     for (let contract in output.contracts["testDo.sol"]) {
+
+        // save "abi" in interface property of the output file
+        let abi = output.contracts["testDo.sol"][contract].abi;
+        // save "evm.bytecode.object" in bytecode property of the output file
+        let bytecode = output.contracts["testDo.sol"][contract].evm.bytecode.object;
+        const built = {
+            abi: JSON.stringify(abi),
+            bytecode: bytecode
+        }
+
+        fileSystem.outputJSONSync(
+            path.resolve(buildPath, "Payments.json"),
+            built
+          );
+
         fileSystem.outputJSONSync(
           path.resolve(buildPath, "testDoABI.json"),
           output.contracts["testDo.sol"][contract].abi

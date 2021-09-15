@@ -1,5 +1,5 @@
 const solc = require('solc');
-const fs = require('fs-extra');
+const fileSystem = require('fs-extra');
 const path = require('path');
 
 /**
@@ -43,7 +43,7 @@ function compile(contracts) {
             }
             const target = path.resolve(buildPath, path.dirname(contractSource), contractName + ".json");
             console.log(contractName, 'built in', target);
-            fs.writeJsonSync(target, built);
+            fileSystem.writeJsonSync(target, built);
         }
     }
 }
@@ -51,22 +51,22 @@ function compile(contracts) {
 // Add .sol of import statements
 function findImports(import_path) {
     const sourcePath = path.resolve(contractsPath, import_path);
-    const source = fs.readFileSync(sourcePath, 'utf-8');
+    const source = fileSystem.readFileSync(sourcePath, 'utf-8');
 
     return {contents: source};
 }
 
 // 1. Recreate build folder
-fs.removeSync(buildPath);
-fs.ensureDirSync(buildPath);
+fileSystem.removeSync(buildPath);
+fileSystem.ensureDirSync(buildPath);
 
 // 2. Get list of contracts
 let contracts = {};
-fs.readdirSync(contractsPath).forEach(file => {
+fileSystem.readdirSync(contractsPath).forEach(file => {
     if (file.includes('.sol')) {
         const sourcePath = path.resolve(contractsPath, file);
-        if (!fs.lstatSync(sourcePath).isDirectory()) {
-            const source = fs.readFileSync(sourcePath, 'utf-8');
+        if (!fileSystem.lstatSync(sourcePath).isDirectory()) {
+            const source = fileSystem.readFileSync(sourcePath, 'utf-8');
             contracts[file] = {'content': source}
         }
     }

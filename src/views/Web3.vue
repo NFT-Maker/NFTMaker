@@ -24,7 +24,7 @@
 </template>
 <script>
 import Web3 from "web3";
-import { Payments } from "../../../../coding/ethereum-payment-vuejs-develop/ethereum-payment-vuejs-develop/dapp/index.js";
+// import { Payments } from "../../../../coding/ethereum-payment-vuejs-develop/ethereum-payment-vuejs-develop/dapp/index.js";
 export default {
   name: "",
   components: {},
@@ -271,15 +271,15 @@ export default {
     },
 
     //기존 파일 주소
-    createContract() {
-      new this.web3.eth.Contract(JSON.parse(Payments.abi))
-        .deploy({ data: Payments.bytecode })
-        .send({ from: this.account })
-        .then((result) => {
-          console.log(result);
-          this.contract = result;
-        });
-    },
+    // createContract() {
+    //   new this.web3.eth.Contract(JSON.parse(Payments.abi))
+    //     .deploy({ data: Payments.bytecode })
+    //     .send({ from: this.account })
+    //     .then((result) => {
+    //       console.log(result);
+    //       this.contract = result;
+    //     });
+    // },
   },
 };
 </script>

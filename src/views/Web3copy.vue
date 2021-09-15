@@ -6,7 +6,7 @@
     <div>{{ account }}</div>
     <br />
     <button @click="getContract()">컨트랙트 연결</button>
-    <div>{{ contract._address }}</div>
+    <div>{{ contract._address}}</div>
     <br />
     <button @click="getName()">getName</button>
     <div>{{ sampleData }}</div>
@@ -20,6 +20,37 @@
     <br />
     <button @click="createContract()">create</button>
     <div>{{ contract1 }}</div>
+
+    <h1>data 확인하기</h1>
+    <p>sampleData</p>
+    <div>{{sampleData}}</div>
+    <!-- 불러올수가 없음 -->
+    <!-- <p>web3</p>
+    <div>{{web3}}</div> -->
+
+    <!-- 쓰이지 않음 -->
+    <!-- <p>accounts</p>
+    <div>{{accounts}}</div> -->
+
+    <!-- 지갑연결하면 내 지갑 주소 출력 -->
+    <p>account</p>
+    <div>{{account}}</div>
+
+    <!-- 불러올수가 없음 -->
+    <!-- <p>contract</p>
+    <div>{{contract}}</div> -->
+
+    <p>contract1</p>
+    <div>{{contract1}}</div>
+    <p>abi</p>
+    <div>{{abi}}</div>
+    <p>name</p>
+    <div>{{name}}</div>
+    <p>test0</p>
+    <div>{{test0}}</div>
+    <p>listening</p>
+    <div>{{listening}}</div>
+
   </div>
 </template>
 <script>
@@ -29,16 +60,36 @@ export default {
   components: {},
   data() {
     return {
-      sampleData: "",
-      web3: "",
-      accounts: [],
-      account: "",
-      contract: {},
       // 변수 선언할때 오브젝트, 배열, 숫자, 문자 잘 확인해두자
+
+      // getname 변수 저장
+      sampleData: "",
+
+      // web3
+      web3: "",
+
+      // 불필요
+      // accounts: [],
+
+      // 내 지갑 주소
+      account: "",
+
+      // 컨트렉트 저장
+      contract: {},
+      
+      // 현재 불필요
       contract1: {},
+
+      // abi 저장
       abi: [],
+
+      // setname 변수 값(데이터바인딩)
       name: "",
+
+      // 현재 불필요
       test0: "",
+      
+      // 현재 불필요, 이벤트 쓰면 필요할수도
       listening: "",
 
       bytecode1:

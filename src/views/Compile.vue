@@ -1,39 +1,38 @@
-@@ -1,38 +0,0 @@
 <template>
   <div class='container'>
     <div class="mb-4">
       <router-link to="/">Home</router-link> |
       <router-link to="/shopping">Shopping Cart</router-link> |
-      <a href="javascript:void(0)" @click="changeContract">Change Payments contract</a>
     </div>
 
-    <PaymentsLoad v-if="!hasContract" />
-    <PaymentsDetail v-if="hasContract" />
+     <TestDoDeploy  />
+    <TestDoInterface   />
+     
+
+
   </div>
 </template>
 
 <script>
-import PaymentsLoad from '@/components/PaymentsLoad.vue'
-import PaymentsDetail from '@/components/PaymentsDetail.vue'
+  import TestDoDeploy from '@/components/TestDoDeploy.vue'
+  import TestDoInterface from '@/components/TestDoInterface.vue'
 
-export default {
-  name: 'Payments',
-  components: {
-    PaymentsLoad,
-    PaymentsDetail
-  },
-  computed: {
-    contract: function() {
-      return this.$store.state.contract
+  export default {
+    name: 'testDo',
+    components: {
+      TestDoInterface,
+      TestDoDeploy
     },
-    hasContract: function() {
-      return (this.$store.state.contract)
-    }
-  },
-  methods: {
-    changeContract: function() {
-      this.$store.commit('setContract', '')
+    computed: {
+      contract: function () {
+        return this.$store.state.contract
+      }
+      
+    },
+    methods: {
+      changeContract: function () {
+        this.$store.commit('setContract', '')
+      }
     }
   }
-}
 </script>

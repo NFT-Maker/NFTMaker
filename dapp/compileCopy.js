@@ -48,6 +48,11 @@ try{
             built
           );
 
+          fileSystem.outputJSONSync(
+            path.resolve(buildPath, "testDo.json"),
+            built
+          );
+
         fileSystem.outputJSONSync(
           path.resolve(buildPath, "testDoABI.json"),
           output.contracts["testDo.sol"][contract].abi

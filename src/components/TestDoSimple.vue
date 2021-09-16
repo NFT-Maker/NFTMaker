@@ -12,7 +12,7 @@
     <div class="my-4">
       <div>생성된 컨트렉트 주소: {{createContractAddress}}</div>
       <div>생성된 컨트렉트 주소: {{ contract._address}}</div>
-      <div><input type="text" v-model="createContractAddress" placeholder="컨트렉트 주소 입력" /></div>
+      <input type="text" v-model="createContractAddress" placeholder="컨트렉트 주소 입력" />
       <b-button @click="connectContract()">컨트렉트 연결</b-button>
     </div>
 
@@ -22,7 +22,7 @@
     </div>
 
     <div class="my-4">
-      <div><input type="text" v-model="newName" placeholder="문자를 넣고 버튼을 눌러 변경" /></div>
+      <input type="text" v-model="newName" placeholder="문자를 넣고 버튼을 눌러 변경" />
       <b-button @click="changeName()">changeName</b-button>
     </div>
 
@@ -32,14 +32,14 @@
     </div>
 
     <div class="my-4">
-      <div><input type="text" v-model="newNum" placeholder="숫자을 넣고 버튼을 눌러 변경" /></div>
+      <input type="text" v-model="newNum" placeholder="숫자을 넣고 버튼을 눌러 변경" />
       <b-button @click="changeNum()">changeNum</b-button>
     </div>
 
 
     <b-button @click="test">test</b-button>
 
-    <h1>data 확인하기</h1>
+    <h3>data 확인하기</h3>
     <!-- 성공 -->
     <!-- <p>oldName</p>
     <div>{{oldName}}</div> -->

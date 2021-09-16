@@ -6,6 +6,7 @@ import Web3 from "./views/Web3.vue";
 import TestDoHard from "./views/TestDoHard.vue";
 import TestDoSimple from "./views/TestDoSimple.vue";
 import Server from "./views/Server.vue";
+import SelectContractCode from "./views/SelectContractCode.vue";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/server",
       name: "Server",
       component: Server,
+    },
+    {
+      path: "/selectContractCode",
+      name: "SelectContractCode",
+      component: SelectContractCode,
     },
   ],
 });

@@ -8,33 +8,38 @@
       ><br />
 
       <router-link to="/shopping">
-        <b-butto type="button" class="btn btn-primary mt-4">
+        <b-button type="button" class="btn btn-primary mt-4">
           Got to Shopping
-        </b-butto> </router-link
+        </b-button> </router-link
       ><br />
 
       <router-link to="/fabric">
-        <b-butto type="button" class="btn btn-primary mt-4">
+        <b-button type="button" class="btn btn-primary mt-4">
           Fabric
-        </b-butto> </router-link
+        </b-button> </router-link
       ><br />
 
       <router-link to="/web3">
-        <b-butto type="button" class="btn btn-primary mt-4">
+        <b-button type="button" class="btn btn-primary mt-4">
           Web3
-        </b-butto> </router-link
+        </b-button> </router-link
       ><br />
 
-      <router-link to="/compile">
-        <b-butto type="button" class="btn btn-primary mt-4">
-          Compile
-        </b-butto> </router-link
+      <router-link to="/testDoHard">
+        <b-button type="button" class="btn btn-primary mt-4">
+          TestDoHard
+        </b-button> </router-link
+      >
+      <router-link to="/testDoSimple">
+        <b-button type="button" class="btn btn-primary mt-4">
+          TestDoSimple
+        </b-button> </router-link
       ><br />
 
       <router-link to="/server">
-        <b-butto type="button" class="btn btn-primary mt-4">
+        <b-button type="button" class="btn btn-primary mt-4">
           server
-        </b-butto> </router-link
+        </b-button> </router-link
       ><br />
     </div>
   </div>

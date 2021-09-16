@@ -3,8 +3,8 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Fabric from "./views/Fabric.vue";
 import Web3 from "./views/Web3.vue";
-import Compile from "./views/Compile.vue";
-import Web3copy from "./views/Web3copy.vue";
+import TestDoHard from "./views/TestDoHard.vue";
+import TestDoSimple from "./views/TestDoSimple.vue";
 import Server from "./views/Server.vue";
 
 Vue.use(Router);
@@ -27,14 +27,14 @@ export default new Router({
       component: Web3,
     },
     {
-      path: "/compile",
-      name: "Compile",
-      component: Compile,
+      path: "/testDoHard",
+      name: "TestDoHard",
+      component: TestDoHard,
     },
     {
-      path: "/Web3copy",
-      name: "Web3copy",
-      component: Web3copy,
+      path: "/testDoSimple",
+      name: "TestDoSimple",
+      component: TestDoSimple,
     },
     {
       path: "/server",

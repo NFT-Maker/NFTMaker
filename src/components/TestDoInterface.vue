@@ -110,10 +110,11 @@
                 const testDoControl = new TestDoControl()
                 if (address) {
                     this.loading = true
-                    try {
-                        await testDoControl.viewNum().call().then((result) => {
-                            this.viewNum = result;
-                        })
+                     try {
+                        console.log("여기1")
+                       this.viewUint = await testDoControl.viewNum(address)
+                        console.log("여기2")    
+                        
                     } catch (e) {
                         console.log(e)
                     }

@@ -7,7 +7,7 @@ export default async () => {
         
         try {
             // Request account access
-            await window.ethereum.enable()
+            await window.eth_requestAccounts
             // We are in the browser and web3 provider has been injected (probably by Metamask)    
             // Issue: https://github.com/ethereum/web3.js/issues/2640
             // Use transactionConfirmationBlocks

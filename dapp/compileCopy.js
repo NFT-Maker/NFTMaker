@@ -52,16 +52,6 @@ try{
             path.resolve(buildPath, "testDo.json"),
             built
           );
-
-        fileSystem.outputJSONSync(
-          path.resolve(buildPath, "testDoABI.json"),
-          output.contracts["testDo.sol"][contract].abi
-        );
-    
-        fileSystem.outputJSONSync(
-          path.resolve(buildPath, "testDoBytecode.json"),
-          output.contracts["testDo.sol"][contract].evm.bytecode.object
-        );
       }
 
 }catch(error){

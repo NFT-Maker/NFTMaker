@@ -59,7 +59,8 @@ class TestDoControl {
         let error
         try {
             const contract = await new web3.eth.Contract(JSON.parse(testDo.abi), address)
-            await contract.methods.viewName().call().then((result) => console.log(result))
+            await contract.methods.viewName().call().then((result) => {console.log(result)
+            return result})
         } catch (e) {
             error = e.message
         }

@@ -1,347 +1,218 @@
 <template>
   <div>
-    컨트렉트 배포
-    <br />
-    <button @click="init()">지갑연결</button>
-    <div>{{ account }}</div>
-    <br />
-    <button @click="getContract()">컨트랙트 연결</button>
-    <div>{{ contract._address}}</div>
-    <br />
-    <button @click="getName()">getName</button>
-    <div>{{ sampleData }}</div>
-    <br />
-    <button @click="setName()">setName</button>
-    <input type="text" v-model="name" />
-    <br />
-    <button @click="test">test</button>
-    <br />
-    <div>{{ listening }}</div>
-    <br />
-    <button @click="createContract()">create</button>
-    <div>{{ contract1 }}</div>
+    <div class="my-4">
+      <div>내 주소: {{ account }}</div>
+      <b-button @click="init()">지갑연결</b-button>
+    </div>
+
+    <div class="my-4">
+      <b-button @click="createContract()">컨트렉트 생성</b-button>
+    </div>
+
+    <div class="my-4">
+      <div>생성된 컨트렉트 주소: {{createContractAddress}}</div>
+      <div>생성된 컨트렉트 주소: {{ contract._address}}</div>
+      <div><input type="text" v-model="createContractAddress" placeholder="컨트렉트 주소 입력" /></div>
+      <b-button @click="connectContract()">컨트렉트 연결</b-button>
+    </div>
+
+    <div class="my-4">
+      <div>viewName함수 : {{ oldName }}</div>
+      <b-button @click="viewName()">viewName</b-button>
+    </div>
+
+    <div class="my-4">
+      <div><input type="text" v-model="newName" placeholder="문자를 넣고 버튼을 눌러 변경" /></div>
+      <b-button @click="changeName()">changeName</b-button>
+    </div>
+
+     <div class="my-4">
+      <div>viewNum함수 : {{ oldNum }}</div>
+      <b-button @click="viewNum()">viewNum</b-button>
+    </div>
+
+    <div class="my-4">
+      <div><input type="text" v-model="newNum" placeholder="숫자을 넣고 버튼을 눌러 변경" /></div>
+      <b-button @click="changeNum()">changeNum</b-button>
+    </div>
+
+
+    <b-button @click="test">test</b-button>
 
     <h1>data 확인하기</h1>
-    <p>sampleData</p>
-    <div>{{sampleData}}</div>
-    <!-- 불러올수가 없음 -->
-    <!-- <p>web3</p>
-    <div>{{web3}}</div> -->
+    <!-- 성공 -->
+    <!-- <p>oldName</p>
+    <div>{{oldName}}</div> -->
 
-    <!-- 쓰이지 않음 -->
-    <!-- <p>accounts</p>
-    <div>{{accounts}}</div> -->
+    <!-- 성공 지갑연결하면 내 지갑 주소 출력-->
+    <!-- <p>account</p>
+    <div>{{account}}</div> -->
 
-    <!-- 지갑연결하면 내 지갑 주소 출력 -->
-    <p>account</p>
-    <div>{{account}}</div>
+    <!-- 성공 -->
+    <!-- <p>abi</p>
+    <div>{{abi}}</div> -->
 
-    <!-- 불러올수가 없음 -->
-    <!-- <p>contract</p>
-    <div>{{contract}}</div> -->
+    <!-- 성공 -->
+    <!-- <p>newName</p>
+    <div>{{newName}}</div> -->
 
-    <p>contract1</p>
-    <div>{{contract1}}</div>
-    <p>abi</p>
-    <div>{{abi}}</div>
-    <p>name</p>
-    <div>{{name}}</div>
-    <p>test0</p>
-    <div>{{test0}}</div>
-    <p>listening</p>
-    <div>{{listening}}</div>
+    <!-- 성공 -->
+    <!-- <p>createContractAddress</p>
+    <div>{{createContractAddress}}</div> -->
 
   </div>
 </template>
 <script>
-import Web3 from "web3";
-export default {
-  name: "",
-  components: {},
-  data() {
-    return {
-      // 변수 선언할때 오브젝트, 배열, 숫자, 문자 잘 확인해두자
+  import Web3 from "web3";
+  import {
+    testDo
+  } from '../../dapp'
 
-      // getname 변수 저장
-      sampleData: "",
+  export default {
+    name: "",
+    components: {},
+    data() {
+      return {
+        // 내 지갑 주소
+        account: "",
+        // 컨트렉트 저장
+        contract: {},
+        // abi 저장
+        abi: JSON.parse(testDo.abi),
+        // bytecode 저장
+        bytecode: testDo.bytecode,
+        // 생성된 컨트렉트 주소
+        createContractAddress: "",
+        // viewName으로 불러온 값
+        oldName: "",
+        // changeName 실행할 값(데이터바인딩)
+        newName: "",
+        // viewNum으로 불러온 값
+        oldNum: "",
+        // changeNum 실행할 값(데이터바인딩)
+        newNum: "",
 
-      // web3
-      web3: "",
+      }
+    },
+    setup() {},
+    created() {},
+    mounted() {},
+    unmounted() {},
+    methods: {
+      // async getAccounts() {
+      //   this.accounts = await this.web3.eth.getAccounts().then();
+      //   console.log("accounts", this.accounts);
+      // },
 
-      // 불필요
-      // accounts: [],
-
-      // 내 지갑 주소
-      account: "",
-
-      // 컨트렉트 저장
-      contract: {},
-      
-      // 현재 불필요
-      contract1: {},
-
-      // abi 저장
-      abi: [],
-
-      // setname 변수 값(데이터바인딩)
-      name: "",
-
-      // 현재 불필요
-      test0: "",
-      
-      // 현재 불필요, 이벤트 쓰면 필요할수도
-      listening: "",
-
-      bytecode1:
-        "608060405234801561001057600080fd5b50610599806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80632b311337146100515780635353a2d81461006d57806354c5b14814610089578063b5f10b38146100a7575b600080fd5b61006b600480360381019061006691906102f6565b6100c5565b005b610087600480360381019061008291906102ad565b6100cf565b005b6100916100e9565b60405161009e919061038d565b60405180910390f35b6100af6100f3565b6040516100bc919061036b565b60405180910390f35b8060018190555050565b80600090805190602001906100e5929190610185565b5050565b6000600154905090565b60606000805461010290610466565b80601f016020809104026020016040519081016040528092919081815260200182805461012e90610466565b801561017b5780601f106101505761010080835404028352916020019161017b565b820191906000526020600020905b81548152906001019060200180831161015e57829003601f168201915b5050505050905090565b82805461019190610466565b90600052602060002090601f0160209004810192826101b357600085556101fa565b82601f106101cc57805160ff19168380011785556101fa565b828001600101855582156101fa579182015b828111156101f95782518255916020019190600101906101de565b5b509050610207919061020b565b5090565b5b8082111561022457600081600090555060010161020c565b5090565b600061023b610236846103cd565b6103a8565b9050828152602081018484840111156102575761025661052c565b5b610262848285610424565b509392505050565b600082601f83011261027f5761027e610527565b5b813561028f848260208601610228565b91505092915050565b6000813590506102a78161054c565b92915050565b6000602082840312156102c3576102c2610536565b5b600082013567ffffffffffffffff8111156102e1576102e0610531565b5b6102ed8482850161026a565b91505092915050565b60006020828403121561030c5761030b610536565b5b600061031a84828501610298565b91505092915050565b600061032e826103fe565b6103388185610409565b9350610348818560208601610433565b6103518161053b565b840191505092915050565b6103658161041a565b82525050565b600060208201905081810360008301526103858184610323565b905092915050565b60006020820190506103a2600083018461035c565b92915050565b60006103b26103c3565b90506103be8282610498565b919050565b6000604051905090565b600067ffffffffffffffff8211156103e8576103e76104f8565b5b6103f18261053b565b9050602081019050919050565b600081519050919050565b600082825260208201905092915050565b6000819050919050565b82818337600083830152505050565b60005b83811015610451578082015181840152602081019050610436565b83811115610460576000848401525b50505050565b6000600282049050600182168061047e57607f821691505b60208210811415610492576104916104c9565b5b50919050565b6104a18261053b565b810181811067ffffffffffffffff821117156104c0576104bf6104f8565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b600080fd5b600080fd5b600080fd5b600080fd5b6000601f19601f8301169050919050565b6105558161041a565b811461056057600080fd5b5056fea264697066735822122016e9b12954aeb3ddfae7f370970af5ae2e2de386b9fc81e2ddd117ab7f1c896f64736f6c63430008070033",
-      abi1: [{
-    "inputs": [{
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-    }],
-    "name": "changeName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-}, {
-    "inputs": [{
-        "internalType": "uint256",
-        "name": "_num",
-        "type": "uint256"
-    }],
-    "name": "changeNum",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-}, {
-    "inputs": [],
-    "name": "viewName",
-    "outputs": [{
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-    }],
-    "stateMutability": "view",
-    "type": "function"
-}, {
-    "inputs": [],
-    "name": "viewNum",
-    "outputs": [{
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-    }],
-    "stateMutability": "view",
-    "type": "function"
-}],
-
-      bytecode2:
-        "608060405234801561001057600080fd5b50610599806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80632b311337146100515780635353a2d81461006d57806354c5b14814610089578063b5f10b38146100a7575b600080fd5b61006b600480360381019061006691906102f6565b6100c5565b005b610087600480360381019061008291906102ad565b6100cf565b005b6100916100e9565b60405161009e919061038d565b60405180910390f35b6100af6100f3565b6040516100bc919061036b565b60405180910390f35b8060018190555050565b80600090805190602001906100e5929190610185565b5050565b6000600154905090565b60606000805461010290610466565b80601f016020809104026020016040519081016040528092919081815260200182805461012e90610466565b801561017b5780601f106101505761010080835404028352916020019161017b565b820191906000526020600020905b81548152906001019060200180831161015e57829003601f168201915b5050505050905090565b82805461019190610466565b90600052602060002090601f0160209004810192826101b357600085556101fa565b82601f106101cc57805160ff19168380011785556101fa565b828001600101855582156101fa579182015b828111156101f95782518255916020019190600101906101de565b5b509050610207919061020b565b5090565b5b8082111561022457600081600090555060010161020c565b5090565b600061023b610236846103cd565b6103a8565b9050828152602081018484840111156102575761025661052c565b5b610262848285610424565b509392505050565b600082601f83011261027f5761027e610527565b5b813561028f848260208601610228565b91505092915050565b6000813590506102a78161054c565b92915050565b6000602082840312156102c3576102c2610536565b5b600082013567ffffffffffffffff8111156102e1576102e0610531565b5b6102ed8482850161026a565b91505092915050565b60006020828403121561030c5761030b610536565b5b600061031a84828501610298565b91505092915050565b600061032e826103fe565b6103388185610409565b9350610348818560208601610433565b6103518161053b565b840191505092915050565b6103658161041a565b82525050565b600060208201905081810360008301526103858184610323565b905092915050565b60006020820190506103a2600083018461035c565b92915050565b60006103b26103c3565b90506103be8282610498565b919050565b6000604051905090565b600067ffffffffffffffff8211156103e8576103e76104f8565b5b6103f18261053b565b9050602081019050919050565b600081519050919050565b600082825260208201905092915050565b6000819050919050565b82818337600083830152505050565b60005b83811015610451578082015181840152602081019050610436565b83811115610460576000848401525b50505050565b6000600282049050600182168061047e57607f821691505b60208210811415610492576104916104c9565b5b50919050565b6104a18261053b565b810181811067ffffffffffffffff821117156104c0576104bf6104f8565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b600080fd5b600080fd5b600080fd5b600080fd5b6000601f19601f8301169050919050565b6105558161041a565b811461056057600080fd5b5056fea2646970667358221220df8fd29dd4fc44bf5c98605709c9789d0a291cd13af845cd6598e499fc03f0f264736f6c63430008070033",
-      abi2: [
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "changeName",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_num",
-				"type": "uint256"
-			}
-		],
-		"name": "changeNum",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "viewName",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "viewNum",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-],
-
-      bytecode3:
-        "608060405234801561001057600080fd5b50610599806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80632b311337146100515780635353a2d81461006d57806354c5b14814610089578063b5f10b38146100a7575b600080fd5b61006b600480360381019061006691906102f6565b6100c5565b005b610087600480360381019061008291906102ad565b6100cf565b005b6100916100e9565b60405161009e919061038d565b60405180910390f35b6100af6100f3565b6040516100bc919061036b565b60405180910390f35b8060018190555050565b80600090805190602001906100e5929190610185565b5050565b6000600154905090565b60606000805461010290610466565b80601f016020809104026020016040519081016040528092919081815260200182805461012e90610466565b801561017b5780601f106101505761010080835404028352916020019161017b565b820191906000526020600020905b81548152906001019060200180831161015e57829003601f168201915b5050505050905090565b82805461019190610466565b90600052602060002090601f0160209004810192826101b357600085556101fa565b82601f106101cc57805160ff19168380011785556101fa565b828001600101855582156101fa579182015b828111156101f95782518255916020019190600101906101de565b5b509050610207919061020b565b5090565b5b8082111561022457600081600090555060010161020c565b5090565b600061023b610236846103cd565b6103a8565b9050828152602081018484840111156102575761025661052c565b5b610262848285610424565b509392505050565b600082601f83011261027f5761027e610527565b5b813561028f848260208601610228565b91505092915050565b6000813590506102a78161054c565b92915050565b6000602082840312156102c3576102c2610536565b5b600082013567ffffffffffffffff8111156102e1576102e0610531565b5b6102ed8482850161026a565b91505092915050565b60006020828403121561030c5761030b610536565b5b600061031a84828501610298565b91505092915050565b600061032e826103fe565b6103388185610409565b9350610348818560208601610433565b6103518161053b565b840191505092915050565b6103658161041a565b82525050565b600060208201905081810360008301526103858184610323565b905092915050565b60006020820190506103a2600083018461035c565b92915050565b60006103b26103c3565b90506103be8282610498565b919050565b6000604051905090565b600067ffffffffffffffff8211156103e8576103e76104f8565b5b6103f18261053b565b9050602081019050919050565b600081519050919050565b600082825260208201905092915050565b6000819050919050565b82818337600083830152505050565b60005b83811015610451578082015181840152602081019050610436565b83811115610460576000848401525b50505050565b6000600282049050600182168061047e57607f821691505b60208210811415610492576104916104c9565b5b50919050565b6104a18261053b565b810181811067ffffffffffffffff821117156104c0576104bf6104f8565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b600080fd5b600080fd5b600080fd5b600080fd5b6000601f19601f8301169050919050565b6105558161041a565b811461056057600080fd5b5056fea26469706673582212209e41fa4aa91d48a57f96509a41f7bd06ee2ee21923285a1602f123bfe7b8bcd264736f6c63430008070033",
-    };
-  },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
-  methods: {
-    // async getAccounts() {
-    //   this.accounts = await this.web3.eth.getAccounts().then();
-    //   console.log("accounts", this.accounts);
-    // },
-
-    // 메타마스크 연결
-    async init() {
-      if (window.ethereum) {
-        this.web3 = new Web3(window.ethereum);
-        try {
-          // Request account access if needed
-          await window.ethereum.enable();
-          // Acccounts now exposed
-          this.web3.eth.getAccounts().then((accounts) => {
-            // console.log(accounts[0]);
-            // window.account = accounts[0];
-            this.account = accounts[0];
-            console.log(this.account);
-          });
-        } catch (error) {
-          console.log("error");
+      // 메타마스크 연결
+      async init() {
+        if (window.ethereum) {
+          this.web3 = new Web3(window.ethereum);
+          try {
+            // Request account access if needed
+            await window.ethereum.enable();
+            // Acccounts now exposed
+            this.web3.eth.getAccounts().then((accounts) => {
+              // console.log(accounts[0]);
+              // window.account = accounts[0];
+              this.account = accounts[0];
+              console.log(this.account);
+            });
+          } catch (error) {
+            console.log("error");
+          }
         }
-      }
-      // Legacy dapp browsers...
-      else if (window.web3) {
-        // Use Mist/MetaMask's provider.
-        this.web3 = window.web3;
-        console.log("Injected web3 detected.");
-      }
-    },
+        // Legacy dapp browsers...
+        else if (window.web3) {
+          // Use Mist/MetaMask's provider.
+          this.web3 = window.web3;
+          console.log("Injected web3 detected.");
+        }
+      },
 
-    //컨트랙트 연결
-    getContract() {
-      this.abi = [
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "string",
-              name: "name",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-          ],
-          name: "SetName",
-          type: "event",
-        },
-        {
-          inputs: [],
-          name: "getName",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_name",
-              type: "string",
-            },
-          ],
-          name: "setName",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ];
-      // console.log(this.abi);
-      // console.log(window.web3);
-      // console.log(this.web3);
-      // console.log(this.contract);
-      console.log(this.contract);
-      this.contract = 12345;
-      console.log(this.contract);
-      console.log(this.web3);
-      // let contract2 = 2;
-      this.contract = new this.web3.eth.Contract(
-        this.abi1,
-        "0xe81844bfdcb1af57ac69b8ef3a7fe98415bd6491"
-      );
-      console.log(this.contract);
-      // this.contract1 = window.contract;
-      // console.log(this.contract1);
+      //기존 파일 주소
+      createContract() {
+        new this.web3.eth.Contract(this.abi)
+          .deploy({
+            data: this.bytecode
+          })
+          .send({
+            from: this.account
+          })
+          .then((result) => {
+            // 컨트렉트 주소 가져오기
+            this.createContractAddress = result.options.address
+            console.log(result.options.address);
+            // 컨트렉트 정보 가져오기
+            this.contract = result;
+          });
+      },
 
-      // 이벤트 리슨
-      // this.contract.events.SetName({}, (error, event) => {
-      //   console.log(event);
-      //   this.listening =
-      //     event.returnValues.name + ", " + event.returnValues.sender;
-      // });
-      // this.listening = "Listening...";
-    },
+      //컨트랙트 연결
+      connectContract() {
+        this.contract = new this.web3.eth.Contract(
+          this.abi,
+          this.createContractAddress
+        );
+        // this.contract1 = window.contract;
+        // console.log(this.contract1);
 
-    //window , this this가 먹어야 되는데 왜 안되지?
-    // 이름 가져오기
-    getName() {
-      this.contract.methods
-        .viewName()
-        .call()
-        .then((result) => {
-          console.log(result);
-          this.sampleData = result;
-        });
-    },
+        // 이벤트 리슨
+        // this.contract.events.changeName({}, (error, event) => {
+        //   console.log(event);
+        //   this.listening =
+        //     event.returnValues.name + ", " + event.returnValues.sender;
+        // });
+        // this.listening = "Listening...";
+      },
 
-    // 이름 저장하기
-    async setName() {
-      await this.contract.methods
-        .changeName(this.name)
-        .send({ from: this.account });
-      this.getName();
-    },
+      // 이름 가져오기
+      viewName() {
+        this.contract.methods
+          .viewName()
+          .call()
+          .then((result) => {
+            console.log(result);
+            this.oldName = result;
+          });
+      },
 
-    test() {
-      alert(this.name);
-    },
+      // 이름 저장하기
+      async changeName() {
+        await this.contract.methods
+          .changeName(this.newName)
+          .send({
+            from: this.account
+          });
+        this.viewName();
+      },
 
-    //기존 파일 주소
-    createContract() {
-      new this.web3.eth.Contract(this.abi1)
-        .deploy({ data: this.bytecode1 })
-        .send({ from: this.account })
-        .then((result) => {
-          console.log(result);
-          this.contract = result;
-        });
+      // 번호 불러오기
+      viewNum() {
+        this.contract.methods
+          .viewNum()
+          .call()
+          .then((result) => {
+            console.log(result);
+            this.oldNum = result;
+          });
+      },
+
+      // 번호 저장하기
+      async changeNum() {
+        await this.contract.methods
+          .changeNum(this.newNum)
+          .send({
+            from: this.account
+          });
+        // this.viewNum();
+      },
+
+      test() {
+        alert(this.newName);
+      },
+
+
     },
-  },
-};
+  };
 </script>

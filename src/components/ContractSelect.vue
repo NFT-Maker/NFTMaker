@@ -4,6 +4,7 @@
         <input type="text" name="" id="" v-model="contractName">
         <h3>전체 컨트렉트</h3>
         <b-textarea class="" rows="10" v-model="createContractCode"></b-textarea>
+        <div>{{createContractCode}}</div>
         <h3>컨트렉트 내용</h3>
         <b-textarea class="" rows="10" v-model="contractContent"></b-textarea>
 

@@ -48,6 +48,8 @@ const corsOption = {
 app.use("/static", express.static(__dirname + "/uploads"));
 //__dirname 현재폴더 + 폴더명 ("/폴더명")
 app.use(cors(corsOption));
+
+//리퀘스트 요청할 때 바디로 json 형태의 파라미터를 받는데 그걸 받으려면 선언 해줘야 함
 app.use(
     express.json({
         limit: "50mb",
@@ -64,17 +66,21 @@ const server = app.listen(3000, () => {
     console.log("Server stared. port 3000.");
 });
 
-// node.js 공부
-app.get("/", function(req, res) {
-    res.send("Hello World");
-});
+// // node.js 공부
+// app.get("/", function(req, res) {
+//     res.send("Hello World");
+// });
 
-app.get("/test", function(req, res) {
-    res.send("Hello test page");
-});
+// app.get("/test", function(req, res) {
+//     res.send("Hello test page");
+// });
 // node.js 공부
 
 // file system watch file
+// 지금 디렉토리의( __dirname ) sql.js를 본다
+// (curr, prev) 지금 파일과 변경된 파일 비교
+// 달라졌으면 지금 sql.js를 보고있는 캐쉬를 날려버리고
+// sql 새로 정의
 fs.watchFile(__dirname + "/sql.js", (curr, prev) => {
     console.log("sql 변경시 재시작 없이 반영되도록 함.");
     delete require.cache[require.resolve("./sql.js")];
@@ -105,30 +111,30 @@ const dbPool = require("mysql").createPool({
     password: process.env.password,
 });
 
-//db 연결 연습
-app.get("/db", function(req, res) {
-    dbPool.getConnection(function(err, connection) {
-        if (err) throw err; // not connected!
+// //db 연결 연습
+// app.get("/db", function(req, res) {
+//     dbPool.getConnection(function(err, connection) {
+//         if (err) throw err; // not connected!
 
-        // Use the connection
-        connection.query("SELECT * FROM t_eoa;", function(
-            error,
-            results,
-            fields
-        ) {
-            console.log(results);
-            res.send(JSON.stringify(results));
-            console.log("results1", results);
-            // When done with the connection, release it.
-            connection.release();
+//         // Use the connection
+//         connection.query("SELECT * FROM t_eoa;", function(
+//             error,
+//             results,
+//             fields
+//         ) {
+//             console.log(results);
+//             res.send(JSON.stringify(results));
+//             console.log("results1", results);
+//             // When done with the connection, release it.
+//             connection.release();
 
-            // Handle error after the release.
-            if (error) throw error;
+//             // Handle error after the release.
+//             if (error) throw error;
 
-            // Don't use the connection here, it has been returned to the pool.
-        });
-    });
-});
+//             // Don't use the connection here, it has been returned to the pool.
+//         });
+//     });
+// });
 //디비 연결연습
 
 // 우리가 작성한 것들을 실질적으로 전송하는 역할
@@ -176,4 +182,56 @@ app.post("/api/:alias", async (req, res) => {
             error: err,
         });
     }
+});
+
+app.post("/upload/:productId/:type/:fileName", async (request, res) => {
+    let { productId, type, fileName } = request.params;
+    const dir = `${__dirname}/uploads/${productId}`;
+    const file = `${dir}/${fileName}`;
+    if (!request.body.Date)
+        return fs.unlink(file, async (err) =>
+            res.send({
+                err,
+            })
+        );
+    const data = request.body.data.slice(
+        request.body.data.indexOf(";base64,") + 8
+    );
+
+    //그런 폴더가가 없으면 폴더를 만들어
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+
+    //스트링 데이터 형태로 들어온 이미지 파일을 다시 이미지로 변환
+    fs.writeFile(file, data, "base64", async (error) => {
+        await sys.db("productImageInsert", [
+            {
+                product_id: productId,
+                type: type,
+                path: fileName,
+            },
+        ]);
+
+        if (error) {
+            res.send({
+                error,
+            });
+        } else {
+            res.send("ok");
+        }
+    });
+});
+
+app.get("/download/:productId/:fileName", (request, res) => {
+    const { productId, type, fileName } = request.params;
+    const filepath = `${__dirname}/uploads/${productId}/${fileName}`;
+    res.header(
+        "Content-Type",
+        `image/${fileName.substring(fileName.lastIndexOf("."))}`
+    );
+    if (!fs.existsSync(filepath))
+        res.send(404, {
+            error: "Can not found file.",
+        });
+    //파일을 클라이언트에 내려주는것
+    else fs.createReadStream(filepath).pipe(res);
 });

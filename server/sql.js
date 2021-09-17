@@ -11,4 +11,7 @@ module.exports = {
     test011: {
         query: `insert into t_eoa set ?`,
     },
+    testImgUp: {
+        query: `insert into t_basic set ?`,
+    },
 };

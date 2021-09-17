@@ -39,15 +39,18 @@ var upload = multer({ storage: storage });
 
 // cors option localhost:8080 에 대해서 CORS자격증명(cors credenials)을 허용(true)
 const corsOption = {
+    // 허락하는 요청 주소
     origin: "http://localhost:8080",
+    // true로 하면 설정한 내용을 response 헤더에 추가
     credentials: true,
 };
+
+app.use(cors(corsOption));
 
 // express app 에 multer & cors option 적용
 // static file들을 있을 위치 지정(root directory에 uploads 폴더)
 app.use("/static", express.static(__dirname + "/uploads"));
 //__dirname 현재폴더 + 폴더명 ("/폴더명")
-app.use(cors(corsOption));
 
 //리퀘스트 요청할 때 바디로 json 형태의 파라미터를 받는데 그걸 받으려면 선언 해줘야 함
 app.use(
@@ -168,27 +171,63 @@ app.post("/api/test11", async (req, res) => {
     }
 });
 
-app.post("/api/:alias", async (req, res) => {
-    console.log("alias computed!");
-    console.log(req.params.alias);
-    console.log(req.body.param);
+// app.post("/upload/test/:type/:fileName", async (request, res) => {
+//     console.log("어디야1");
+//     let { type, fileName } = request.params;
+//     const dir = `${__dirname}/uploads/test`;
+//     const file = `${dir}/${fileName}`;
+//     if (!request.body.Date)
+//         return fs.unlink(file, async (err) =>
+//             res.send({
+//                 err,
+//             })
+//         );
+//     const data = request.body.data.slice(
+//         request.body.data.indexOf(";base64,") + 8
+//     );
 
-    try {
-        res.send(
-            await sys.db(req.params.alias, req.body.param, req.body.where)
-        );
-    } catch (err) {
-        res.status(500).send({
-            error: err,
-        });
-    }
-});
+//     //그런 폴더가가 없으면 폴더를 만들어
+//     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+
+//     //스트링 데이터 형태로 들어온 이미지 파일을 다시 이미지로 변환
+//     fs.writeFile(file, data, "base64", async (error) => {
+//         await sys.db("testImgUp", [
+//             {
+//                 type: type,
+//                 path: fileName,
+//             },
+//         ]);
+
+//         if (error) {
+//             res.send({
+//                 error,
+//             });
+//         } else {
+//             res.send("ok");
+//         }
+//     });
+// });
+
+// app.get("/download/testImg/:fileName", (request, res) => {
+//     const { type, fileName } = request.params;
+//     const filepath = `${__dirname}/uploads/test/${fileName}`;
+//     res.header(
+//         "Content-Type",
+//         `image/${fileName.substring(fileName.lastIndexOf("."))}`
+//     );
+//     if (!fs.existsSync(filepath))
+//         res.send(404, {
+//             error: "Can not found file.",
+//         });
+//     //파일을 클라이언트에 내려주는것
+//     else fs.createReadStream(filepath).pipe(res);
+// });
 
 app.post("/upload/:productId/:type/:fileName", async (request, res) => {
     let { productId, type, fileName } = request.params;
     const dir = `${__dirname}/uploads/${productId}`;
     const file = `${dir}/${fileName}`;
-    if (!request.body.Date)
+    if (!request.body.data)
         return fs.unlink(file, async (err) =>
             res.send({
                 err,
@@ -197,15 +236,11 @@ app.post("/upload/:productId/:type/:fileName", async (request, res) => {
     const data = request.body.data.slice(
         request.body.data.indexOf(";base64,") + 8
     );
-
-    //그런 폴더가가 없으면 폴더를 만들어
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-
-    //스트링 데이터 형태로 들어온 이미지 파일을 다시 이미지로 변환
     fs.writeFile(file, data, "base64", async (error) => {
-        await sys.db("productImageInsert", [
+        await sys.db("testImgUp", [
             {
-                product_id: productId,
+                // product_id: productId,
                 type: type,
                 path: fileName,
             },
@@ -232,6 +267,21 @@ app.get("/download/:productId/:fileName", (request, res) => {
         res.send(404, {
             error: "Can not found file.",
         });
-    //파일을 클라이언트에 내려주는것
     else fs.createReadStream(filepath).pipe(res);
+});
+
+app.post("/api/:alias", async (req, res) => {
+    console.log("alias computed!");
+    console.log(req.params.alias);
+    console.log(req.body.param);
+
+    try {
+        res.send(
+            await sys.db(req.params.alias, req.body.param, req.body.where)
+        );
+    } catch (err) {
+        res.status(500).send({
+            error: err,
+        });
+    }
 });

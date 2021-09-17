@@ -2,8 +2,10 @@
     <div>
         <h2>testDo.sol을 버튼으로 만들어보자</h2>
         <input type="text" name="" id="" v-model="contractName">
+        <h3>전체 컨트렉트</h3>
         <b-textarea class="" rows="10" v-model="createContractCode"></b-textarea>
-        <div>{{createContractCode}}</div>
+        <h3>컨트렉트 내용</h3>
+        <b-textarea class="" rows="10" v-model="contractContent"></b-textarea>
 
         <div>
             <b-button variant="outline-primary" @click="contractContentEdit()">초기화</b-button>
@@ -55,7 +57,6 @@
 
             // 이름, 컨트렉트 내용을 정리해서 출력
             contractCodeEdit() {
-                this.createContractCode = ""
                 this.createContractCode += "pragma solidity ^0.8.7;\n\n"
                 this.createContractCode += "contract " + this.contractName + "{\n"
                 this.createContractCode += this.contractContent + "\n"

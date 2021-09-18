@@ -4,12 +4,14 @@ import "./safemath.sol";
 
 contract schoolAwads {
     
+    using SafeMath for uint256;
+    
     address public owner;
     address public awadsMaker1;
     address public awadsMaker2;
     
     uint public rightNow;
-    uint public schoolAwadsId;
+    uint public schoolAwadsId = 0;
     uint public checkTime;
     uint public openTime;
     
@@ -26,9 +28,23 @@ contract schoolAwads {
         schoolAwadsName = _schoolAwadsName;
     }
     
-    function createAwads () public {
+    function openMake () {
+        
+    }
+    
+    
+    function createAwads (address _student) public {
         require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);
-        rightNow = block.timestamp;
+        if(schoolAwadsId == 0){
+            schoolAwadsId = schoolAwadsId.add(1);
+            schoolAwadsIdToOwner[schoolAwadsId] = _student;
+            rightNow = block.timestamp;
+        } else {
+            require(openTime > (block.timestamp - rightNow));
+            schoolAwadsId = schoolAwadsId.add(1);
+            schoolAwadsIdToOwner[schoolAwadsId] = _student;
+        }
+        
     }
     
 }

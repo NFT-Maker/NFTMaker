@@ -9,7 +9,7 @@
         <b-textarea class="" rows="10" v-model="contractContent"></b-textarea>
 
         <div>
-            <b-button variant="outline-primary" @click="contractContentEdit()">초기화</b-button>
+            <b-button variant="outline-primary" @click="contractContentEdit()">컨트렉트 초기화</b-button>
             <b-button variant="outline-primary" @click="contractContentEdit1()">string name;</b-button>
             <b-button variant="outline-primary" @click="contractContentEdit2()">uint num;</b-button>
             <b-button variant="outline-primary" @click="contractContentEdit3()">function changeName</b-button>
@@ -19,9 +19,10 @@
         </div>
 
         <div>
-            <b-button @click="contractCodeEdit()">create Contract!!</b-button>
-            <b-button @click="localStorageSave()">localStorageSave!!</b-button>
-            <b-button @click="localStorageConsole()">localStorageConsole!!</b-button>
+            <b-button @click="contractCodeEdit()">컨트렉트 저장</b-button>
+            <b-button @click="localStorageSave()">로컬데이터 저장</b-button>
+            <b-button @click="localStorageConsole()">저장된 로그 확인</b-button>
+            <b-button @click="localStorageRemove()">로컬데이터 삭제</b-button>
         </div>
     </div>
 </template>
@@ -46,14 +47,20 @@
         unmounted() {},
         methods: {
 
+            //서버로 컨트렉트 저장
             localStorageSave: function () {
-                const data = JSON.stringify(this.createContractCode)
+                var data = JSON.stringify(this.createContractCode)
                 // 나중에 서버로 전송하는 것으로 바꿀것
                 window.localStorage.setItem('arr', data);
-                // window.localStorage.removeItem('arr', data);
+                
             },
+            // 로그 확인
             localStorageConsole: function () {
                 console.log(JSON.parse(window.localStorage.getItem('arr')))
+            },
+
+            localStorageRemove: function () {
+                window.localStorage.removeItem('arr');
             },
 
             // 이름, 컨트렉트 내용을 정리해서 출력
@@ -64,7 +71,7 @@
                 this.createContractCode += "}"
                 console.log(this.createContractCode)
             },
-            // 초기화
+            // 컨트렉트 내용 초기화
             contractContentEdit() {
                 this.contractContent = ""
             },

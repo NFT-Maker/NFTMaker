@@ -38,6 +38,11 @@ export default {
             list: [],
             list1: [],
             list2: [],
+            list3: [],
+            list4: [],
+            list5: [],
+            list6: [],
+
             productId: 1,
         };
     },
@@ -46,27 +51,54 @@ export default {
     mounted() {},
     unmounted() {},
     methods: {
+        //t_eoa 불러오기
         async testServer() {
             this.list = await this.$api("/api/list", "post");
             console.table(this.list);
         },
+        //t_mySet 불러오기
+        async callMySet() {
+            this.list2 = await this.$api("/api/makeMySet", "post");
+            console.table(this.list2);
+        },
+        //t_bacic 블러오기
+        async callBasic() {
+            this.list3 = await this.$api("/api/makeBasicList", "post");
+            console.table(this.list3);
+        },
+
         async testServer1() {
             this.list1 = await this.$api("/api/listUp", "post");
             console.table(this.list1);
         },
 
+        //t_eoa에 공개키. 컨트랙트 주소, abi 저장
         async test11() {
             var test1 = {};
-            (test1.EOA = "hello"),
-                (test1.CA = "world"),
-                (test1.CA_abi = testDo.abi);
+            (test1.EOA = "hello"), //eoa
+                (test1.CA = "world"), //ca
+                (test1.CA_abi = testDo.abi); //ca의 abi
 
-            this.list2 = await this.$api("/api/test11", "post", {
+            this.list4 = await this.$api("/api/test11", "post", {
                 param: [test1],
             });
-            console.log(this.list2);
+            console.log(this.list4);
         },
 
+        //t_mySet에 개인 서식 양식 저장
+        async mySetListUp() {
+            var test2 = {};
+            (test2.EOA = "hello"), //eoa
+                (test2.name = "world"), //서식 이름
+                (test2.CA_abi = testDo.abi); //내가 만든 이미지 서식을 변환한 json파일
+
+            this.list5 = await this.$api("/api/test11", "post", {
+                param: [test2],
+            });
+            console.log(this.list5);
+        },
+
+        //t_basic 에 이미지 업로드
         async uploadFile(files, type) {
             let name = "";
             let data = null;

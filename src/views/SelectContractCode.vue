@@ -1,17 +1,17 @@
 <template>
     <div>
-        <ContractSelect />
+        <ContractSelect1 />
         <ContractSelectDeploy />
     </div>
 </template>
 <script>
-    import ContractSelect from "../components/ContractSelect"
+    import ContractSelect1 from "../components/ContractSelect1"
     import ContractSelectDeploy from "../components/ContractSelectDeploy"
 
     export default {
         name: '',
         components: {
-            ContractSelect,
+            ContractSelect1,
             ContractSelectDeploy
         },
         data() {

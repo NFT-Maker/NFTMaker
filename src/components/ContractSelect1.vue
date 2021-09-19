@@ -14,6 +14,13 @@
 
         <h1>생성된 컨트렉트</h1>
         <textarea name="" id="" cols="100" rows="30" v-model="contractComplete"></textarea>
+
+        <h1>store에 저장된 컨트렉트</h1>
+        <textarea name="" id="" cols="100" rows="30" v-model="$store.state.contract"></textarea>
+        <b-button @click="contractCompleteSave()">컨트렉트 Store 저장</b-button>
+
+
+
     </div>
 </template>
 <script>
@@ -61,6 +68,11 @@
 
             contractCompleteGetConsole() {
                 return console.log(this.contractComplete)
+            },
+
+            contractCompleteSave() {
+                
+                this.$store.commit("contractSave", this.contractComplete)
             }
 
         }

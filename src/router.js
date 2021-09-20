@@ -9,6 +9,7 @@ import Server from "./views/Server.vue";
 import SelectContractCode from "./views/SelectContractCode.vue";
 import Home1 from "./views/Home1.vue";
 import Select from "./views/Select.vue";
+import HowToImg from "./views/HowToImg.vue";
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
             path: "/select",
             name: "Select",
             component: Select,
+        },
+        {
+            path: "/howToImg",
+            name: "HowToImg",
+            component: HowToImg,
         },
     ],
 });

@@ -8,6 +8,7 @@ export default new Vuex.Store({
         contract: "",
         web3: "",
         account: "",
+        abi: "",
     },
     mutations: {
         contractSave(state, a) {

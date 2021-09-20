@@ -4,14 +4,16 @@ import store from "./store";
 import router from "./router";
 
 // bootstrap
-import BootstrapVue from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
 // server
 import api from "./api.js";
 
-Vue.use(BootstrapVue).mixin(api);
+Vue.use(BootstrapVue)
+    .use(IconsPlugin)
+    .mixin(api);
 
 Vue.config.productionTip = false;
 

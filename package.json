@@ -16,6 +16,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.18.0",
     "fabric": "^4.6.0",
+    "ipfs": "^0.58.6",
     "moment": "^2.29.1",
     "sass-loader": "^12.1.0",
     "solc": "^0.8.7-fixed",

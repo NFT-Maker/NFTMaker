@@ -33,25 +33,47 @@
         <!-- 이미지 다운로드 버튼 -->
         <div>
             <b-button id="download">이미지 다운로드</b-button>
+            <div>
+                <b-button @click="uploadIPFS()">IPFS업로드</b-button>
+                <p>{{this.cidImg}}</p>
+            </div>
+            <b-button @click="downloadIPFS()">IPFS다운로드</b-button>
+
+
         </div>
 
         <!-- 캔버스 -->
         <div>
             <canvas class="mx-1" ref="can" id="canvas" width="800" height="800"></canvas>
         </div>
+        <!-- IPFS -->
+
+        <FabricIPFS />
+
     </div>
+
+
 </template>
+<script src="https://wzrd.in/standalone/buffer"></script>
+<script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
+    integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB" crossorigin="anonymous">
+</script>
 <script>
     import {
         fabric
     } from "fabric";
+    import FabricIPFS from "../components/FabricIPFS"
 
     export default {
         name: "",
-        components: {},
+        components: {
+            FabricIPFS
+        },
         data() {
             return {
                 reader: new FileReader(),
+                cidImg: "",
+                cidImgLink: ""
             };
         },
         created() {},
@@ -156,7 +178,7 @@
 
             download.addEventListener('click', function () {
                 console.log(canvas.toDataURL());
-                const link = document.createElement('a');
+                var link = document.createElement('a');
                 link.download = 'download.png';
                 link.href = canvas.toDataURL();
                 link.click();
@@ -169,18 +191,49 @@
         methods: {
             // 캔버스 이미지 URL로 변환
             exportDataURL() {
-                var canvas1 = document.getElementById('canvas');
-                var dataURL = canvas1.toDataURL();
+                var canvas = document.getElementById('canvas');
+                var dataURL = canvas.toDataURL("image/png");
                 console.log(dataURL);
             },
 
-            // downloadImg(el) {
-            //    // get image URI from canvas object
-            //     var canvas2 = document.getElementById('canvas');
-            //     var dataURL = canvas2.toDataURL();
-            //     var imageURI = dataURL
-            //     el.href = imageURI;
-            // }
+            async uploadIPFS() {
+                const IPFS = require('ipfs')
+                const node = await IPFS.create()
+
+                var canvas = document.getElementById('canvas');
+                var dataURL = canvas.toDataURL("image/png");
+                const {
+                    cid
+                } = await node.add((dataURL), {
+                    cidVersion: 1,
+                    hashAlg: "sha2-256"
+                })
+                // 주소 출력
+                console.log(cid.toString())
+                console.info(`cid: ${cid}`)
+                this.cidImg = cid.toString()
+            },
+
+
+
+            async downloadIPFS() {
+                // 업로드한 값을 ipfs링크로 출력
+                var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
+                console.log(link)
+
+                const IPFS = require('ipfs')
+                const node = await IPFS.create()
+                const stream = node.get(this.cidImg)
+                let data = ''
+                for await (const chunk of stream) {
+  // chunks of data are returned as a Buffer, convert it back to a string
+  data += chunk.toString()
+}
+
+                console.log(data)
+            },
+
+
         },
     };
 </script>

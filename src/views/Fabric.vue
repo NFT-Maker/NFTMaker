@@ -7,12 +7,13 @@
 </template>
 <script>
     import FabricCore from "../components/FabricCore"
+    
 
 
     export default {
         name: '',
         components: {
-            FabricCore
+            FabricCore,
         },
         data() {
             return {

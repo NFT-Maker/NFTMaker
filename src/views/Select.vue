@@ -16,7 +16,7 @@
                     >
                 </b-col>
                 <b-col>
-                    <a href="">
+                    <a href="#/gallery">
                         <b-img
                             thumbnail
                             fluid

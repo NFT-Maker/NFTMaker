@@ -1,8 +1,16 @@
 <template>
     <div>
-        <b-button variant="success">이미지 편집 + 컨트랙트 편집</b-button
+        <!-- 자신만의 컨트랙트를 만드는 화면 -->
+        <a href="#/"
+            ><b-button variant="success"
+                >이미지 편집 + 컨트랙트 편집</b-button
+            ></a
         ><br /><br />
-        <b-button variant="primary">이미지 편집 + NFT Maker</b-button
+        <!-- NFT Maker의 컨트랙트로 NFT 만드는 화면 -->
+        <a href="#/"
+            ><b-button variant="primary" @click="onlyNFT()"
+                >이미지 편집 + NFT Maker</b-button
+            ></a
         ><br /><br />
         <!-- <b-col xl="9"></b-col> -->
         <b-form-input

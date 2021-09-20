@@ -14,6 +14,9 @@ module.exports = {
     list: {
         query: "select t_eoa.CA_abi from t_eoa where t_eoa.CA = ?",
     },
+    list1: {
+        query: "select * from t_eoa where t_eoa.EOA = ?",
+    },
     makeBasicList: {
         query: `select * from t_basic`,
     },

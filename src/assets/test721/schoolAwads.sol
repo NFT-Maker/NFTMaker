@@ -21,6 +21,7 @@ contract schoolAwads {
     
     mapping (uint => address) public schoolAwadsIdToOwner;
     mapping(uint => address) public changerApprovals;
+    // mapping(uint => string) public NFTurl;
     
     constructor(uint _openTime, address _awadsMaker1, address _awadsMaker2, string memory _schoolAwadsName) {
         owner = msg.sender;

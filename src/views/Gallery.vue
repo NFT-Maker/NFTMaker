@@ -65,7 +65,7 @@ export default {
                 );
                 // 연결한 컨트랙트에서 EOA로 NFT 검색함
                 this.contract.methods
-                    .balanceOf(this.$store.state.account)
+                    .ownerOf(this.$store.state.account)
                     .call()
                     .then((result) => {
                         console.log(result);

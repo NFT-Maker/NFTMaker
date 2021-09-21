@@ -47,7 +47,7 @@ contract volunteer {
         if(block.timestamp > (time + 35 days)){
             require(block.timestamp > time + 330 days);
             time = block.timestamp;
-            newMakerNum.add(1);
+            newMakerNum = newMakerNum.add(1);
         }
         
     }
@@ -55,7 +55,7 @@ contract volunteer {
     function addMaker1(address _newMaker)public{
        require(owner == msg.sender);
        newMaker[newMakerNum] = _newMaker;
-       newMakerNum.add(1);
+       newMakerNum = newMakerNum.add(1);
     }
     
     function addMaker2(address _newMaker)public{
@@ -66,9 +66,9 @@ contract volunteer {
         if(block.timestamp > (time + 35 days)){
             require(block.timestamp > time + 330 days);
             time = block.timestamp;
-            if((volunteerNFTId.div(2)) > noCount){
+            if((volunteerNFTId = volunteerNFTId.div(2)) > noCount){
                 newMaker[newMakerNum] = yetNewMaker;
-                newMakerNum.add(1);
+                newMakerNum = newMakerNum.add(1);
             }
             
         }
@@ -77,10 +77,10 @@ contract volunteer {
     function voteNo (uint _num) public returns(bool) {
         require(volunteerToOwner[_num] == msg.sender);
         if(nftToVote[_num] = false) {
-            noCount.sub(1);
+            noCount = noCount.sub(1);
             return nftToVote[_num] = true;
         }
-        noCount.add(1);
+        noCount = noCount.add(1);
         return nftToVote[_num] = false;
     }
     

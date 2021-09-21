@@ -46,6 +46,8 @@ export default {
             abi: [],
             url: [],
             // url로 nft그림 불러와서 그린다
+            imgList: [],
+            // v-for 이용해서 그림 불러오기
         };
     },
     setup() {},
@@ -82,7 +84,17 @@ export default {
             }
         });
     },
-    mounted() {},
+    mounted() {
+        for (var i = 0; i < this.url.length; i++) {
+            //IPFS에 업로드 된 해시값을 http링크로 변환
+            var link = "https:/" + this.url[i] + ".ipfs.dweb.link";
+            console.log(link);
+
+            //cidImgLink 값에 link 저장 => img.src로 v-bind
+            this.imgList.push(link);
+        }
+        console.log(this.imgList);
+    },
     unmounted() {},
     methods: {},
 };

@@ -37,7 +37,11 @@
                 <b-button @click="uploadIPFS()">IPFS업로드</b-button>
                 <p>{{this.cidImg}}</p>
             </div>
-            <b-button @click="downloadIPFS()">IPFS다운로드</b-button>
+            <div>
+                <b-button @click="downloadIPFS()">IPFS다운로드</b-button>
+                <p>{{this.test}}</p>
+                <img v-bind:src="this.test" id="test11" alt="" srcset="">
+            </div>
 
 
         </div>
@@ -59,6 +63,8 @@
     integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB" crossorigin="anonymous">
 </script>
 <script>
+    const IPFS = require('ipfs')
+
     import {
         fabric
     } from "fabric";
@@ -73,10 +79,16 @@
             return {
                 reader: new FileReader(),
                 cidImg: "",
-                cidImgLink: ""
+                cidImgLink: "",
+                test: "",
+                node: ""
             };
         },
-        created() {},
+        created: async function () {
+            const IPFS = require('ipfs')
+            var node = await IPFS.create()
+            this.node = node
+        },
         mounted() {
             const ref = this.$refs.can;
             const canvas = new fabric.Canvas(ref);
@@ -197,14 +209,14 @@
             },
 
             async uploadIPFS() {
-                const IPFS = require('ipfs')
-                const node = await IPFS.create()
+
+
 
                 var canvas = document.getElementById('canvas');
                 var dataURL = canvas.toDataURL("image/png");
                 const {
                     cid
-                } = await node.add((dataURL), {
+                } = await this.node.add((dataURL), {
                     cidVersion: 1,
                     hashAlg: "sha2-256"
                 })
@@ -217,21 +229,30 @@
 
 
             async downloadIPFS() {
+
                 // 업로드한 값을 ipfs링크로 출력
                 var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
                 console.log(link)
 
-                const IPFS = require('ipfs')
-                const node = await IPFS.create()
-                const stream = node.get(this.cidImg)
-                let data = ''
-                for await (const chunk of stream) {
-  // chunks of data are returned as a Buffer, convert it back to a string
-  data += chunk.toString()
-}
+                //base64 이미지 소스로 출력 성공
+                var canvas = document.getElementById('canvas');
+                var dataURL = await canvas.toDataURL("image/png");
+                this.test = dataURL;
 
-                console.log(data)
-            },
+                // ipfs 주소로 base 64 가져와서 출력하기
+                var test1 = this.node.get(this.cidImg)
+                await console.log(document.getElementById('test11').src)
+                console.log("test1:")
+                console.log(test1)
+
+                if (dataURL == test1) {
+                    console.log(true)
+                } else {
+                    return console.log(false)
+                }
+
+            }
+
 
 
         },

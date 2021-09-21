@@ -38,6 +38,11 @@
                 <p>{{this.cidImg}}</p>
             </div>
             <div>
+                <b-button @click="testUpload()">blob IPFS 업로드</b-button>
+                <b-button @click="testDownload()">blob IPFS 다운로드</b-button>
+
+            </div>
+            <div>
                 <b-button @click="downloadIPFS()">IPFS다운로드</b-button>
                 <p>{{this.test}}</p>
                 <img v-bind:src="this.test" id="test11" alt="" srcset="">
@@ -207,11 +212,30 @@
                 var dataURL = canvas.toDataURL("image/png");
                 console.log(dataURL);
             },
+            async testUpload() {
+                //이미지 자체를 올리기 (성공)
+                let imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+
+               const {
+                    cid
+                } = await this.node.add((imageBlob), {
+                    cidVersion: 1,
+                    hashAlg: "sha2-256"
+                })
+                console.log(cid.toString())
+                console.info(`cid: ${cid}`)
+                this.cidImg = cid.toString()
+
+            },
+
+            async testDownload() {
+                var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
+                console.log(link)
+                this.test = link
+            },
+
 
             async uploadIPFS() {
-
-
-
                 var canvas = document.getElementById('canvas');
                 var dataURL = canvas.toDataURL("image/png");
                 const {
@@ -233,23 +257,13 @@
                 // 업로드한 값을 ipfs링크로 출력
                 var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
                 console.log(link)
+                console.log(this.node.get(link))
 
                 //base64 이미지 소스로 출력 성공
                 var canvas = document.getElementById('canvas');
                 var dataURL = await canvas.toDataURL("image/png");
                 this.test = dataURL;
 
-                // ipfs 주소로 base 64 가져와서 출력하기
-                var test1 = this.node.get(this.cidImg)
-                await console.log(document.getElementById('test11').src)
-                console.log("test1:")
-                console.log(test1)
-
-                if (dataURL == test1) {
-                    console.log(true)
-                } else {
-                    return console.log(false)
-                }
 
             }
 

@@ -1,63 +1,38 @@
 <template>
-    <!-- 
-    구현 목록
-1. 캔버스 사이즈 설정
-2. 격자무늬 on / off 기능
-3. 이미지 확대기능 ( 확대 비율 조정 가능)
-4. 이미지 선택시 V
-<상단>
-- 이미지 복사
-- 이미지 기울기 조절 v
-- 이미지 크기 조절 v
-- 이미지 삭제 v
 
-<하단>
-- 이미지 꾸미기 X
-- 이미지 로테이트 및 크기 세부 조정
-- 이미지 위치 설정
-- 이미지 레이어 up
-- 이미지 레이어 down
-- 변경사항 초기화
- -->
     <div>
-        <!-- 이미지 업로드 버튼 -->
-        <div>
-            <input id="uploader" type="file" />
-        </div>
-
-        <!-- 이미지URL 다운로드 버튼 -->
-        <div>
-            <b-button @click="exportDataURL()">URL 로드</b-button>
-        </div>
-
-        <!-- 이미지 다운로드 버튼 -->
-        <div>
-            <b-button id="download">이미지 다운로드</b-button>
-            <div>
-                <b-button @click="uploadIPFS()">IPFS업로드</b-button>
-                <p>{{this.cidImg}}</p>
-            </div>
-            <div>
-                <b-button @click="testUpload()">blob IPFS 업로드</b-button>
-                <b-button @click="testDownload()">blob IPFS 다운로드</b-button>
-
-            </div>
-            <div>
-                <b-button @click="downloadIPFS()">IPFS다운로드</b-button>
-                <p>{{this.test}}</p>
-                <img v-bind:src="this.test" id="test11" alt="" srcset="">
-            </div>
-
-
-        </div>
-
         <!-- 캔버스 -->
         <div>
+            <h3>Canvas</h3>
             <canvas class="mx-1" ref="can" id="canvas" width="800" height="800"></canvas>
         </div>
-        <!-- IPFS -->
 
-        <FabricIPFS />
+        <!-- 이미지 업로드 버튼 -->
+        <div>
+            <div>
+            <h3>캔버스에 이미지 업로드</h3>
+            <input id="uploader" type="file" />
+            </div>
+
+            <!-- IPFS 이미지 버튼 -->
+
+            <div>
+                <h3>PNG 이미지 다운로드</h3>
+                <b-button id="download">이미지 다운로드</b-button>
+            </div>
+
+            <div>
+                <b-button @click="ipfsUpload()">blob IPFS 업로드</b-button>
+                <p>ipfs 해시값: {{this.cidImg}}</p>
+            </div>
+
+            <div>
+                <b-button @click="ipfsDownload()">blob IPFS 다운로드</b-button>
+                <h3>ipfs 업로드 이미지</h3>
+                <img v-bind:src="this.cidImgLink">
+            </div>
+
+        </div>
 
     </div>
 
@@ -73,19 +48,18 @@
     import {
         fabric
     } from "fabric";
-    import FabricIPFS from "../components/FabricIPFS"
+
 
     export default {
         name: "",
         components: {
-            FabricIPFS
+
         },
         data() {
             return {
                 reader: new FileReader(),
                 cidImg: "",
                 cidImgLink: "",
-                test: "",
                 node: ""
             };
         },
@@ -207,66 +181,41 @@
         unmounted() {},
         methods: {
             // 캔버스 이미지 URL로 변환
-            exportDataURL() {
-                var canvas = document.getElementById('canvas');
-                var dataURL = canvas.toDataURL("image/png");
-                console.log(dataURL);
-            },
-            async testUpload() {
-                //이미지 자체를 올리기 (성공)
+            // exportDataURL() {
+            //     var canvas = document.getElementById('canvas');
+            //     var dataURL = canvas.toDataURL("image/png");
+            //     console.log(dataURL);
+            // },
+
+            //이미지 자체를 올리기 (성공)
+            async ipfsUpload() {
+
                 let imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
 
-               const {
+                const {
                     cid
                 } = await this.node.add((imageBlob), {
                     cidVersion: 1,
                     hashAlg: "sha2-256"
                 })
                 console.log(cid.toString())
-                console.info(`cid: ${cid}`)
+                // 위에것과 동일
+                // console.info(`cid: ${cid}`)
+
+                // cidImg에 cid 저장 서버에 저장할때는 cid.toString()을 저장하면 됨
                 this.cidImg = cid.toString()
 
             },
 
-            async testDownload() {
+            // ipfs 주소
+            async ipfsDownload() {
+                //IPFS에 업로드 된 해시값을 http링크로 변환
                 var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
                 console.log(link)
-                this.test = link
+
+                //cidImgLink 값에 link 저장 => img.src로 v-bind
+                this.cidImgLink = link
             },
-
-
-            async uploadIPFS() {
-                var canvas = document.getElementById('canvas');
-                var dataURL = canvas.toDataURL("image/png");
-                const {
-                    cid
-                } = await this.node.add((dataURL), {
-                    cidVersion: 1,
-                    hashAlg: "sha2-256"
-                })
-                // 주소 출력
-                console.log(cid.toString())
-                console.info(`cid: ${cid}`)
-                this.cidImg = cid.toString()
-            },
-
-
-
-            async downloadIPFS() {
-
-                // 업로드한 값을 ipfs링크로 출력
-                var link = "https:/" + this.cidImg + ".ipfs.dweb.link"
-                console.log(link)
-                console.log(this.node.get(link))
-
-                //base64 이미지 소스로 출력 성공
-                var canvas = document.getElementById('canvas');
-                var dataURL = await canvas.toDataURL("image/png");
-                this.test = dataURL;
-
-
-            }
-
 
 
         },

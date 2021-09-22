@@ -1,6 +1,10 @@
 <template>
     <div>
-        <img src="../assets/img/metamask.jpg" @click="init()" />
+        <img
+            src="../assets/img/metamask.jpg"
+            style="cursor:pointer;"
+            @click="init()"
+        />
     </div>
 </template>
 <script>

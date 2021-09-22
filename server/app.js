@@ -15,27 +15,27 @@ const express = require("express");
 const fs = require("fs");
 const dotenv = require("dotenv");
 const path = require("path");
-var multer = require("multer");
+// var multer = require("multer");
 let sql = require("./sql.js");
 const cors = require("cors");
 
 // create express framework object
 const app = express();
 
-// make assets storage
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "uploads/"); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
-    },
-    filename: function(req, file, cb) {
-        // cb(null, file.originalname) // cb 콜백함수를 통해 전송된 파일 이름 설정
-        cb(null, new Date().valueOf() + path.extname(file.originalname));
-    },
-});
+// // make assets storage
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, "uploads/"); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+//     },
+//     filename: function(req, file, cb) {
+//         // cb(null, file.originalname) // cb 콜백함수를 통해 전송된 파일 이름 설정
+//         cb(null, new Date().valueOf() + path.extname(file.originalname));
+//     },
+// });
 
 // storage in multer option setting : 파일이 저장될 위치를 지정합니다.
 // 실제 option 값으로는 storage말고, dest(destination)라는 셋팅도 가능합니다.
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage });
 
 // cors option localhost:8080 에 대해서 CORS자격증명(cors credenials)을 허용(true)
 const corsOption = {
@@ -48,8 +48,9 @@ const corsOption = {
 app.use(cors(corsOption));
 
 // express app 에 multer & cors option 적용
+
 // static file들을 있을 위치 지정(root directory에 uploads 폴더)
-app.use("/static", express.static(__dirname + "/uploads"));
+// app.use("/static", express.static(__dirname + "/uploads"));
 //__dirname 현재폴더 + 폴더명 ("/폴더명")
 
 //리퀘스트 요청할 때 바디로 json 형태의 파라미터를 받는데 그걸 받으려면 선언 해줘야 함
@@ -223,9 +224,9 @@ app.post("/api/test11", async (req, res) => {
 //     else fs.createReadStream(filepath).pipe(res);
 // });
 
-app.post("/upload/:productId/:type/:fileName", async (request, res) => {
-    let { productId, type, fileName } = request.params;
-    const dir = `${__dirname}/uploads/${productId}`;
+app.post("/upload/:type/:fileName", async (request, res) => {
+    let { type, fileName } = request.params;
+    const dir = `${__dirname}/uploads/${type}`;
     const file = `${dir}/${fileName}`;
     if (!request.body.data)
         return fs.unlink(file, async (err) =>
@@ -240,7 +241,6 @@ app.post("/upload/:productId/:type/:fileName", async (request, res) => {
     fs.writeFile(file, data, "base64", async (error) => {
         await sys.db("testImgUp", [
             {
-                // product_id: productId,
                 type: type,
                 path: fileName,
             },
@@ -256,9 +256,10 @@ app.post("/upload/:productId/:type/:fileName", async (request, res) => {
     });
 });
 
-app.get("/download/:productId/:fileName", (request, res) => {
-    const { productId, type, fileName } = request.params;
-    const filepath = `${__dirname}/uploads/${productId}/${fileName}`;
+app.get("/download/:type/:fileName", (request, res) => {
+    console.log("download", request.params);
+    const { type, fileName } = request.params;
+    const filepath = `${__dirname}/uploads/${type}/${fileName}`;
     res.header(
         "Content-Type",
         `image/${fileName.substring(fileName.lastIndexOf("."))}`

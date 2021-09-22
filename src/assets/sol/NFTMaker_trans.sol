@@ -40,3 +40,4 @@ contract NFTMaker_trans is NFTMaker, ERC721 {
     _transfer(owner, msg.sender, _tokenId);
   }
 }
+

@@ -1,14 +1,23 @@
-var solc = require("solc");
+const path = require("path");
+const solc = require("solc");
+const fileSystem = require("fs-extra");
 
-var testCode = JSON.parse(window.localStorage.getItem('arr'))
+
+//생성할 파일 경로
+const buildPath = path.resolve(__dirname, "build");
+fileSystem.removeSync(buildPath);
+
+//컨트렉트를 얻어낼 경로
+const contractsPath = path.resolve(__dirname, "contracts");
+
+//컨트렉트 패스로부터 얻어낸 경로에 있는 파일의 내용
+const testDoSource = fileSystem.readFileSync(contractsPath, "utf8");
 
 var input = {
     language: 'Solidity',
-    sources: {
-        'testCode': {
-            content: testCode
-        }
-    },
+    sources: testDoSource
+
+        ,
     settings: {
         outputSelection: {
             '*': {
@@ -19,21 +28,28 @@ var input = {
 }
 
 try {
-    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    const output = JSON.parse(solc.compile(JSON.stringify(input)), 1);
 
-    for (let contract in output.contracts[testCode]) {
+    for (let contract in output.contracts[testDoSource]) {
 
         // save "abi" in interface property of the output file
-        let abi = output.contracts[testCode][contract].abi;
+        let abi = output.contracts[testDoSource][contract].abi;
         // save "evm.bytecode.object" in bytecode property of the output file
-        let bytecode = output.contracts[testCode][contract].evm.bytecode.object;
+        let bytecode = output.contracts[testDoSource][contract].evm.bytecode.object;
         const built = {
             abi: JSON.stringify(abi),
             bytecode: bytecode
         }
-        console.log(built)
 
-    //    window.localStorage.setItem('testCode', built);
+        fileSystem.outputJSONSync(
+            path.resolve(buildPath, "Payments.json"),
+            built
+        );
+
+        fileSystem.outputJSONSync(
+            path.resolve(buildPath, "testDo.json"),
+            built
+        );
     }
 
 } catch (error) {

@@ -10,12 +10,11 @@
         <!-- 이미지 업로드 버튼 -->
         <div>
             <div>
-            <h3>캔버스에 이미지 업로드</h3>
-            <input id="uploader" type="file" />
+                <h3>캔버스에 이미지 업로드</h3>
+                <input id="uploader" type="file" />
             </div>
 
             <!-- IPFS 이미지 버튼 -->
-
             <div>
                 <h3>PNG 이미지 다운로드</h3>
                 <b-button id="download">이미지 다운로드</b-button>

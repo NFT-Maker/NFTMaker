@@ -33,7 +33,9 @@
                             >
                                 <div class="position-relative">
                                     <img
-                                        :src="`/download/${m.type}/${m.path}`"
+                                        :src="
+                                            `http://localhost:3000/download/${m.type}/${m.path}`
+                                        "
                                         class="img-fluid"
                                     />
                                     <div
@@ -73,7 +75,9 @@
                             >
                                 <div class="position-relative">
                                     <img
-                                        :src="`/download/${m.type}/${m.path}`"
+                                        :src="
+                                            `http://localhost:3000/download/${m.type}/${m.path}`
+                                        "
                                         class="img-fluid"
                                     />
                                     <div
@@ -132,7 +136,9 @@
                             >
                                 <div class="position-relative">
                                     <img
-                                        :src="`/download/${m.type}/${m.path}`"
+                                        :src="
+                                            `http://localhost:3000/download/${m.type}/${m.path}`
+                                        "
                                         class="img-fluid"
                                     />
                                     <div
@@ -147,7 +153,11 @@
                     </div>
                 </div>
                 <div class="mb-3 row m-auto">
-                    <button type="button" class="btn btn-lg btn-dark">
+                    <button
+                        type="button"
+                        class="btn btn-lg btn-dark"
+                        @click="callBasic1()"
+                    >
                         확인
                     </button>
                 </div>
@@ -218,10 +228,10 @@ export default {
             this.list3 = await this.$api("/api/makeBasicList", "post");
             console.table(this.list3);
         },
-        // async callBasic1() {
-        //     this.list4 = await this.$api("/download/1/NFT.JPG", "get");
-        //     console.log(this.list4);
-        // },
+        async callBasic1() {
+            this.list4 = await this.$api("/download/0/metamask.jpg", "get");
+            console.log(this.list4);
+        },
     },
 };
 </script>

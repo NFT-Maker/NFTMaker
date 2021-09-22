@@ -264,11 +264,14 @@ app.get("/download/:type/:fileName", (request, res) => {
         "Content-Type",
         `image/${fileName.substring(fileName.lastIndexOf("."))}`
     );
+    // console.log("res", res.header());
     if (!fs.existsSync(filepath))
         res.send(404, {
             error: "Can not found file.",
         });
-    else fs.createReadStream(filepath).pipe(res);
+    else {
+        fs.createReadStream(filepath).pipe(res);
+    }
 });
 
 app.post("/api/:alias", async (req, res) => {

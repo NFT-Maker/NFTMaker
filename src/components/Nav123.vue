@@ -8,7 +8,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item v-if="show" right href="#/howToImg"
+                    <b-nav-item v-if="show" right href="#/owner"
                         >운영자
                     </b-nav-item>
                     <b-nav-item right href="#/howToImg"

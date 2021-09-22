@@ -11,6 +11,7 @@ import Home1 from "./views/Home1.vue";
 import Select from "./views/Select.vue";
 import HowToImg from "./views/HowToImg.vue";
 import Gallery from "./views/Gallery.vue";
+import Owner from "./views/Owner.vue";
 
 Vue.use(Router);
 
@@ -70,6 +71,11 @@ export default new Router({
             path: "/gallery",
             name: "Gallery",
             component: Gallery,
+        },
+        {
+            path: "/owner",
+            name: "Owner",
+            component: Owner,
         },
     ],
 });

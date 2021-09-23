@@ -43,6 +43,115 @@ export default {
     data() {
         return {
             contract: "",
+            contract1: "0x83a73F15a57D352f2D9C4De97ba357723777f8F2",
+            abi1: [
+                {
+                    inputs: [],
+                    stateMutability: "nonpayable",
+                    type: "constructor",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_who",
+                            type: "address",
+                        },
+                        {
+                            internalType: "string",
+                            name: "_url",
+                            type: "string",
+                        },
+                    ],
+                    name: "NFT",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    name: "NFTCount",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "NFTId",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTToOwner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTUrl",
+                    outputs: [
+                        {
+                            internalType: "string",
+                            name: "",
+                            type: "string",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "owner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+            ],
             abi: [],
             url: [],
             // url로 nft그림 불러와서 그린다

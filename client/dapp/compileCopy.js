@@ -5,7 +5,7 @@ const fileSystem = require("fs-extra");
 
 //Preparing for build folder
 const buildPath = path.resolve(__dirname, "build");
-fileSystem.removeSync(buildPath);
+// fileSystem.removeSync(buildPath);
 
 //Get contract path
 const contractsPath = path.resolve(__dirname, "contracts", "testDo.sol");
@@ -51,6 +51,11 @@ try{
           fileSystem.outputJSONSync(
             path.resolve(buildPath, "testDo.json"),
             built
+          );
+
+          fileSystem.outputJSONSync(
+            path.resolve(buildPath, "test.json"),
+            solc.compile(JSON.stringify(input))
           );
       }
 

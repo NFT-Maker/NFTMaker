@@ -18,6 +18,7 @@ const path = require("path");
 // var multer = require("multer");
 let sql = require("./sql.js");
 const cors = require("cors");
+const solc = require("solc");
 
 // create express framework object
 const app = express();
@@ -223,6 +224,53 @@ app.post("/api/test11", async (req, res) => {
 //     //파일을 클라이언트에 내려주는것
 //     else fs.createReadStream(filepath).pipe(res);
 // });
+
+app.post("/compile", async (req, res) => {
+    console.log("hello");
+    // console.log("hello1", req);
+    console.log("hello2", req.body.param[0]);
+
+    try {
+        var output = JSON.parse(
+            solc.compile(JSON.stringify(req.body.param[0]))
+        );
+        console.log("output here:", output);
+
+        var bytecodes = [];
+        var abis = [];
+        console.log("####4");
+
+        for (var contractName in output.contracts["testDo.sol"]) {
+            console.log("####3");
+
+            var btcode =
+                output.contracts["testDo.sol"][contractName].evm.bytecode
+                    .object;
+            bytecodes.push(btcode);
+
+            var abi = output.contracts["testDo.sol"][contractName].abi;
+            abis.push(abi);
+            console.log(btcode);
+            console.log(abi);
+        }
+        console.log("####2");
+
+        res.send({
+            abi: abis,
+            bytecode: btcode,
+            res: output.contracts["testDo.sol"]["Hello"],
+        });
+    } catch (err) {
+        console.log("####1");
+
+        for (var ai of err.errors) {
+            console.log(ai);
+            console.log("####");
+        }
+
+        res.send(err.errors);
+    }
+});
 
 app.post("/upload/:type/:fileName", async (request, res) => {
     let { type, fileName } = request.params;

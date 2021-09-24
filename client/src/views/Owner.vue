@@ -1,7 +1,8 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-warning container-fluid">
+
+        <div class="bg-light container-fluid">
             <main class="mt-3">
                 <div class="container">
                     <h2 class="text-center">제품 사진 등록</h2>
@@ -30,7 +31,9 @@
                                         <div
                                             class="position-absolute-top text-right"
                                             style="cursor:pointer;"
-                                            @click="deleteImage(m.basic_id)"
+                                            @click="
+                                                deleteImage(`${m.basic_id}`)
+                                            "
                                         >
                                             X
                                         </div>
@@ -74,7 +77,9 @@
                                         <div
                                             class="position-absolute-top text-right"
                                             style="cursor:pointer;"
-                                            @click="deleteImage(m.basic_id)"
+                                            @click="
+                                                deleteImage(`${m.basic_id}`)
+                                            "
                                         >
                                             X
                                         </div>
@@ -139,7 +144,9 @@
                                         <div
                                             class="position-absolute-top text-right"
                                             style="cursor:pointer;"
-                                            @click="deleteImage(m.basic_id)"
+                                            @click="
+                                                deleteImage(`${m.basic_id}`)
+                                            "
                                         >
                                             X
                                         </div>
@@ -162,8 +169,7 @@
 <script>
 // import FileUp from "../components/FileUp.vue";
 import Nav from "../components/Nav123.vue";
-
-import { $swal } from "../../dapp";
+import $Swal from "sweetalert2";
 
 export default {
     name: "",
@@ -206,26 +212,18 @@ export default {
                 }
             );
             if (error) {
-                return new $swal(
+                return new $Swal(
                     "이미지 업로드 실패했습니다. 다시 시도하세요."
                 );
             }
-            new $swal("이미지가 업로드 되었습니다.");
+            new $Swal("이미지가 업로드 되었습니다.");
             setTimeout(() => {
                 this.callBasic();
             }, 1000);
         },
 
         deleteImage(id) {
-            let tejin = new $swal();
-            console.log("1", tejin);
-            console.log(tejin.constructor());
-            console.log(tejin.fire);
-
-            console.log(new $swal());
-
-            console.log(this.$swal);
-            this.$swal
+            $Swal
                 .fire({
                     title: "정말 삭제 하시겠습니까?",
                     showCancelButton: true,
@@ -234,9 +232,11 @@ export default {
                 })
                 .then(async (result) => {
                     if (result.isConfirmed) {
-                        await this.$api("/api/imageDelete", { param: [id] });
-                        this.getProductImage();
-                        this.$swal.fire("삭제되었습니다!", "", "success");
+                        await this.$api("/api/imageDelete", "post", {
+                            param: [id],
+                        });
+                        this.callBasic();
+                        $Swal.fire("삭제되었습니다!", "", "success");
                     }
                 });
         },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <Nav />
-        <b-container fluid class="p-4 bg-warning">
+        <b-container fluid class="p-4 bg-light">
             <b-row class="text-center">
                 <b-col>
                     <a href="#/howToImg">

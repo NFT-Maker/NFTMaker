@@ -9,7 +9,7 @@
 </template>
 <script>
 import Web3 from "web3";
-import { $swal } from "../../dapp";
+import $Swal from "sweetalert2";
 
 export default {
     name: "",
@@ -40,7 +40,7 @@ export default {
                         });
                 } catch (error) {
                     console.log("error");
-                    $swal(
+                    new $Swal(
                         "메타마스트 접속에 실패하였습니다. 다시 시도해 주세요"
                     );
                 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-navbar toggleable="lg" type="light" variant="light">
+        <b-navbar toggleable="lg" type="warning" variant="warning">
             <b-navbar-brand href="#/home1">NFT Maker</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

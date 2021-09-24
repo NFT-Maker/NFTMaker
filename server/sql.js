@@ -24,6 +24,6 @@ module.exports = {
         query: `select * from t_mySet`,
     },
     imageDelete: {
-        query: `delete from t_mySet where mySet_id=?`,
+        query: `delete from t_basic where basic_id = ?`,
     },
 };

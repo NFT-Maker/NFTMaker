@@ -1,7 +1,12 @@
 <template>
     <div>
-        <b-navbar toggleable="lg" type="light" variant="warning">
-            <b-navbar-brand href="#/home1">NFT Maker</b-navbar-brand>
+        <b-navbar toggleable="lg" type="light" variant="warning" class=" mb-1">
+            <b-navbar-brand href="#/home1"
+                ><img
+                    src="../assets/img/NFT MAKER.png"
+                    title="홈으로"
+                    style="max-width: 4rem;"
+            /></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

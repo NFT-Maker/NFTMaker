@@ -13,6 +13,7 @@ import HowToImg from "./views/HowToImg.vue";
 import Gallery from "./views/Gallery.vue";
 import Owner from "./views/Owner.vue";
 import ImageBasic from "./views/ImageBasic.vue";
+import MakeContract from "./views/MakeContract.vue";
 
 Vue.use(Router);
 
@@ -82,6 +83,11 @@ export default new Router({
             path: "/imageBasic",
             name: "ImageBasic",
             component: ImageBasic,
+        },
+        {
+            path: "/makeContract",
+            name: "MakeContract",
+            component: MakeContract,
         },
     ],
 });

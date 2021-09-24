@@ -1,5 +1,5 @@
 <template>
-    <div class="row d-flex justify-content-center bg-warning container-fluid">
+    <div class="row d-flex justify-content-center container-fluid">
         <img
             src="../assets/img/metamask.jpg"
             style="cursor:pointer;"

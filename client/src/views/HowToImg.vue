@@ -4,19 +4,15 @@
         <div class="bg-warning container-fluid">
             <!-- 자신만의 컨트랙트를 만드는 화면 -->
             <div class="d-flex justify-content-center">
-                <a href="#/"
-                    ><b-button variant="dark"
-                        >이미지 편집 + 컨트랙트 편집</b-button
-                    ></a
+                <b-button variant="dark" @click="setting(0)"
+                    >이미지 편집 + 컨트랙트 편집</b-button
                 >
             </div>
             <br />
             <br />
             <div class="d-flex justify-content-center">
-                <a href="#/"
-                    ><b-button variant="dark" @click="onlyNFT()"
-                        >이미지 편집(NFT Maker)</b-button
-                    ></a
+                <b-button variant="dark" @click="setting(1)"
+                    >이미지 편집(NFT Maker)</b-button
                 >
             </div>
             <!-- NFT Maker의 컨트랙트로 NFT 만드는 화면 -->
@@ -27,7 +23,7 @@
                     type="text"
                     v-model="text"
                     class="form-control"
-                    placeholder="기존 컨트랙트 주소 입력"
+                    placeholder="기존 컨트랙트 주소 입력(12입력하고 버튼클릭하면 이동가능)"
                     aria-label="기존 컨트랙트 주소 입력"
                     aria-describedby="basic-addon2"
                 />
@@ -42,7 +38,7 @@
 </template>
 <script>
 import Nav from "../components/Nav123.vue";
-
+import $Swal from "sweetalert2";
 export default {
     name: "",
     components: {
@@ -64,9 +60,20 @@ export default {
                 param: [this.$store.state.contract],
             }).then((result) => {
                 console.log(result);
-                this.$store.state.abi = result[0].CA_abi;
-                console.log(this.$store.state.abi);
+                if (result.length == 0) {
+                    new $Swal(
+                        "'NFT Maker'에서 발행한 컨트랙트 주소가 아닙니다"
+                    );
+                } else {
+                    this.$store.state.abi = result[0].CA_abi;
+                    console.log(this.$store.state.abi);
+                    this.setting(2);
+                }
             });
+        },
+        setting(num) {
+            this.$store.state.settingNum = num;
+            this.$router.push({ path: "imageBasic" });
         },
     },
 };

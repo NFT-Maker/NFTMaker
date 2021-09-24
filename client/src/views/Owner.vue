@@ -3,20 +3,18 @@
         <Nav />
 
         <div class="bg-light container-fluid">
-            <main class="mt-3">
+            <main>
                 <div class="container">
-                    <h2 class="text-center">제품 사진 등록</h2>
-                    <div class="mb-3 row">
-                        <label class="col-md-3 col-form-label">제품ID</label>
+                    <h2 class="text-center">서식 양식 등록</h2>
+                    <div class="mb-3 row border border-warning">
+                        <label class="col-md-3 col-form-label"
+                            >저장된 서식 총 갯수</label
+                        >
                         <div class="col-md-9">
                             {{ list3.length }}
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label class="col-md-3 col-form-label">제품명</label>
-                        <div class="col-md-9"></div>
-                    </div>
-                    <div class="mb-3 row">
+                    <div class="mb-3 row border border-warning">
                         <label class="col-md-3 col-form-label">상장 서식</label>
                         <div class="col-md-9">
                             <div class="row">
@@ -60,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-3 row border border-warning">
                         <label class="col-md-3 col-form-label"
                             >봉사활동 인증서</label
                         >
@@ -106,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-3 row border border-warning">
                         <label class="col-md-3 col-form-label"
                             >정부 교육 이수증</label
                         >

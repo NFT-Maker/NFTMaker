@@ -12,6 +12,7 @@ import Select from "./views/Select.vue";
 import HowToImg from "./views/HowToImg.vue";
 import Gallery from "./views/Gallery.vue";
 import Owner from "./views/Owner.vue";
+import ImageBasic from "./views/ImageBasic.vue";
 
 Vue.use(Router);
 
@@ -76,6 +77,11 @@ export default new Router({
             path: "/owner",
             name: "Owner",
             component: Owner,
+        },
+        {
+            path: "/imageBasic",
+            name: "ImageBasic",
+            component: ImageBasic,
         },
     ],
 });

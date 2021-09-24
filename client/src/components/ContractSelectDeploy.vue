@@ -20,7 +20,7 @@
 
 
 <script>
-import compileCode from "../domain/ContractSelectDeploy"
+// import compileCode from "../domain/ContractSelectDeploy"
 
     export default {
         name: '',
@@ -68,12 +68,12 @@ import compileCode from "../domain/ContractSelectDeploy"
                  this.$store.commit("contractCompile")
                  console.log(this.$store.state.contractBuilt)
             },
-            async test5() {
-                var name = this.$store.state.contractName
-                var code = this.$store.state.contract
+            // async test5() {
+            //     var name = this.$store.state.contractName
+            //     var code = this.$store.state.contract
 
-                await compileCode(name, code);
-            }
+            //     await compileCode(name, code);
+            // }
 
           
         }

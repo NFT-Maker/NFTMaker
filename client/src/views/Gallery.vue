@@ -9,7 +9,7 @@
                     img-alt="Image"
                     img-top
                     tag="article"
-                    style="max-width: 20rem;"
+                    style="max-width: 20rem; min-width:15rem;"
                     class="mb-2"
                 >
                     <b-card-text>
@@ -20,12 +20,14 @@
                     <b-button href="#" variant="primary">Go somewhere</b-button>
                 </b-card>
                 <b-card
+                    :key="i"
+                    v-for="(i, img) of url"
                     title="Card Title"
-                    img-src="https://picsum.photos/600/300/?image=25"
+                    :img-src="`${url[img]}`"
                     img-alt="Image"
                     img-top
                     tag="article"
-                    style="max-width: 20rem;"
+                    style="max-width: 20rem; min-width:15rem;"
                     class="mb-2"
                 >
                     <b-card-text>
@@ -36,18 +38,18 @@
                     <b-button href="#" variant="primary">Go somewhere</b-button>
                 </b-card>
             </b-card-group>
+            <button @click="getContract()">만들어지나 테스트</button>
         </div>
     </div>
 </template>
 <script>
 import Nav from "../components/Nav123.vue";
-
 export default {
     name: "",
     components: { Nav },
     data() {
         return {
-            contract: "",
+            contract: {},
             contract1: "0x83a73F15a57D352f2D9C4De97ba357723777f8F2",
             abi1: [
                 {
@@ -210,6 +212,35 @@ export default {
         console.log(this.imgList);
     },
     unmounted() {},
-    methods: {},
+    methods: {
+        async getContract() {
+            this.contract = new this.$store.state.web3.eth.Contract(
+                this.abi1,
+                this.contract1
+            );
+            console.log(this.contract);
+            await this.contract.methods
+                .NFTUrl([0])
+                .call()
+                .then((result) => {
+                    console.log(result);
+                    // url 배열에 알아낸 ifps url 주소 차곡차곡 넣어둠
+                    this.url.push(result);
+                });
+            console.log("url", this.url);
+            console.log("url1", this.url[0]);
+
+            for (var i = 0; i < this.url.length; i++) {
+                //IPFS에 업로드 된 해시값을 http링크로 변환
+                console.log("i", i);
+                var link = "https:/" + this.url[i] + ".ipfs.dweb.link";
+                console.log("link", link);
+
+                //cidImgLink 값에 link 저장 => img.src로 v-bind
+                this.imgList.push(link);
+            }
+            console.log("imgList", this.imgList);
+        },
+    },
 };
 </script>

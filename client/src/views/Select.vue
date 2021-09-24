@@ -1,8 +1,8 @@
 <template>
     <div>
         <Nav />
-        <b-container fluid class="p-4 bg-dark">
-            <b-row>
+        <b-container fluid class="p-4 bg-warning">
+            <b-row class="text-center">
                 <b-col>
                     <a href="#/howToImg">
                         <b-img

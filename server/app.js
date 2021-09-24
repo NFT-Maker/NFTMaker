@@ -226,48 +226,28 @@ app.post("/api/test11", async (req, res) => {
 // });
 
 app.post("/compile", async (req, res) => {
-    console.log("hello");
-    // console.log("hello1", req);
-    console.log("hello2", req.body.param[0]);
 
     try {
         var output = JSON.parse(
             solc.compile(JSON.stringify(req.body.param[0]))
         );
-        console.log("output here:", output);
 
-        var bytecodes = [];
-        var abis = [];
-        console.log("####4");
-
-        for (var contractName in output.contracts["testDo.sol"]) {
-            console.log("####3");
-
-            var btcode =
-                output.contracts["testDo.sol"][contractName].evm.bytecode
+        for (var contractName in output.contracts["nftMaker.sol"]) {
+            
+            var bytecode =
+                output.contracts["nftMaker.sol"][contractName].evm.bytecode
                     .object;
-            bytecodes.push(btcode);
-
-            var abi = output.contracts["testDo.sol"][contractName].abi;
-            abis.push(abi);
-            console.log(btcode);
-            console.log(abi);
+            var abi = output.contracts["nftMaker.sol"][contractName].abi;
         }
-        console.log("####2");
-
         res.send({
-            abi: abis,
-            bytecode: btcode,
-            res: output.contracts["testDo.sol"]["Hello"],
+            abi,
+            bytecode,
         });
     } catch (err) {
-        console.log("####1");
-
         for (var ai of err.errors) {
             console.log(ai);
             console.log("####");
         }
-
         res.send(err.errors);
     }
 });

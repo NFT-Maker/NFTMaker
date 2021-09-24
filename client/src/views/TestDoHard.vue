@@ -1,42 +1,28 @@
 <template>
-  <div class='container'>
-    <div class="mb-4">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/shopping">Shopping Cart</router-link> |
-      <router-link to="/testDoSimple">
-        <b-button type="button" class="btn btn-primary mt-4">
-          TestDoSimple
-        </b-button> </router-link>
-    </div>
+  <div>
 
-     <TestDoDeploy  />
-    <TestDoInterface   />
-     
-
-
+    <DoContractDeploy />
   </div>
 </template>
-
 <script>
-  import TestDoDeploy from '@/components/TestDoDeploy.vue'
-  import TestDoInterface from '@/components/TestDoInterface.vue'
 
-  export default {
-    name: 'testDo',
-    components: {
-      TestDoInterface,
-      TestDoDeploy
-    },
-    computed: {
-      contract: function () {
-        return this.$store.state.contract
-      }
-      
-    },
-    methods: {
-      changeContract: function () {
-        this.$store.commit('setContract', '')
-      }
+    import DoContractDeploy from "../components/DoContractDeploy"
+
+export default {
+  name: '',
+  components: {
+            DoContractDeploy,
+
+  },
+  data () {
+    return {
+      sampleData: ''
     }
-  }
+  },
+  created () {},
+  mounted () {},
+  updated () {},
+  unmounted () {},
+  methods: {}
+}
 </script>

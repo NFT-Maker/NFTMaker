@@ -11,16 +11,16 @@
             <b-button @click="test4()">test4</b-button>
             <b-button @click="test5()">test5</b-button>
 
-            
 
-           
+
+
         </b-card>
     </div>
 </template>
 
 
 <script>
-// import compileCode from "../domain/ContractSelectDeploy"
+    // import compileCode from "../domain/ContractSelectDeploy"
 
     export default {
         name: '',
@@ -33,7 +33,7 @@
         },
         created() {},
         mounted() {
-            
+
         },
         updated() {},
         unmounted() {},
@@ -55,27 +55,43 @@
             },
             test2() {
                 // setContractName 확인
-                 this.$store.commit("setContractName", "testDo.sol")
-                 console.log(this.$store.state.contractName)
+                this.$store.commit("setContractName", "testDo.sol")
+                console.log(this.$store.state.contractName)
             },
             test3() {
                 // setContractInput 확인
-                 this.$store.commit("setContractInput")
-                 console.log(this.$store.state.contractInput)
+                this.$store.commit("setContractInput")
+                console.log(this.$store.state.contractInput)
             },
             test4() {
                 // contractCompile 확인
-                 this.$store.commit("contractCompile")
-                 console.log(this.$store.state.contractBuilt)
+                this.$store.commit("contractCompile")
+                console.log(this.$store.state.contractBuilt)
             },
             // async test5() {
-            //     var name = this.$store.state.contractName
-            //     var code = this.$store.state.contract
+            //     var contractName = this.$store.state.contractName
+            //     var contractCode = this.$store.state.contract
 
-            //     await compileCode(name, code);
+
+            //     var input = {
+            //         language: 'Solidity',
+            //         sources: {
+            //             [contractName]: {
+            //                 content: contractCode
+            //             }
+            //         },
+            //         settings: {
+            //             outputSelection: {
+            //                 '*': {
+            //                     '*': ['*']
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     // await compileCode(name, code);
             // }
 
-          
+
         }
     }
 </script>

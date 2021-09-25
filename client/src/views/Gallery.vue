@@ -1,7 +1,7 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-warning container-fluid">
+        <div class="bg-warning container-fluid" style="height: 100%">
             <b-card-group deck>
                 <b-card
                     title="Card Title"

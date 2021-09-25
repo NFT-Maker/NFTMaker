@@ -1,8 +1,11 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-warning container-fluid">
+        <div class="bg-warning container-fluid" style="height: 85vh">
             <!-- 자신만의 컨트랙트를 만드는 화면 -->
+            <br />
+            <br />
+            <br />
             <div class="d-flex justify-content-center">
                 <b-button variant="dark" @click="setting(0)"
                     >이미지 편집 + 컨트랙트 편집</b-button

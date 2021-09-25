@@ -1,10 +1,26 @@
 <template>
-    <div class="row d-flex justify-content-center container-fluid">
-        <img
-            src="../assets/img/metamask.jpg"
-            style="cursor:pointer;"
-            @click="init()"
-        />
+    <div class="bg-warning fullPage">
+        <h5 class="text-center">
+            Welcome to NFT Maker
+            <br />
+            <br />
+            <img
+                src="../assets/img/NFT MAKER.png"
+                v-b-popover.hover.bottom="'메타마스크 버튼을 눌러 시작하세요'"
+                title="Welcome to NFT Maker!"
+                style="max-width: 20rem;"
+            />
+        </h5>
+
+        <div class="d-flex justify-content-center ">
+            <img
+                src="../assets/img/metamask.jpg"
+                style="cursor:pointer; max-width: 15rem; max-height: 15rem;"
+                v-b-popover.hover.bottom="'클릭하세요!'"
+                title="메타마스크 연결"
+                @click="init()"
+            />
+        </div>
     </div>
 </template>
 <script>
@@ -55,3 +71,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+.fullPage {
+    height: 100vh;
+}
+</style>

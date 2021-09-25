@@ -1,7 +1,7 @@
 <template>
     <div>
         <Nav />
-        <b-container fluid class="p-4 bg-light">
+        <b-container fluid class="p-4 bg-light" style="height: 85vh">
             <b-row class="text-center">
                 <b-col>
                     <a href="#/howToImg">

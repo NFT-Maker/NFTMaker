@@ -1,19 +1,19 @@
 <template>
     <div>
-        <!-- <FabricCore /> -->
-        <FabricCore1 />
+        <FabricCore />
+        <!-- <FabricCore1 /> -->
     </div>
 </template>
 //
 <script>
-// import FabricCore from "../components/FabricCore";
-import FabricCore1 from "../components/FabricCore copy.vue";
+import FabricCore from "../components/FabricCore";
+// import FabricCore1 from "../components/FabricCore copy.vue";
 
 export default {
     name: "",
     components: {
-        // FabricCore,
-        FabricCore1,
+        FabricCore,
+        // FabricCore1,
     },
     data() {
         return {

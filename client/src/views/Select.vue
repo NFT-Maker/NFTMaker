@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Nav />
         <b-container fluid class="p-4 bg-light" style="height: 85vh">
             <b-row class="text-center">
                 <b-col>
@@ -31,12 +30,14 @@
     </div>
 </template>
 <script>
-import Nav from "../components/Nav123.vue";
 export default {
-    name: "",
-    components: {
-        Nav,
+    computed: {
+        account() {
+            return this.$store.state.account;
+        },
     },
+    name: "",
+    components: {},
     data() {
         return {
             sampleData: "",

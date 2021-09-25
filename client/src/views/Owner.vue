@@ -170,6 +170,11 @@ import Nav from "../components/Nav123.vue";
 import $Swal from "sweetalert2";
 
 export default {
+    computed: {
+        account() {
+            return this.$store.state.account;
+        },
+    },
     name: "",
     components: {
         // FileUp,

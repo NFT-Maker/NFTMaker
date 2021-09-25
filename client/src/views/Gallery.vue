@@ -45,6 +45,11 @@
 <script>
 import Nav from "../components/Nav123.vue";
 export default {
+    computed: {
+        account() {
+            return this.$store.state.account;
+        },
+    },
     name: "",
     components: { Nav },
     data() {

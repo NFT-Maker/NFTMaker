@@ -13,7 +13,10 @@
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item v-if="show" right href="#/owner"
+                    <b-nav-item
+                        v-if="this.$store.state.show"
+                        right
+                        href="#/owner"
                         >운영자
                     </b-nav-item>
                     <b-nav-item right href="#/howToImg"
@@ -33,9 +36,7 @@ export default {
     name: "",
     components: {},
     data() {
-        return {
-            show: false,
-        };
+        return {};
     },
     setup() {},
     created() {},
@@ -44,9 +45,9 @@ export default {
             this.$store.state.account ==
             0xee442796570052932841b7588ab037255ce81183
         ) {
-            this.show = true;
+            this.$store.commit("showSave", true);
         } else {
-            this.show = false;
+            this.$store.commit("showSave", false);
         }
     },
     unmounted() {},

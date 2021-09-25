@@ -8,16 +8,21 @@ const store = new Vuex.Store({
     state() {
         return {
             contractName: "",
-            contract: "",
+            contract: {},
             contractInput: "",
             contractBuilt: {},
             web3: "",
             account: "",
             abi: "",
             settingNum: 0,
+            show: false,
         };
     },
     mutations: {
+        showSave(state, a) {
+            state.show = a;
+        },
+
         accountSave(state, a) {
             state.account = a;
         },

@@ -35,6 +35,24 @@
                 <h3>ipfs 업로드 이미지</h3>
                 <img v-bind:src="this.cidImgLink" />
             </div>
+            <div>
+                <select v-model="selectId">
+                    <option
+                        :key="i"
+                        v-for="(m, i) in basicList"
+                        :value="`${m.basic_id}`"
+                        >{{ m.path }}</option
+                    >
+                </select>
+                <img
+                    :key="i"
+                    v-for="(m, i) in basicList.filter(
+                        (c) => c.basic_id == selectId
+                    )"
+                    :src="`http://localhost:3000/download/${m.type}/${m.path}`"
+                    alt=""
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -58,6 +76,8 @@ export default {
             cidImg: "",
             cidImgLink: "",
             node: "",
+            basicList: [],
+            selectId: 999,
         };
     },
     created: async function() {
@@ -175,6 +195,10 @@ export default {
             link.href = canvas.toDataURL();
             link.click();
             link.delete;
+        });
+        this.$api("/api/makeBasicList", "post").then((result) => {
+            this.basicList = result;
+            console.log(this.basicList);
         });
     },
     updated() {},

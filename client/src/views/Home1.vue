@@ -14,7 +14,7 @@
 
         <div class="d-flex justify-content-center ">
             <img
-                src="../assets/img/metamask.jpg"
+                src="../assets/img/metamask.png"
                 style="cursor:pointer; max-width: 15rem; max-height: 15rem;"
                 v-b-popover.hover.bottom="'클릭하세요!'"
                 title="메타마스크 연결"

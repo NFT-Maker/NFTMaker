@@ -1,7 +1,7 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-warning container-fluid" style="height: 85vh">
+        <div class="bg-light container-fluid" style="height: 85vh">
             <!-- 자신만의 컨트랙트를 만드는 화면 -->
             <br />
             <br />

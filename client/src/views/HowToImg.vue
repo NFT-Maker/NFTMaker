@@ -58,7 +58,8 @@ export default {
     unmounted() {},
     methods: {
         alreadyContract() {
-            this.$store.state.contract = this.text;
+            this.$store.commit("contractSave", this.text);
+            console.log(this.$store.state.contract);
             this.$api("/api/list", "post", {
                 param: [this.$store.state.contract],
             }).then((result) => {
@@ -68,14 +69,14 @@ export default {
                         "'NFT Maker'에서 발행한 컨트랙트 주소가 아닙니다"
                     );
                 } else {
-                    this.$store.state.abi = result[0].CA_abi;
+                    this.$store.commit("abiSave", result[0].CA_abi);
                     console.log(this.$store.state.abi);
                     this.setting(2);
                 }
             });
         },
         setting(num) {
-            this.$store.state.settingNum = num;
+            this.$store.commit("settingNumSave", num);
             this.$router.push({ path: "imageBasic" });
         },
     },

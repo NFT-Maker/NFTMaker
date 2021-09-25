@@ -39,7 +39,9 @@
                 <select v-model="selectId">
                     <option
                         :key="i"
-                        v-for="(m, i) in basicList"
+                        v-for="(m, i) in basicList.filter(
+                            (c) => (c.type == 0) | (c.type == 1) | (c.type == 2)
+                        )"
                         :value="`${m.basic_id}`"
                         >{{ m.path }}</option
                     >
@@ -53,6 +55,30 @@
                     alt=""
                 />
             </div>
+            <b-button v-b-modal.modal-scrollable>꾸미기 스티커 보기</b-button>
+
+            <b-modal
+                id="modal-scrollable"
+                scrollable
+                title="Scrollable Content"
+            >
+                <div class="row">
+                    <div
+                        class="col-lg-3 col-md-4 col-sm-2"
+                        :key="i"
+                        v-for="(m, i) in basicList.filter((c) => c.type == 100)"
+                    >
+                        <div class="position-relative">
+                            <img
+                                :src="
+                                    `http://localhost:3000/download/${m.type}/${m.path}`
+                                "
+                                class="img-fluid"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </b-modal>
         </div>
     </div>
 </template>

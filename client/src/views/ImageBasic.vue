@@ -39,11 +39,6 @@
 <script>
 import Nav from "../components/Nav123.vue";
 export default {
-    computed: {
-        account() {
-            return this.$store.state.account;
-        },
-    },
     name: "",
     components: {
         Nav,
@@ -58,15 +53,13 @@ export default {
         // 0번 컨트랙트 만들기에서 할것임
         // 2번 이전 화면에서 이미 저장해 둠
         if (this.$store.state.settingNum == 1) {
-            this.$store.commit(
-                "contractSave",
-                "NFT Maker의 컨트랙트 주소 만들어서 db에 등록해야함"
-            );
+            this.$store.state.contract =
+                "NFT Maker 컨트랙트 주소 만들어서 db에 등록해야함";
             this.$api("/api/list", "post", {
                 param: [this.$store.state.contract],
             }).then((result) => {
                 console.log(result);
-                this.$store.commit("abiSave", result[0].CA_abi);
+                this.$store.state.abi = result[0].CA_abi;
                 console.log(this.$store.state.abi);
             });
         }

@@ -1,39 +1,22 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import persistedstate from "vuex-persistedstate";
+
+// import solc from "solc";
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
-    state() {
-        return {
-            contractName: "",
-            contract: "",
-            contractInput: "",
-            contractBuilt: {},
-            web3: "",
-            account: "",
-            abi: "",
-            settingNum: 0,
-        };
+export default new Vuex.Store({
+    state: {
+        contractName: "",
+        contract: "",
+        contractInput: "",
+        contractBuilt: {},
+        web3: "",
+        account: "",
+        abi: "",
+        settingNum: 0,
     },
     mutations: {
-        accountSave(state, a) {
-            state.account = a;
-        },
-
-        web3Save(state, a) {
-            state.web3 = a;
-        },
-
-        settingNumSave(state, a) {
-            state.settingNum = a;
-        },
-
-        abiSave(state, a) {
-            state.abi = a;
-        },
-
         contractSave(state, a) {
             state.contract = a;
         },
@@ -58,14 +41,6 @@ const store = new Vuex.Store({
             };
         },
     },
+    getters: {},
     actions: {},
-    modules: {},
-
-    plugins: [
-        persistedstate({
-            paths: ["account"],
-        }),
-    ],
 });
-
-export default store;

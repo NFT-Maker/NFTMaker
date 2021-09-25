@@ -40,7 +40,7 @@ export default {
     methods: {
         async init() {
             if (window.ethereum) {
-                this.$store.commit("web3Save", new Web3(window.ethereum));
+                this.$store.state.web3 = new Web3(window.ethereum);
                 try {
                     // Request account access if needed
                     await window.ethereum.enable();
@@ -50,7 +50,7 @@ export default {
                         .then((accounts) => {
                             // console.log(accounts[0]);
                             // window.account = accounts[0];
-                            this.$store.commit("accountSave", accounts[0]);
+                            this.$store.state.account = accounts[0];
                             console.log(this.$store.state.account);
                             this.$router.push({ path: "select" });
                         });
@@ -64,7 +64,7 @@ export default {
             // Legacy dapp browsers...
             else if (window.web3) {
                 // Use Mist/MetaMask's provider.
-                this.$store.commit("web3Save", window.web3);
+                this.$store.state.web3 = window.web3;
                 console.log("Injected web3 detected.");
             }
         },

@@ -6,9 +6,10 @@
                 <b-col>
                     <a href="#/howToImg">
                         <b-img
+                            title="이미지 제작으로 이동"
                             thumbnail
                             fluid
-                            src="../assets/img/tool.jpg"
+                            src="../assets/img/drawing2.jpg"
                             alt="Image 1"
                         ></b-img
                         ><br />
@@ -18,9 +19,10 @@
                 <b-col>
                     <a href="#/gallery">
                         <b-img
+                            title="내 갤러리로 이동"
                             thumbnail
                             fluid
-                            src="../assets/img/gall.png"
+                            src="../assets/img/gall3.png"
                             alt="Image 2"
                         ></b-img
                         ><br />내 갤러리</a

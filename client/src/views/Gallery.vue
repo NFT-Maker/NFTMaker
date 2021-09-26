@@ -20,7 +20,7 @@
                         img-top
                         tag="article"
                         style="max-width: 20rem; min-width:15rem;"
-                        class="mb-2"
+                        class="mb-2 text-center"
                     >
                         <b-button
                             v-b-modal:[`example-modal-${m}`]
@@ -30,7 +30,7 @@
                         >
 
                         <b-modal
-                            :title="'이미지 URL :' + ' ' + `${data[m].url}`"
+                            title="NFT 정보"
                             header-bg-variant="warning"
                             header-text-variant="dark"
                             body-bg-variant="light"
@@ -40,9 +40,10 @@
                             :id="`example-modal-${m}`"
                             size="xl"
                         >
-                            <b-card class="mx-2 my-2">
+                            <b-card class="mx-2 my-2 warnig">
                                 <h5>발행 컨트랙트 : {{ data[m].CA }}</h5>
                                 <h5>발행 NFT ID : {{ data[m].NFTId }}</h5>
+                                <h5>이미지 url : {{ data[m].url }}</h5>
                             </b-card>
 
                             <img :src="`${data[m].url}`" />

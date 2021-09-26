@@ -1,10 +1,6 @@
 pragma solidity 0.8.7;
 
-import "./safemath.sol";
-
 contract schoolAwads {
-    
-    using SafeMath for uint256;
     
     address public owner;
     address public awadsMaker1;
@@ -14,9 +10,7 @@ contract schoolAwads {
     uint public schoolAwadsId = 0;
     uint public checkTime;
     uint public openTime;
-    uint public check = 0;
-    uint public check1 = 1;
-    
+ 
     string public schoolAwadsName;
     
     mapping (uint => address) public schoolAwadsIdToOwner;
@@ -42,11 +36,11 @@ contract schoolAwads {
     function createAwads (address _student) public {
         require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);
         if(schoolAwadsId == 0){
-            schoolAwadsId = schoolAwadsId.add(1);
+            schoolAwadsId = schoolAwadsId + 1;
             schoolAwadsIdToOwner[schoolAwadsId] = _student;
             rightNow = block.timestamp;
         } else if (openTime > (block.timestamp - rightNow)) {
-            schoolAwadsId = schoolAwadsId.add(1);
+            schoolAwadsId = schoolAwadsId + 1;
             schoolAwadsIdToOwner[schoolAwadsId] = _student;
         } 
     }

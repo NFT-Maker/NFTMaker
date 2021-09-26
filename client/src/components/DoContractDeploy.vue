@@ -430,6 +430,16 @@ export default {
                     console.log(result.options.address);
                     // 컨트렉트 정보 가져오기 (확인해보기)
                     // this.contract = result;
+
+                    this.$api("/api/test011", "post", {
+                        param: [
+                            {
+                                EOA: this.$store.state.account,
+                                CA: result.options.address,
+                                CA_abi: JSON.stringify(this.abi),
+                            },
+                        ],
+                    });
                 });
         },
         // -----------------------------------------------------

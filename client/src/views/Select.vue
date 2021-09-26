@@ -1,35 +1,45 @@
 <template>
     <div>
         <Nav />
-        <b-container fluid class="p-4 bg-light" style="height: 85vh">
-            <b-row class="text-center">
-                <b-col>
-                    <a href="#/howToImg">
-                        <b-img
-                            title="이미지 제작으로 이동"
-                            thumbnail
-                            fluid
-                            src="../assets/img/drawing2.jpg"
-                            alt="Image 1"
-                        ></b-img
-                        ><br />
-                        이미지 제작</a
-                    >
-                </b-col>
-                <b-col>
-                    <a href="#/gallery">
-                        <b-img
-                            title="내 갤러리로 이동"
-                            thumbnail
-                            fluid
-                            src="../assets/img/gall3.png"
-                            alt="Image 2"
-                        ></b-img
-                        ><br />내 갤러리</a
-                    >
-                </b-col>
-            </b-row>
-        </b-container>
+        <b-card
+            class="mx-2 my-2"
+            header-bg-variant="warning"
+            header-text-variant="dark"
+        >
+            <!-- 헤더 -->
+            <template #header>
+                <h6 class="mb-0">NFT Maker Main</h6>
+            </template>
+            <b-container fluid class="p-4 bg-light" style="height: 85vh">
+                <b-row class="text-center">
+                    <b-col>
+                        <a href="#/howToImg">
+                            <b-img
+                                title="이미지 제작으로 이동"
+                                thumbnail
+                                fluid
+                                src="../assets/img/drawing2.jpg"
+                                alt="Image 1"
+                            ></b-img
+                            ><br />
+                            이미지 제작</a
+                        >
+                    </b-col>
+                    <b-col>
+                        <a href="#/gallery">
+                            <b-img
+                                title="내 갤러리로 이동"
+                                thumbnail
+                                fluid
+                                src="../assets/img/gall3.png"
+                                alt="Image 2"
+                            ></b-img
+                            ><br />내 갤러리</a
+                        >
+                    </b-col>
+                </b-row>
+            </b-container>
+        </b-card>
     </div>
 </template>
 <script>

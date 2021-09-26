@@ -1,85 +1,211 @@
 <template>
     <div>
-        <!-- 캔버스 -->
-        <div>
-            <h3>Canvas</h3>
-            <canvas
-                class="mx-1"
-                ref="can"
-                id="canvas"
-                width="800"
-                height="800"
-            ></canvas>
-        </div>
+        <b-card
+            class="mx-2 my-2"
+            header-bg-variant="warning"
+            header-text-variant="dark"
+        >
+            <!-- 헤더 -->
+            <template #header>
+                <h6 class="mb-0">NFT 이미지 편집</h6>
+            </template>
 
-        <!-- 이미지 업로드 버튼 -->
-        <div>
-            <div>
-                <h3>캔버스에 이미지 업로드</h3>
-                <input id="uploader" type="file" />
-            </div>
-
-            <!-- IPFS 이미지 버튼 -->
-            <div>
-                <h3>PNG 이미지 다운로드</h3>
-                <b-button id="download">이미지 다운로드</b-button>
-            </div>
-
-            <div>
-                <b-button @click="ipfsUpload()">blob IPFS 업로드</b-button>
-                <p>ipfs 해시값: {{ this.cidImg }}</p>
-            </div>
-
-            <div>
-                <b-button @click="ipfsDownload()">blob IPFS 다운로드</b-button>
-                <h3>ipfs 업로드 이미지</h3>
-                <img v-bind:src="this.cidImgLink" />
-            </div>
-            <div>
-                <select v-model="selectId">
-                    <option
-                        :key="i"
-                        v-for="(m, i) in basicList.filter(
-                            (c) => (c.type == 0) | (c.type == 1) | (c.type == 2)
-                        )"
-                        :value="`${m.basic_id}`"
-                        >{{ m.path }}</option
-                    >
-                </select>
-                <img
-                    :key="i"
-                    v-for="(m, i) in basicList.filter(
-                        (c) => c.basic_id == selectId
-                    )"
-                    :src="`http://localhost:3000/download/${m.type}/${m.path}`"
-                    alt=""
-                />
-            </div>
-            <b-button v-b-modal.modal-scrollable>꾸미기 스티커 보기</b-button>
-
-            <b-modal
-                id="modal-scrollable"
-                scrollable
-                title="Scrollable Content"
+            <!-- 캔버스 -->
+            <div
+                class="mx-auto"
+                style="width: 600px; hight: 600px; border: 5px solid blue"
             >
-                <div class="row">
-                    <div
-                        class="col-lg-3 col-md-4 col-sm-2"
-                        :key="i"
-                        v-for="(m, i) in basicList.filter((c) => c.type == 100)"
+                <canvas
+                    ref="can"
+                    id="canvas"
+                    width="1000"
+                    height="1000"
+                ></canvas>
+            </div>
+
+            <!-- 부가기능 -->
+            <b-card class="my-3">
+                <!-- 캔버스 사이즈 변경 -->
+                <div class="my-2">
+                    <b-button
+                        variant="dark"
+                        class="mx-1 my-1"
+                        @click="
+                            $refs.fileInput1.$el
+                                .querySelector('input[type=file]')
+                                .click()
+                        "
+                        >이미지 추가</b-button
                     >
-                        <div class="position-relative">
-                            <img
-                                :src="
-                                    `http://localhost:3000/download/${m.type}/${m.path}`
-                                "
-                                class="img-fluid"
-                            />
-                        </div>
-                    </div>
+                    <b-form-file
+                        accept="image/*"
+                        id="uploader"
+                        no-drop
+                        ref="fileInput1"
+                        style="display:none;"
+                    >
+                    </b-form-file>
+                    <b-button v-b-modal.modal-1 class="mx-1 my-1" variant="dark"
+                        >캔버스 사이즈 변경</b-button
+                    >
+                    <b-button id="download" class="mx-1 my-1" variant="dark"
+                        >이미지 다운로드</b-button
+                    >
+                    <b-button
+                        variant="dark"
+                        class="mx-1 my-1"
+                        @click="ipfsUpload()"
+                        >IPFS 이미지 업로드
+                    </b-button>
+                    <b-button
+                        variant="dark"
+                        class="mx-1 my-1"
+                        @click="[(show = true), ipfsDownload()]"
+                        >IPFS 이미지 미리보기
+                    </b-button>
+                    <b-button
+                        variant="warning"
+                        class="mx-1 my-1"
+                        v-if="this.$store.state.settingNum == 0"
+                        @click="goMakeContract()"
+                    >
+                        컨트랙트 만들기로 이동
+                    </b-button>
+
+                    <b-button
+                        variant="warning"
+                        class="mx-1 my-1"
+                        v-if="this.$store.state.settingNum == 1"
+                        @click="goGallery()"
+                    >
+                        NFT Maker로 NFT 발행
+                    </b-button>
+
+                    <b-button
+                        variant="warning"
+                        class="mx-1 my-1"
+                        v-if="this.$store.state.settingNum == 2"
+                        :title="
+                            `${this.$store.state.contract}` + '에서 NFT 발행'
+                        "
+                        @click="goGallery()"
+                    >
+                        내 컨트랙트로 NFT 발행
+                    </b-button>
                 </div>
-            </b-modal>
+            </b-card>
+        </b-card>
+        <!-----------------   서버 연동 이미지 불러오기  ----------------------->
+        <div>
+            <select v-model="selectId">
+                <option
+                    :key="i"
+                    v-for="(m, i) in basicList"
+                    :value="`${m.basic_id}`"
+                    >{{ m.path }}</option
+                >
+            </select>
+            <img
+                :key="i"
+                v-for="(m, i) in basicList.filter(
+                    (c) => c.basic_id == selectId
+                )"
+                :src="`http://localhost:3000/download/${m.type}/${m.path}`"
+                alt=""
+            />
         </div>
+
+        <!-- ---------------------- 사이드 --------------------------------- -->
+        <!-- 사이드 IPFS 이미지 보기 -->
+        <b-button v-b-toggle.sidebar-IPFS>편집도구</b-button>
+
+        <b-sidebar id="sidebar-IPFS" title="편집도구" bg-variant="light">
+            <template #footer="{ hide }">
+                <div
+                    class="d-flex bg-dark text-light align-items-center px-3 py-2"
+                >
+                    <strong class="mr-auto">NFT Maker</strong>
+                    <b-button size="sm" @click="hide">닫기</b-button>
+                </div>
+            </template>
+            <!-- 기능들 -->
+            <b-card class="mx-2"> </b-card>
+        </b-sidebar>
+
+        <!-- ---------------------- 모달 --------------------------------- -->
+
+        <!-- 모달1 캔버스 사이즈 변경 -->
+        <b-modal id="modal-1" title="캔버스 사이즈 변경">
+            <b-form inline>
+                <!-- 가로 -->
+                <label class="sr-only" for="inline-form-input-width"
+                    >width</label
+                >
+                <b-form-input
+                    id="inline-form-input-width"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    v-model="formCanvasWidth"
+                    placeholder="가로"
+                >
+                </b-form-input>
+
+                <!-- 세로 -->
+                <label class="sr-only" for="inline-form-input-height"
+                    >height</label
+                >
+                <b-form-input
+                    id="inline-form-input-height"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    v-model="formCanvasHeight"
+                    placeholder="세로"
+                >
+                </b-form-input>
+
+                <!-- 변경 -->
+                <b-button variant="dark" @click="changeCanvasSize()"
+                    >변경</b-button
+                >
+            </b-form>
+        </b-modal>
+
+        <!-- 모달2 업로드된 IPFS 이미지 보기 -->
+        <b-modal
+            v-model="show"
+            title="IPFS 업로드 이미지"
+            header-bg-variant="warning"
+            header-text-variant="dark"
+            body-bg-variant="light"
+            body-text-variant="dark"
+            footer-bg-variant="dark"
+            footer-text-variant="light"
+        >
+            <b-img v-bind:src="this.cidImgLink" fluid thumbnail></b-img>
+            <b-card title="IPFS 주소" class="mt-2">
+                <b-card-text fluid>
+                    {{ this.cidImgLink }}
+                </b-card-text>
+            </b-card>
+            <template #modal-footer>
+                <div class="w-100">
+                    <h5 class="float-left">NFT Maker</h5>
+
+                    <b-button
+                        variant="warning"
+                        size="sm"
+                        class="float-right"
+                        @click="show = false"
+                    >
+                        닫기
+                    </b-button>
+                </div>
+            </template>
+        </b-modal>
+
+        <!-- ============================ 팝오버 ====================== -->
+        <b-popover target="popover-target-1" triggers="hover" placement="top">
+            <template #title>Popover Title</template>
+            I am popover <b>component</b> content!
+        </b-popover>
     </div>
 </template>
 <script src="https://wzrd.in/standalone/buffer"></script>
@@ -102,6 +228,11 @@ export default {
             cidImg: "",
             cidImgLink: "",
             node: "",
+            canvasWidth: "",
+            canvasHeight: "",
+            formCanvasWidth: "",
+            formCanvasHeight: "",
+            show: false,
             basicList: [],
             selectId: 999,
         };
@@ -122,37 +253,23 @@ export default {
             height: 200,
         });
 
-        const rect2 = new fabric.Rect({
-            fill: "blue",
-            width: 300,
-            height: 300,
-        });
-
-        const cir1 = new fabric.Rect({
-            fill: "green",
-            width: 300,
-            height: 300,
-        });
-
         //종합적으로 추가
-        canvas
-            .add(rect1)
-            .add(rect2)
-            .add(cir1);
+        canvas.add(rect1);
 
         // 이미지 넣기
-        fabric.Image.fromURL(
-            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAEDCAMAAABQ/CumAAAAbFBMVEX///8AAAD09PTj4+OlpaX6+vrv7++pqanFxcXX19fm5uZnZ2eQkJC4uLjd3d3KysqBgYFRUVFBQUE1NTUnJyctLS2Xl5daWlp9fX08PDyHh4fR0dEQEBC+vr4VFRVOTk6dnZ0iIiJwcHBgYGDeHYUDAAACpklEQVR4nO3c6ZaiMBiEYYMC4jKIa0uPW/f932PP0dAKRo/QP76pmfe5gqrDkhBNej0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP5X/XRSTgZZbJ2js+ncXSwGkXWWTpKNu1r8so7TQX/paobWgVqLVq5B7jqMmw3cwjpSS+93DZxLrUO18xGooHUZomWggtbTkIUaaN1JebDC0TpWG8NghbV1rDZCLyTnBtax2ugHK+ysY7URz0MVEutYrUwCDTbWodpJft9XyKxDtZTeNXizjtTaW6PBQfDTbVZ/EAQb/LmX9tcGE+swHSXr7Tn/suxbR/mBUZZnyvkBAAAAAAAAAAAAAAAAAP+U5H232+Uj6xidRWnh/zI8X2u2SGt7YWZ6f1ON7zaFqW3Ni4r7f50frUO1c78xz4ntgxmEGkhdhyjcQOl5eHARnDvJbHsOPMvezDrai5L9wwpOZIwbPW7gSutwrwlvapN6Gp5dBZGXUmhDmNqdFNxa6M2tw71m9qSC05iyhvfZeiJbzzdPKuTW4V4zevJAq+wYzusdFuX1RIapdbZX9bfXAttpfLPlU6ZCr7f7PJ0jF5fBLFG7kc6iLB9eV2AOvoLG8Bz06Suobdy+UX1EaMzzQqoDDVbWQbqL/Gv2wzpId9UMXOpcmLqpryDy5Rnih+fCOscP6I3NTf4+2mt8LQT5sVlqWbXOn5e01x3Xqq9p4Tfq8dJA8UwVr1ob053hVdMjqXO26vyoNrbO0Z0/sGqu+zbyDVZaB4XdKn0D2eld7D83t7LXID/5J1l1QEiq5WHVmVGc+kuwEFlFbYoG1W+GIr+JNGVltaY6FlmLb0i+11MPovfQ96yueLdO0tm5wn6mOy89VyhS2bHsLFlzUh4AAAAAAAAA/K2+AH1QEuHRB+MLAAAAAElFTkSuQmCC",
-            function(oImg) {
-                canvas.add(oImg);
-            }
-        );
+        // fabric.Image.fromURL(
+        //     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAEDCAMAAABQ/CumAAAAbFBMVEX///8AAAD09PTj4+OlpaX6+vrv7++pqanFxcXX19fm5uZnZ2eQkJC4uLjd3d3KysqBgYFRUVFBQUE1NTUnJyctLS2Xl5daWlp9fX08PDyHh4fR0dEQEBC+vr4VFRVOTk6dnZ0iIiJwcHBgYGDeHYUDAAACpklEQVR4nO3c6ZaiMBiEYYMC4jKIa0uPW/f932PP0dAKRo/QP76pmfe5gqrDkhBNej0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP5X/XRSTgZZbJ2js+ncXSwGkXWWTpKNu1r8so7TQX/paobWgVqLVq5B7jqMmw3cwjpSS+93DZxLrUO18xGooHUZomWggtbTkIUaaN1JebDC0TpWG8NghbV1rDZCLyTnBtax2ugHK+ysY7URz0MVEutYrUwCDTbWodpJft9XyKxDtZTeNXizjtTaW6PBQfDTbVZ/EAQb/LmX9tcGE+swHSXr7Tn/suxbR/mBUZZnyvkBAAAAAAAAAAAAAAAAAP+U5H232+Uj6xidRWnh/zI8X2u2SGt7YWZ6f1ON7zaFqW3Ni4r7f50frUO1c78xz4ntgxmEGkhdhyjcQOl5eHARnDvJbHsOPMvezDrai5L9wwpOZIwbPW7gSutwrwlvapN6Gp5dBZGXUmhDmNqdFNxa6M2tw71m9qSC05iyhvfZeiJbzzdPKuTW4V4zevJAq+wYzusdFuX1RIapdbZX9bfXAttpfLPlU6ZCr7f7PJ0jF5fBLFG7kc6iLB9eV2AOvoLG8Bz06Suobdy+UX1EaMzzQqoDDVbWQbqL/Gv2wzpId9UMXOpcmLqpryDy5Rnih+fCOscP6I3NTf4+2mt8LQT5sVlqWbXOn5e01x3Xqq9p4Tfq8dJA8UwVr1ob053hVdMjqXO26vyoNrbO0Z0/sGqu+zbyDVZaB4XdKn0D2eld7D83t7LXID/5J1l1QEiq5WHVmVGc+kuwEFlFbYoG1W+GIr+JNGVltaY6FlmLb0i+11MPovfQ96yueLdO0tm5wn6mOy89VyhS2bHsLFlzUh4AAAAAAAAA/K2+AH1QEuHRB+MLAAAAAElFTkSuQmCC",
+        //     function (oImg) {
+        //         canvas.add(oImg);
+        //     }
+        // );
 
         // 외부 이미지 업로드
         document.getElementById("uploader").onchange = function(e) {
             var reader = new FileReader();
             reader.onload = function(e) {
                 var image = new Image();
+                console.log(e.target.result);
                 image.src = e.target.result;
                 image.onload = function() {
                     var img = new fabric.Image(image);
@@ -167,6 +284,7 @@ export default {
                         .renderAll();
                 };
             };
+
             reader.readAsDataURL(e.target.files[0]);
         };
 
@@ -222,20 +340,37 @@ export default {
             link.click();
             link.delete;
         });
+
+        // 서버 연동
         this.$api("/api/makeBasicList", "post").then((result) => {
             this.basicList = result;
             console.log(this.basicList);
         });
+
+        // 0번 컨트랙트 만들기에서 할것임
+        // 2번 이전 화면에서 이미 저장해 둠
+        if (this.$store.state.settingNum == 1) {
+            this.$store.commit(
+                "contractSave",
+                "NFT Maker의 컨트랙트 주소 만들어서 db에 등록해야함"
+            );
+            this.$api("/api/list", "post", {
+                param: [this.$store.state.contract],
+            }).then((result) => {
+                console.log(result);
+                this.$store.commit("abiSave", result[0].CA_abi);
+                console.log(this.$store.state.abi);
+            });
+        }
     },
     updated() {},
     unmounted() {},
     methods: {
-        // 캔버스 이미지 URL로 변환
-        // exportDataURL() {
-        //     var canvas = document.getElementById('canvas');
-        //     var dataURL = canvas.toDataURL("image/png");
-        //     console.log(dataURL);
-        // },
+        changeCanvasSize() {
+            // this.CanvasWidth = this.formCanvasWidth
+            this.canvasHeight = this.formCanvasHeight;
+            this.canvasWidth = this.formCanvasWidth;
+        },
 
         //이미지 자체를 올리기 (성공)
         async ipfsUpload() {
@@ -263,12 +398,27 @@ export default {
 
             //cidImgLink 값에 link 저장 => img.src로 v-bind
             this.cidImgLink = link;
+            console.log("완료:", this.cidImg);
+            if ((this.cidImg = " ")) {
+                console.log("없다");
+            } else {
+                {
+                    console.log("같지않다");
+                }
+            }
+        },
+        goGallery() {
+            this.$router.push({ path: "gallery" });
+        },
+        goMakeContract() {
+            this.$router.push({ path: "makeContract" });
         },
     },
 };
 </script>
 <style scoped>
-canvas {
-    border: 5px solid black;
+#canvas {
+    position: absolute;
+    border: 3px solid black;
 }
 </style>

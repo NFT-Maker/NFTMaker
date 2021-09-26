@@ -1,42 +1,52 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-light container-fluid" style="height: 85vh">
-            <!-- 자신만의 컨트랙트를 만드는 화면 -->
-            <br />
-            <br />
-            <br />
-            <div class="d-flex justify-content-center">
-                <b-button variant="dark" @click="setting(0)"
-                    >이미지 편집 + 컨트랙트 편집</b-button
-                >
-            </div>
-            <br />
-            <br />
-            <div class="d-flex justify-content-center">
-                <b-button variant="dark" @click="setting(1)"
-                    >이미지 편집(NFT Maker)</b-button
-                >
-            </div>
-            <!-- NFT Maker의 컨트랙트로 NFT 만드는 화면 -->
-            <br /><br />
+        <b-card
+            class="mx-2 my-2"
+            header-bg-variant="warning"
+            header-text-variant="dark"
+        >
+            <!-- 헤더 -->
+            <template #header>
+                <h6 class="mb-0">NFT 발행 방법 선택</h6>
+            </template>
+            <div class="bg-light container-fluid" style="height: 85vh">
+                <!-- 자신만의 컨트랙트를 만드는 화면 -->
+                <br />
+                <br />
+                <br />
+                <div class="d-flex justify-content-center">
+                    <b-button variant="dark" @click="setting(0)"
+                        >이미지 편집 + 컨트랙트 편집</b-button
+                    >
+                </div>
+                <br />
+                <br />
+                <div class="d-flex justify-content-center">
+                    <b-button variant="dark" @click="setting(1)"
+                        >이미지 편집(NFT Maker)</b-button
+                    >
+                </div>
+                <!-- NFT Maker의 컨트랙트로 NFT 만드는 화면 -->
+                <br /><br />
 
-            <div class="input-group mb-3">
-                <input
-                    type="text"
-                    v-model="text"
-                    class="form-control"
-                    placeholder="기존 컨트랙트 주소 입력(12입력하고 버튼클릭하면 이동가능)"
-                    aria-label="기존 컨트랙트 주소 입력"
-                    aria-describedby="basic-addon2"
-                />
-                <div class="input-group-append">
-                    <b-button variant="dark" @click="alreadyContract()">
-                        이미지 편집 + 기존 컨트랙트
-                    </b-button>
+                <div class="input-group mb-3">
+                    <input
+                        type="text"
+                        v-model="text"
+                        class="form-control"
+                        placeholder="기존 컨트랙트 주소 입력(12입력하고 버튼클릭하면 이동가능)"
+                        aria-label="기존 컨트랙트 주소 입력"
+                        aria-describedby="basic-addon2"
+                    />
+                    <div class="input-group-append">
+                        <b-button variant="dark" @click="alreadyContract()">
+                            이미지 편집 + 기존 컨트랙트
+                        </b-button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </b-card>
     </div>
 </template>
 <script>

@@ -1,45 +1,59 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-light container-fluid" style="height: 100%">
-            <b-card-group deck>
-                <b-card
-                    title="Card Title"
-                    img-src="https://picsum.photos/600/300/?image=25"
-                    img-alt="Image"
-                    img-top
-                    tag="article"
-                    style="max-width: 20rem; min-width:15rem;"
-                    class="mb-2"
-                >
-                    <b-card-text>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                    </b-card-text>
+        <b-card
+            class="mx-2 my-2"
+            header-bg-variant="warning"
+            header-text-variant="dark"
+        >
+            <!-- 헤더 -->
+            <template #header>
+                <h6 class="mb-0">나만의 NFT 갤러리</h6>
+            </template>
+            <div class="bg-light container-fluid" style="height: 100%">
+                <b-card-group deck>
+                    <b-card
+                        title="Card Title"
+                        img-src="https://picsum.photos/600/300/?image=25"
+                        img-alt="Image"
+                        img-top
+                        tag="article"
+                        style="max-width: 20rem; min-width:15rem;"
+                        class="mb-2"
+                    >
+                        <b-card-text>
+                            Some quick example text to build on the card title
+                            and make up the bulk of the card's content.
+                        </b-card-text>
 
-                    <b-button href="#" variant="primary">Go somewhere</b-button>
-                </b-card>
-                <b-card
-                    :key="i"
-                    v-for="(i, img) of url"
-                    title="Card Title"
-                    :img-src="`${url[img]}`"
-                    img-alt="Image"
-                    img-top
-                    tag="article"
-                    style="max-width: 20rem; min-width:15rem;"
-                    class="mb-2"
-                >
-                    <b-card-text>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                    </b-card-text>
+                        <b-button href="#" variant="primary"
+                            >Go somewhere</b-button
+                        >
+                    </b-card>
+                    <b-card
+                        :key="i"
+                        v-for="(i, img) of url"
+                        title="Card Title"
+                        :img-src="`${url[img]}`"
+                        img-alt="Image"
+                        img-top
+                        tag="article"
+                        style="max-width: 20rem; min-width:15rem;"
+                        class="mb-2"
+                    >
+                        <b-card-text>
+                            Some quick example text to build on the card title
+                            and make up the bulk of the card's content.
+                        </b-card-text>
 
-                    <b-button href="#" variant="primary">Go somewhere</b-button>
-                </b-card>
-            </b-card-group>
-            <button @click="getContract()">만들어지나 테스트</button>
-        </div>
+                        <b-button href="#" variant="primary"
+                            >Go somewhere</b-button
+                        >
+                    </b-card>
+                </b-card-group>
+                <button @click="getContract()">만들어지나 테스트</button>
+            </div>
+        </b-card>
     </div>
 </template>
 <script>

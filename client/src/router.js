@@ -4,7 +4,7 @@ import Home from "./views/Home.vue";
 import Fabric from "./views/Fabric.vue";
 import Web3 from "./views/Web3.vue";
 import Server from "./views/Server.vue";
-import Home1 from "./views/Home1.vue";
+
 import Select from "./views/Select.vue";
 import HowToImg from "./views/HowToImg.vue";
 import Gallery from "./views/Gallery.vue";
@@ -35,11 +35,6 @@ export default new Router({
             path: "/server",
             name: "Server",
             component: Server,
-        },
-        {
-            path: "/home1",
-            name: "Home1",
-            component: Home1,
         },
         {
             path: "/select",

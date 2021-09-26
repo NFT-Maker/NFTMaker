@@ -268,7 +268,7 @@ export default {
             0xee442796570052932841b7588ab037255ce81183
         ) {
             alert("홈페이지 주인만 사용할 수 있는 페이지 입니다.");
-            this.$router.push({ path: "home1" });
+            this.$router.push({ path: "/" });
         }
         this.callBasic();
     },

@@ -418,15 +418,18 @@ export default {
         },
 
         //이미지 자체를 올리기 (성공)
+
         async ipfsUpload() {
             let imageBlob = await new Promise((resolve) =>
                 canvas.toBlob(resolve, "image/png")
             );
-
+            console.log("1");
             const { cid } = await this.node.add(imageBlob, {
                 cidVersion: 1,
                 hashAlg: "sha2-256",
             });
+            console.log("2");
+
             console.log(cid.toString());
             // 위에것과 동일
             // console.info(`cid: ${cid}`)

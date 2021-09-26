@@ -16,6 +16,7 @@ const store = new Vuex.Store({
             abi: "",
             settingNum: 0,
             show: false,
+            ipfs: false
         };
     },
     mutations: {
@@ -44,6 +45,9 @@ const store = new Vuex.Store({
         },
         setContractName(state, a) {
             state.contractName = a;
+        },
+        setIpfs(state, a) {
+            state.ipfs = a;
         },
         setContractInput(state) {
             state.contractInput = {

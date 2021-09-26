@@ -11,6 +11,7 @@ import Gallery from "./views/Gallery.vue";
 import Owner from "./views/Owner.vue";
 import ImageBasic from "./views/ImageBasic.vue";
 import MakeContract from "./views/MakeContract.vue";
+import ContractInterface from "./views/ContractInterface.vue";
 
 Vue.use(Router);
 
@@ -65,6 +66,11 @@ export default new Router({
             path: "/makeContract",
             name: "MakeContract",
             component: MakeContract,
+        },
+        {
+            path: "/contractInterface",
+            name: "ContractInterface",
+            component: ContractInterface,
         },
     ],
 });

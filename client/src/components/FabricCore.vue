@@ -2,7 +2,7 @@
 
     <div>
 
-        <b-card class="mx-2 my-2">
+        <b-card class="mx-2 my-2" header-bg-variant="warning" header-text-variant="dark">
             <!-- 헤더 -->
             <template #header>
                 <h6 class="mb-0">NFT 이미지 편집</h6>
@@ -10,26 +10,26 @@
 
             <!-- 캔버스 -->
             <div class="mx-auto" style="width: 600px; hight: 600px; border: 5px solid blue">
-                <canvas ref="can" id="canvas" width="500" height="500"></canvas>
+                <canvas ref="can" id="canvas" width="1000" height="1000"></canvas>
             </div>
 
             <!-- 부가기능 -->
             <b-card class="my-3">
-                <!-- 이미지 추가 -->
-                <div>
-                    <b-form-file accept="image/*" id="uploader" no-drop="true" placeholder="이미지를 추가해주세요..."
-                        browse-text="이미지 추가"></b-form-file>
-                </div>
 
                 <!-- 캔버스 사이즈 변경 -->
                 <div class="my-2">
+                    <b-button variant="dark" class="mx-1 my-1"
+                        @click="$refs.fileInput1.$el.querySelector('input[type=file]').click()">이미지
+                        추가</b-button>
+                    <b-form-file accept="image/*" id="uploader" no-drop ref="fileInput1" style="display:none;">
+                    </b-form-file>
                     <b-button v-b-modal.modal-1 class="mx-1 my-1" variant="dark">캔버스 사이즈 변경</b-button>
-                    <b-button id="download" class="mx-1 my-1"  variant="dark">이미지 다운로드</b-button>
-                    <b-button variant="dark" class="mx-1 my-1"  @click="[ipfsUpload(),ipfsDownload()]">IPFS 업로드</b-button>
-                    <b-button variant="dark" class="mx-1 my-1"  @click="show=true">IPFS 이미지 미리보기</b-button>
-
+                    <b-button id="download" class="mx-1 my-1" variant="dark">이미지 다운로드</b-button>
+                    <b-button variant="dark" class="mx-1 my-1" @click="ipfsUpload()">IPFS 이미지 업로드
+                    </b-button>
+                    <b-button variant="dark" class="mx-1 my-1" @click="[show=true,ipfsDownload()]">IPFS 이미지 미리보기
+                    </b-button>
                 </div>
-
 
             </b-card>
         </b-card>
@@ -43,28 +43,25 @@
                     )" :src="`http://localhost:3000/download/${m.type}/${m.path}`" alt="" />
         </div>
 
-        <!-- ---------------------- 모 달 --------------------------------- -->
+        <!-- ---------------------- 사이드 --------------------------------- -->
         <!-- 사이드 IPFS 이미지 보기 -->
-        <!-- <b-button v-b-toggle.sidebar-IPFS @click="ipfsDownload()">이미지 미리보기</b-button>
+        <b-button v-b-toggle.sidebar-IPFS >편집도구</b-button>
 
-        <b-sidebar id="sidebar-IPFS" title="IPFS 미리보기" bg-variant="light">
+        <b-sidebar id="sidebar-IPFS" title="편집도구" bg-variant="light">
             <template #footer="{ hide }">
                 <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
                     <strong class="mr-auto">NFT Maker</strong>
                     <b-button size="sm" @click="hide">닫기</b-button>
                 </div>
             </template>
+            <!-- 기능들 -->
+                <b-card class="mx-2">
 
-            <div class="px-3 py-2">
-                <b-img v-bind:src="this.cidImgLink" fluid thumbnail></b-img>
-            </div>
+                </b-card>
 
-            <b-card title="IPFS 주소" class="mx-3 my-2">
-                <b-card-text>
-                    {{this.cidImgLink}}
-                </b-card-text>
-            </b-card>
-        </b-sidebar> -->
+        </b-sidebar>
+
+        <!-- ---------------------- 모달 --------------------------------- -->
 
         <!-- 모달1 캔버스 사이즈 변경 -->
         <b-modal id="modal-1" title="캔버스 사이즈 변경">
@@ -108,6 +105,12 @@
                 </div>
             </template>
         </b-modal>
+
+        <!-- ============================ 팝오버 ====================== -->
+        <b-popover target="popover-target-1" triggers="hover" placement="top">
+            <template #title>Popover Title</template>
+            I am popover <b>component</b> content!
+        </b-popover>
 
     </div>
 
@@ -157,8 +160,8 @@
             //캔버스에 사각형 추가
             const rect1 = new fabric.Rect({
                 fill: "red",
-                width: '200',
-                height: "200",
+                width: 200,
+                height: 200,
             });
 
             //종합적으로 추가
@@ -289,6 +292,14 @@
 
                 //cidImgLink 값에 link 저장 => img.src로 v-bind
                 this.cidImgLink = link
+                console.log("완료:", this.cidImg)
+                if (this.cidImg = " ") {
+                    console.log("없다")
+                } else {
+                    {
+                        console.log("같지않다")
+                    }
+                }
             },
 
 
@@ -298,8 +309,6 @@
 <style scoped>
     #canvas {
         position: absolute;
-        width: 100%;
-        height: 100%;
         border: 3px solid black;
     }
 </style>

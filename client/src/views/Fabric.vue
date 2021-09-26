@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Nav />
         <FabricCore />
         <!-- <FabricCore1 /> -->
     </div>
@@ -7,6 +8,7 @@
 //
 <script>
 import FabricCore from "../components/FabricCore";
+import Nav from "../components/Nav123";
 // import FabricCore1 from "../components/FabricCore copy.vue";
 
 export default {
@@ -14,6 +16,7 @@ export default {
     components: {
         FabricCore,
         // FabricCore1,
+        Nav
     },
     data() {
         return {

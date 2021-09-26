@@ -68,10 +68,10 @@ export default {
     unmounted() {},
     methods: {
         alreadyContract() {
-            this.$store.commit("contractSave", this.text);
-            console.log(this.$store.state.contract);
+            this.$store.commit("contractAccountSave", this.text);
+            console.log(this.$store.state.contractAccount);
             this.$api("/api/list", "post", {
-                param: [this.$store.state.contract],
+                param: [this.$store.state.contractAccount],
             }).then((result) => {
                 console.log(result);
                 if (result.length == 0) {

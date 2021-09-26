@@ -9,11 +9,12 @@ const store = new Vuex.Store({
         return {
             contractName: "",
             contract: {},
+            contractAccount: "",
             contractInput: "",
             contractBuilt: {},
             web3: "",
             account: "",
-            abi: "",
+            abi: [],
             settingNum: 0,
             show: false,
             ipfs: false
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
 
         contractSave(state, a) {
             state.contract = a;
+        },
+        contractAccountSave(state, a) {
+            state.contractAccount = a;
         },
         setContractName(state, a) {
             state.contractName = a;

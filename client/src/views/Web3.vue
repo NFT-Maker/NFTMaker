@@ -126,7 +126,7 @@ export default {
                     type: "function",
                 },
             ];
-            // console.log(this.abi);
+            console.log("abi", this.abi);
             // console.log(window.web3);
             // console.log(this.web3);
             // console.log(this.contract);

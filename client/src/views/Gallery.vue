@@ -145,7 +145,7 @@ export default {
                     // console.log(this.contract);
                     this.CA = result[i].CA;
                     this.NFTIdCall(this.contract[i], result[i].CA);
-                    console.log("ca", this.CA);
+                    // console.log("ca", this.CA);
                 }
             });
         },
@@ -155,33 +155,33 @@ export default {
                 .NFTId()
                 .call()
                 .then((result) => {
-                    console.log("nft 개수", result);
+                    // console.log("nft 개수", result);
                     if (result == 0) {
                         return;
                     }
                     this.nftCount = result;
                     // NFT id 로 ifps url 주소 알아냄
                     for (var j = 0; j < result; j++) {
-                        console.log("포문도니", j);
+                        // console.log("포문도니", j);
                         // console.log(this.contract);
                         this.wait(aa, j, ca);
                     }
-                    console.log("url 배열", this.url);
+                    // console.log("url 배열", this.url);
                 });
         },
         wait(aa, jj, ca) {
-            console.log("그림");
+            // console.log("그림");
             aa.methods
                 .NFTToOwner(jj)
                 .call()
                 .then((result) => {
-                    console.log("nft 아이디", jj);
-                    console.log("nft 주인", result);
-                    console.log("내어카운트", this.$store.state.account);
+                    // console.log("nft 아이디", jj);
+                    // console.log("nft 주인", result);
+                    // console.log("내어카운트", this.$store.state.account);
                     if (result == this.$store.state.account) {
-                        console.log("안녕?", jj);
+                        // console.log("안녕?", jj);
                         this.myNFT.push(jj);
-                        console.log(this.myNFT);
+                        // console.log(this.myNFT);
                         aa.methods
                             .NFTUrl(jj)
                             .call()
@@ -193,7 +193,7 @@ export default {
                                     NFTId: jj,
                                     url: result,
                                 });
-                                console.log(this.data);
+                                // console.log(this.data);
                             });
                     }
                 });

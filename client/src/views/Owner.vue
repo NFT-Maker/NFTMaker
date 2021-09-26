@@ -15,7 +15,7 @@
                     <div class="container">
                         <div class="mb-3 row border border-warning">
                             <label
-                                class="col-md-3 col-form-label border border-warning"
+                                class="col-md-3 col-form-label bg-warning text-center"
                                 >저장된 서식 총 갯수</label
                             >
                             <div class="col-md-9">
@@ -24,8 +24,9 @@
                         </div>
                         <div class="mb-3 row border border-warning">
                             <label
-                                class="col-md-3 col-form-label border border-warning"
-                                >상장 서식</label
+                                class="col-md-3 col-form-label bg-warning text-center"
+                                ><br /><br /><br /><br /><br /><br />상장
+                                서식</label
                             >
                             <div class="col-md-9">
                                 <div class="row">
@@ -72,8 +73,9 @@
                         </div>
                         <div class="mb-3 row border border-warning">
                             <label
-                                class="col-md-3 col-form-label border border-warning"
-                                >봉사활동 인증서</label
+                                class="col-md-3 col-form-label bg-warning text-center"
+                                ><br /><br /><br /><br /><br /><br />봉사활동
+                                인증서</label
                             >
                             <div class="col-md-9">
                                 <div class="row">
@@ -119,8 +121,9 @@
                         </div>
                         <div class="mb-3 row border border-warning">
                             <label
-                                class="col-md-3 col-form-label border border-warning"
-                                >정부 교육 이수증</label
+                                class="col-md-3 col-form-label bg-warning text-center"
+                                ><br /><br /><br /><br /><br /><br />정부 교육
+                                이수증</label
                             >
                             <div class="col-md-9">
                                 <div class="row">
@@ -168,18 +171,25 @@
                             </div>
                         </div>
                         <div class="mb-3 row border border-warning">
-                            <label
-                                class="col-md-3 col-form-label border border-warning"
-                            >
-                                <div>
-                                    <b-button v-b-modal.modal-scrollable
+                            <label class="col-md-3 col-form-label bg-warning">
+                                <div class="text-center">
+                                    <br /><br />
+                                    <b-button
+                                        v-b-modal.modal-scrollable
+                                        variant="dark"
                                         >꾸미기 스티커 보기</b-button
                                     >
 
                                     <b-modal
                                         id="modal-scrollable"
+                                        header-bg-variant="warning"
+                                        header-text-variant="dark"
+                                        body-bg-variant="light"
+                                        body-text-variant="dark"
+                                        footer-bg-variant="dark"
+                                        footer-text-variant="light"
                                         scrollable
-                                        title="Scrollable Content"
+                                        title="스티커 이미지"
                                     >
                                         <div class="row">
                                             <div

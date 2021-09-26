@@ -10,7 +10,7 @@
             <template #header>
                 <h6 class="mb-0">NFT Maker Main</h6>
             </template>
-            <b-container fluid class="p-4 bg-light" style="height: 85vh">
+            <b-container fluid class="p-4 bg-light" style="height: 77vh">
                 <b-row class="text-center">
                     <b-col>
                         <a href="#/howToImg">

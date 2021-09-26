@@ -10,7 +10,7 @@
             <template #header>
                 <h6 class="mb-0">NFT 발행 방법 선택</h6>
             </template>
-            <div class="bg-light container-fluid" style="height: 85vh">
+            <div class="bg-light container-fluid" style="height: 75vh">
                 <!-- 자신만의 컨트랙트를 만드는 화면 -->
                 <br />
                 <br />

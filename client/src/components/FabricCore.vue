@@ -27,6 +27,62 @@
             <b-card class="my-3">
                 <!-- 캔버스 사이즈 변경 -->
                 <div class="my-2">
+                    <!-----------------   서버 연동 이미지 불러오기  ----------------------->
+
+                    <div>
+                        <b-form-select
+                            style="max-width: 50rem;"
+                            value="999"
+                            v-model="selectId"
+                        >
+                            <option value="999"
+                                >NFT Maker 기본 서식 불러오기</option
+                            >
+                            <option
+                                :key="i"
+                                v-for="(m, i) in basicList.filter(
+                                    (c) =>
+                                        (c.type == 0) |
+                                        (c.type == 1) |
+                                        (c.type == 2)
+                                )"
+                                :value="`${m.basic_id}`"
+                                >{{ m.path }}</option
+                            ></b-form-select
+                        >
+                        <b-button
+                            variant="dark"
+                            class="mx-1 my-1"
+                            @click="tejin()"
+                            >서식 추가
+                        </b-button>
+                    </div>
+                    <div>
+                        <b-form-select
+                            style="max-width: 50rem;"
+                            value="999"
+                            v-model="selectId"
+                        >
+                            <option value="999"
+                                >NFT Maker 기본 스티커 불러오기</option
+                            >
+                            <option
+                                :key="i"
+                                v-for="(m, i) in basicList.filter(
+                                    (c) => c.type == 100
+                                )"
+                                :value="`${m.basic_id}`"
+                                >{{ m.path }}</option
+                            ></b-form-select
+                        >
+                        <b-button
+                            variant="dark"
+                            class="mx-1 my-1"
+                            @click="tejin()"
+                            >꾸미기 추가
+                        </b-button>
+                    </div>
+                    <!-- 서버 연동 끝 -->
                     <b-button
                         variant="dark"
                         class="mx-1 my-1"
@@ -63,9 +119,7 @@
                         @click="[(show = true), ipfsDownload()]"
                         >IPFS 이미지 미리보기
                     </b-button>
-                    <b-button variant="dark" class="mx-1 my-1" @click="tejin()"
-                        >되나?
-                    </b-button>
+
                     <b-button
                         variant="warning"
                         class="mx-1 my-1"
@@ -98,25 +152,6 @@
                 </div>
             </b-card>
         </b-card>
-        <!-----------------   서버 연동 이미지 불러오기  ----------------------->
-        <div>
-            <select v-model="selectId">
-                <option
-                    :key="i"
-                    v-for="(m, i) in basicList"
-                    :value="`${m.basic_id}`"
-                    >{{ m.path }}</option
-                >
-            </select>
-            <img
-                :key="i"
-                v-for="(m, i) in basicList.filter(
-                    (c) => c.basic_id == selectId
-                )"
-                :src="`http://localhost:3000/download/${m.type}/${m.path}`"
-                alt=""
-            />
-        </div>
 
         <!-- ---------------------- 사이드 --------------------------------- -->
         <!-- 사이드 IPFS 이미지 보기 -->

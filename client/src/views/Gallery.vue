@@ -15,7 +15,6 @@
                     <b-card
                         :key="i"
                         v-for="(i, m) of data"
-                        title="NFT 정보"
                         :img-src="`${data[m].url}`"
                         img-alt="Image"
                         img-top
@@ -23,11 +22,31 @@
                         style="max-width: 20rem; min-width:15rem;"
                         class="mb-2"
                     >
-                        <b-card-text>
-                            발행 컨트랙트 : {{ data[m].CA }}<br />
-                            발행 NFT ID : {{ data[m].NFTId }}<br />
-                            이미지 url : {{ data[m].url }}
-                        </b-card-text>
+                        <b-button
+                            v-b-modal:[`example-modal-${m}`]
+                            class="mx-1 my-1"
+                            variant="dark"
+                            >NFT 정보 보기</b-button
+                        >
+
+                        <b-modal
+                            :title="'이미지 URL :' + ' ' + `${data[m].url}`"
+                            header-bg-variant="warning"
+                            header-text-variant="dark"
+                            body-bg-variant="light"
+                            body-text-variant="dark"
+                            footer-bg-variant="dark"
+                            footer-text-variant="light"
+                            :id="`example-modal-${m}`"
+                            size="xl"
+                        >
+                            <b-card class="mx-2 my-2">
+                                <h5>발행 컨트랙트 : {{ data[m].CA }}</h5>
+                                <h5>발행 NFT ID : {{ data[m].NFTId }}</h5>
+                            </b-card>
+
+                            <img :src="`${data[m].url}`" />
+                        </b-modal>
                     </b-card>
                 </b-card-group>
             </div>
@@ -59,35 +78,20 @@ export default {
             // v-for 이용해서 그림 불러오기
             data: [],
             CA: "",
+            DataNFT: 0,
+            aa: "",
         };
     },
     setup() {},
     created() {},
     mounted() {
-        // 접속한 EOA 로 CA랑 abi 알아냄
-        // this.$api("/api/list1", "post", {
-        //     param: [this.$store.state.account],
-        // }).then((result) => {
-        //     // 알아낼 CA랑 abi로 컨트랙트 연결함
-        //     // console.log("처음", result);
-        //     // 문제없음
-        //     for (var i = 0; i < result.length; i++) {
-        //         this.contract = new this.$store.state.web3.eth.Contract(
-        //             eval(result[i].CA_abi),
-        //             result[i].CA
-        //         );
-
-        //         // 연결한 컨트랙트에서 EOA로 NFT 검색함
-        //         // console.log(this.contract);
-        //         this.CA = result[i].CA;
-        //         this.NFTIdCall();
-        //         console.log("ca", this.CA);
-        //     }
-        // });
         this.grid();
     },
     unmounted() {},
     methods: {
+        // NFTDataSelect(m) {
+        //     this.DataNFT = m;
+        // },
         grid() {
             this.$api("/api/list1", "post", {
                 param: [this.$store.state.account],

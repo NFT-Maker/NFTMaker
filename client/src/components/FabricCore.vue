@@ -209,11 +209,6 @@
             <template #title>Popover Title</template>
             I am popover <b>component</b> content!
         </b-popover>
-        <img
-            id="hello"
-            src="http://localhost:3000/download/0/A4 금박상장_세로1.jpg"
-            alt=""
-        />
     </div>
 </template>
 <script src="https://wzrd.in/standalone/buffer"></script>
@@ -244,7 +239,8 @@ export default {
             basicList: [],
             basicList1: [],
             selectId: 999,
-            canvas: null,
+            // canvas: null,
+            // url: "",
         };
     },
     created: async function() {
@@ -270,12 +266,12 @@ export default {
         canvas.add(rect1);
 
         // 이미지 넣기
-        fabric.Image.fromURL(
-            "http://localhost:3000/download/0/A4 금박상장_세로1.jpg",
-            function(oImg) {
-                canvas.add(oImg);
-            }
-        );
+        // fabric.Image.fromURL(
+        //     "http://localhost:3000/download/0/A4 금박상장_세로1.jpg",
+        //     function(oImg) {
+        //         canvas.add(oImg);
+        //     }
+        // );
 
         // 외부 이미지 업로드
         document.getElementById("uploader").onchange = function(e) {
@@ -443,10 +439,9 @@ export default {
             this.basicList1 = this.basicList.filter(
                 (c) => c.basic_id == this.selectId
             );
-            console.log(this.basicList1);
-            console.log(fabric.Image);
+
             fabric.Image.fromURL(
-                `"http://localhost:3000/download/${this.basicList1.type}/${this.basicList1.path}"`,
+                `http://localhost:3000/download/${this.basicList1[0].type}/${this.basicList1[0].path}`,
                 (oImg) => {
                     this.canvas.add(oImg);
                 }

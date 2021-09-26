@@ -19,30 +19,34 @@
                         <h5>NFT 컨트렉트 선택</h5>
                     </template>
                     <b-tabs card>
-                        <b-tab no-body title="Picture 1">
-                            <b-card-img bottom src="https://picsum.photos/600/200/?image=21" alt="Image 21">
-                            </b-card-img>
+                        <b-tab no-body title="Only Owner">
+                           <b-card-text>
+                               컨트렉트에 대한 설명
+                            </b-card-text>
                             <b-card-footer>
                                 <b-button variant="warning" class="mx-1 my-1" @click="contract_Owner()">주인만 발행</b-button>
                             </b-card-footer>
                         </b-tab>
 
-                        <b-tab no-body title="Picture 2">
-                            <b-card-img bottom src="https://picsum.photos/600/200/?image=25" alt="Image 25">
-                            </b-card-img>
+                        <b-tab no-body title="상장">
+                           <b-card-text>
+                               컨트렉트에 대한 설명
+                            </b-card-text>
+        
                             <b-card-footer>
                                 <b-button variant="warning" class="mx-1 my-1" @click="contract_schoolAwads()">상장</b-button>
                             </b-card-footer>
                         </b-tab>
 
-                        <b-tab no-body title="Picture 3">
-                            <b-card-img bottom src="https://picsum.photos/600/200/?image=26" alt="Image 26">
-                            </b-card-img>
+                        <b-tab no-body title="봉사증">
+                            <b-card-text>
+                               컨트렉트에 대한 설명
+                            </b-card-text>
                             <b-card-footer>Picture 3 footer</b-card-footer>
                         </b-tab>
 
                         <b-tab title="Text">
-                            <b-card-title>This tab does not have the <code>no-body</code> prop set</b-card-title>
+                            <b-card-title>This tab does not have the prop set</b-card-title>
                             <b-card-text>
                                asdasd
                             </b-card-text>

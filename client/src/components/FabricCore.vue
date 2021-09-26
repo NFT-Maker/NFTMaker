@@ -145,7 +145,7 @@
                         :title="
                             `${this.$store.state.contract}` + '에서 NFT 발행'
                         "
-                        @click="goGallery()"
+                        @click="goGallery1()"
                     >
                         내 컨트랙트로 NFT 발행
                     </b-button>
@@ -490,6 +490,15 @@ export default {
             );
             // this.$router.push({ path: "gallery" });
         },
+        async goGallery1() {
+            console.log("고갤1");
+            await this.ipfsUpload();
+            this.mint1(
+                this.$store.state.account,
+                localStorage.getItem("ipfsCidImgLink")
+            );
+            // this.$router.push({ path: "gallery" });
+        },
         goMakeContract() {
             this.$router.push({ path: "makeContract" });
         },
@@ -517,6 +526,26 @@ export default {
             this.contract = new this.$store.state.web3.eth.Contract(
                 this.abi1,
                 "0xE6b4A5770a606E1b0E334c8e5136057f47048B4e"
+            );
+
+            console.log("왔니?", this.contract);
+            console.log("어카운트", account);
+            console.log("url", url);
+            await this.contract.methods
+                .NFT(account, url)
+                .send({ from: account });
+        },
+        async mint1(account, url) {
+            // console.log("3");
+            // console.log(this.$store.state.abi);
+            // this.abi = JSON.stringify(this.$store.state.abi);
+            this.abi1 = eval(this.$store.state.abi);
+            // console.log(this.abi);
+            console.table(this.abi1);
+
+            this.contract = new this.$store.state.web3.eth.Contract(
+                this.abi1,
+                this.$store.state.contractAccount
             );
 
             console.log("왔니?", this.contract);

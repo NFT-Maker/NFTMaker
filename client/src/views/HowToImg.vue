@@ -78,6 +78,8 @@ export default {
                     new $Swal(
                         "'NFT Maker'에서 발행한 컨트랙트 주소가 아닙니다"
                     );
+                } else if (result[0].EOA != this.$store.state.account) {
+                    new $Swal("당신은 이 컨트랙트의 주인이 아닙니다");
                 } else {
                     this.$store.commit("abiSave", result[0].CA_abi);
                     console.log(this.$store.state.abi);

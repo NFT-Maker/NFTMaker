@@ -46,7 +46,7 @@ export default {
     components: { Nav },
     data() {
         return {
-            contract: {},
+            contract: [],
             contract1: "0x83a73F15a57D352f2D9C4De97ba357723777f8F2",
             abi2: [],
             abi1: [],
@@ -62,58 +62,96 @@ export default {
         };
     },
     setup() {},
-    created() {
+    created() {},
+    mounted() {
         // 접속한 EOA 로 CA랑 abi 알아냄
-        this.$api("/api/list1", "post", {
-            param: [this.$store.state.account],
-        }).then((result) => {
-            // 알아낼 CA랑 abi로 컨트랙트 연결함
-            for (var i = 0; i < result.length; i++) {
-                this.contract = new this.$store.state.web3.eth.Contract(
-                    eval(result[i].CA_abi),
-                    result[i].CA,
-                    (this.CA = result[i].CA)
-                );
-                // 연결한 컨트랙트에서 EOA로 NFT 검색함
-                console.log(this.contract);
+        // this.$api("/api/list1", "post", {
+        //     param: [this.$store.state.account],
+        // }).then((result) => {
+        //     // 알아낼 CA랑 abi로 컨트랙트 연결함
+        //     // console.log("처음", result);
+        //     // 문제없음
+        //     for (var i = 0; i < result.length; i++) {
+        //         this.contract = new this.$store.state.web3.eth.Contract(
+        //             eval(result[i].CA_abi),
+        //             result[i].CA
+        //         );
 
-                this.contract.methods
-                    .NFTId()
-                    .call()
-                    .then((result) => {
-                        console.log("nft 개수", result);
-                        this.nftCount = result;
-                        // NFT id 로 ifps url 주소 알아냄
-                        for (var j = 0; j < result; j++) {
-                            console.log("포문도니", j);
-                            console.log(this.contract);
-                            this.wait(j);
-                        }
-                        console.log("url 배열", this.url);
-                    });
-            }
-        });
+        //         // 연결한 컨트랙트에서 EOA로 NFT 검색함
+        //         // console.log(this.contract);
+        //         this.CA = result[i].CA;
+        //         this.NFTIdCall();
+        //         console.log("ca", this.CA);
+        //     }
+        // });
+        this.grid();
     },
-    mounted() {},
     unmounted() {},
     methods: {
-        wait(jj) {
-            this.contract.methods
+        grid() {
+            this.$api("/api/list1", "post", {
+                param: [this.$store.state.account],
+            }).then((result) => {
+                // 알아낼 CA랑 abi로 컨트랙트 연결함
+                // console.log("처음", result);
+                // 문제없음
+                for (var i = 0; i < result.length; i++) {
+                    this.contract.push(
+                        new this.$store.state.web3.eth.Contract(
+                            eval(result[i].CA_abi),
+                            result[i].CA
+                        )
+                    );
+
+                    // 연결한 컨트랙트에서 EOA로 NFT 검색함
+                    // console.log(this.contract);
+                    this.CA = result[i].CA;
+                    this.NFTIdCall(this.contract[i], result[i].CA);
+                    console.log("ca", this.CA);
+                }
+            });
+        },
+
+        async NFTIdCall(aa, ca) {
+            await aa.methods
+                .NFTId()
+                .call()
+                .then((result) => {
+                    console.log("nft 개수", result);
+                    if (result == 0) {
+                        return;
+                    }
+                    this.nftCount = result;
+                    // NFT id 로 ifps url 주소 알아냄
+                    for (var j = 0; j < result; j++) {
+                        console.log("포문도니", j);
+                        // console.log(this.contract);
+                        this.wait(aa, j, ca);
+                    }
+                    console.log("url 배열", this.url);
+                });
+        },
+        wait(aa, jj, ca) {
+            console.log("그림");
+            aa.methods
                 .NFTToOwner(jj)
                 .call()
                 .then((result) => {
+                    console.log("nft 아이디", jj);
+                    console.log("nft 주인", result);
+                    console.log("내어카운트", this.$store.state.account);
                     if (result == this.$store.state.account) {
                         console.log("안녕?", jj);
                         this.myNFT.push(jj);
                         console.log(this.myNFT);
-                        this.contract.methods
+                        aa.methods
                             .NFTUrl(jj)
                             .call()
                             .then((result) => {
                                 console.log("ipfsurl", result);
                                 this.url.push(result);
                                 this.data.push({
-                                    CA: this.CA,
+                                    CA: ca,
                                     NFTId: jj,
                                     url: result,
                                 });

@@ -1,10 +1,7 @@
 pragma solidity 0.8.7;
 
-import "./safemath.sol";
 
 contract NFTMaker {
-    
-    using SafeMath for uint256;
     
     // 컨트랙트 주인
     address public owner;
@@ -31,7 +28,7 @@ contract NFTMaker {
         
         NFTToOwner[NFTId] = _who;
         NFTUrl[NFTId] = _url;
-        NFTId = NFTId.add(1);
-        NFTCount[_who] = NFTCount[_who].add(1);
+        NFTId = NFTId + 1;
+        NFTCount[_who] = NFTCount[_who] + 1;
     }
 }

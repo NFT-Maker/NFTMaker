@@ -1,52 +1,78 @@
 <template>
     <div>
         <!-- 지갑연결 -->
+        <b-card-group class="mx-2 my-2" deck>
 
-        <b-card class="mx-2 my-2" header-bg-variant="warning" header-text-variant="dark">
-            <template #header>
-                <h6 class="mb-0">NFT 컨트렉트 생성</h6>
-            </template>
+            <b-card class="mx-2 my-2" header-bg-variant="warning" header-text-variant="dark">
+                <template #header>
+                    <h6 class="mb-0">NFT 컨트렉트</h6>
+                </template>
+                <b-textarea class="" rows="30" v-model="contractComplete"></b-textarea>
 
 
-            <!-- 테스트 컨트렉트 추후에 삭제 -->
-            <b-textarea name="" id="" cols="100" rows="30" v-model="test01"></b-textarea>
+            </b-card>
 
-            <!-- 컨트렉트 옵션 설정 -->
             <div>
+                <b-card body-class="text-center" class="mx-2 my-2" header-bg-variant="warning"
+                    header-text-variant="dark" no-body>
+                    <template #header>
+                        <h5>NFT 컨트렉트 선택</h5>
+                    </template>
+                    <b-tabs card>
+                        <b-tab no-body title="Picture 1">
+                            <b-card-img bottom src="https://picsum.photos/600/200/?image=21" alt="Image 21">
+                            </b-card-img>
+                            <b-card-footer>
+                                <b-button variant="warning" class="mx-1 my-1" @click="contract_Owner()">주인만 발행</b-button>
+                            </b-card-footer>
+                        </b-tab>
 
+                        <b-tab no-body title="Picture 2">
+                            <b-card-img bottom src="https://picsum.photos/600/200/?image=25" alt="Image 25">
+                            </b-card-img>
+                            <b-card-footer>
+                                <b-button variant="warning" class="mx-1 my-1" @click="contract_schoolAwads()">상장</b-button>
+                            </b-card-footer>
+                        </b-tab>
+
+                        <b-tab no-body title="Picture 3">
+                            <b-card-img bottom src="https://picsum.photos/600/200/?image=26" alt="Image 26">
+                            </b-card-img>
+                            <b-card-footer>Picture 3 footer</b-card-footer>
+                        </b-tab>
+
+                        <b-tab title="Text">
+                            <b-card-title>This tab does not have the <code>no-body</code> prop set</b-card-title>
+                            <b-card-text>
+                               asdasd
+                            </b-card-text>
+                        </b-tab>
+                    </b-tabs>
+
+                </b-card>
+
+                <b-card class="mx-2 my-2" header-bg-variant="warning" header-text-variant="dark">
+
+                    <template #header>
+                        <h5 class="mb-0">NFT 컨트렉트 생성</h5>
+                    </template>
+                    <b-button variant="dark" class="mx-1 my-1" @click="init()">지갑연결</b-button>
+                    <!-- <b-button variant="dark" class="mx-1 my-1" @click="contractSaveStore()">컨트렉트 스토어에 저장</b-button> -->
+                    <b-button variant="dark" class="mx-1 my-1" @click="contractCompile()">컨트렉트 컴파일</b-button>
+                    <b-button variant="dark" class="mx-1 my-1" @click="contractDeploy()">컨트렉트 발행</b-button>
+                    <b-button variant="dark" class="mx-1 my-1" @click="[show=true]">NFT 컨트렉트 보기</b-button>
+                </b-card>
             </div>
-
-            <!-- 컨트렉트 배포하기 -->
-            <div>
-                <!-- 나중에 합치기 -->
-                <b-button variant="dark" class="mx-1 my-1" @click="init()">지갑연결</b-button>
-                <b-button variant="dark" class="mx-1 my-1" @click="contractSaveStore()">컨트렉트 스토어에 저장</b-button>
-                <b-button variant="dark" class="mx-1 my-1" @click="contractCompile()">컨트렉트 컴파일</b-button>
-                <b-button variant="dark" class="mx-1 my-1" @click="contractDeploy()">컨트렉트 생성</b-button>
-                <b-button variant="dark" class="mx-1 my-1" @click="[show=true, saveContract()]">NFT 컨트렉트 보기</b-button>
-            </div>
-
-        </b-card>
-        <div>
             <!-- contractLibrary<input type="text" v-model="contractLibrary"><br> -->
             <!-- contractName<input type="text" v-model="contractName"><br> -->
             <!-- contractUsing<input type="text" v-model="contractUsing"><br> -->
             <!-- contractContentVariable<input type="text" v-model="contractContentVariable"><br> -->
             <!-- contractMapping<input type="text" v-model="contractMapping"><br> -->
             <!-- contractConstructor<input type="text" v-model="contractConstructor"><br> -->
-            contractContentFunction<input type="text" v-model="contractContentFunction"><br>
-        </div>
-        <div>
-            <b-button @click="contract_Owner()">주인만 발행</b-button>
-            <b-button @click="contract_schoolAwads()">상장</b-button>
+            <!-- contractContentFunction<input type="text" v-model="contractContentFunction"><br> -->
 
-            <b-button @click="contractCompleteGet">컨트렉트 완성</b-button>
-            <b-button @click="contractCompleteGetConsole">컨트렉트 완성 콘솔로그</b-button>
-        </div>
 
-        <h1>생성된 컨트렉트</h1>
-        <textarea name="" id="" cols="100" rows="30" v-model="contractComplete"></textarea>
-
+        </b-card-group>
 
 
 
@@ -57,7 +83,6 @@
 
             <b-card title="NFT 컨트렉트 코드" class="mt-2">
                 <!-- 컨트렉트를 보여줄 textarea -->
-                <b-textarea class="" rows="30" v-model="contractCreating"></b-textarea>
             </b-card>
             <template #modal-footer>
                 <div class="w-100">
@@ -81,9 +106,6 @@
         components: {},
         data() {
             return {
-                // test01은 배포되는지 확인하는 용도 나중에 삭제
-                test01: "pragma solidity ^0.8.7;\r\n\r\ncontract nftMaker {\r\n    string name;\r\n    uint num;\r\n    \r\n    function changeName (string memory _name) public {\r\n        name = _name;\r\n    }\r\n    \r\n    function viewName () public view returns (string memory) {\r\n        return name;\r\n    }\r\n    \r\n    function changeNum (uint _num) public {\r\n        num = _num;\r\n    }\r\n    \r\n    function viewNum () public view returns (uint) {\r\n        return num;\r\n    }\r\n    \r\n}",
-
                 // 내 지갑 주소
                 account: "",
                 // 생성중인 컨트렉트
@@ -166,7 +188,7 @@
             // 컨트렉트 컴파일
             async contractCompile() {
 
-                var contractCode = this.$store.state.contract;
+                var contractCode = this.contractComplete;
 
                 await this.$api("/compile", "post", {
                     param: [contractCode],
@@ -183,6 +205,7 @@
 
             // 컨트렉트 생성
             contractDeploy() {
+
                 new this.web3.eth.Contract(this.abi)
                     .deploy({
                         data: this.bytecode
@@ -197,6 +220,8 @@
                         // 컨트렉트 정보 가져오기 (확인해보기)
                         // this.contract = result;
                     });
+
+
             },
             // -----------------------------------------------------
             contractCompleteGet() {
@@ -213,10 +238,6 @@
                     "\r\n\r\n}"
             },
 
-            contractCompleteGetConsole() {
-                return console.log(this.contractComplete)
-            },
-
             contract_Owner() {
                 this.contractContentVariable = "address public owner;\r\n    uint public NFTId = 0;",
                     this.contractMapping =
@@ -225,6 +246,7 @@
                     this.contractContentVariable = "address public owner;\r\n    uint public NFTId = 0;"
                 this.contractContentFunction =
                     "function NFT(address _who, string memory _url) public{\r\n        require(owner == msg.sender);\r\n\r\n        NFTToOwner[NFTId] = _who;\r\n        NFTUrl[NFTId] = _url;\r\n        NFTId = NFTId + 1;\r\n        NFTCount[_who] = NFTCount[_who] + 1;\r\n    }"
+                this.contractCompleteGet()
             },
 
             contract_schoolAwads() {
@@ -237,10 +259,32 @@
                     "mapping(uint => address) public schoolAwadsIdToOwner;\r\n    mapping(uint => address) public changerApprovals;",
                     this.contractConstructor =
                     "constructor (uint _openTime, address _awadsMaker1, address _awadsMaker2, string memory _schoolAwadsName) {\r\n        owner = msg.sender;\r\n        checkTime = 330 days;\r\n        openTime = _openTime;\r\n        awadsMaker1 = _awadsMaker1;\r\n        awadsMaker2 = _awadsMaker2;\r\n        schoolAwadsName = _schoolAwadsName;\r\n    }",
-                    this.contractContentFunction = "function start () public  {\r\n" + space8 + "require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);\r\n" + space8 + "require(openTime <= (block.timestamp - rightNow));\r\n" + space8 + "require(checkTime < block.timestamp - rightNow);\r\n" + space8 + "rightNow = block.timestamp;\r\n" + space4 + "}\r\n"
-                    this.contractContentFunction += "function createAwads (address _student) public {\r\n" + space8 + "require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);\r\n" + space8 + "if(schoolAwadsId == 0){\r\n" + space8 + space4 + "schoolAwadsId = schoolAwadsId + 1;\r\n"+ space8 + space4 + "schoolAwadsIdToOwner[schoolAwadsId] = _student;\r\n"+ space8 + space4 + "rightNow = block.timestamp;\r\n" + space8 + "} else if (openTime > (block.timestamp - rightNow)) {\r\n" + space8 + space4 + "schoolAwadsId = schoolAwadsId + 1;\r\n" + space8 + space4 + "schoolAwadsIdToOwner[schoolAwadsId] = _student;\r\n" + space8 + "}\r\n" + space4 + "}\r\n\r\n"
-                    this.contractContentFunction += "function change (address _to) public  {\r\n" + space8 + "if(owner == msg.sender){\r\n" + space8 + "changerApprovals[0] = _to;\r\n" + space8 + "} else if( awadsMaker1 == msg.sender ){\r\n" + space8 + "changerApprovals[1] = _to;\r\n" + space8 + "} else if( awadsMaker2 == msg.sender) {\r\n" + space8 + "changerApprovals[2] = _to;\r\n" + space8 + "}\r\n" + space4 + "}\r\n\r\n"
-                    this.contractContentFunction += "function changeMaker () public {\r\n" + space8 + "if(changerApprovals[0] == msg.sender){\r\n" + space8 + space4 + " owner = msg.sender;\r\n" + space8 + "} else if(changerApprovals[1] == msg.sender){\r\n" + space8 + space4 + "awadsMaker1 = msg.sender;\r\n" + space8 + "} else if(changerApprovals[2] == msg.sender){\r\n" + space8 + space4 + "awadsMaker2 = msg.sender;\r\n" + space8 + "}\r\n" + space4 + "}\r\n\r\n"
+                    this.contractContentFunction = "function start () public  {\r\n" + space8 +
+                    "require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);\r\n" +
+                    space8 + "require(openTime <= (block.timestamp - rightNow));\r\n" + space8 +
+                    "require(checkTime < block.timestamp - rightNow);\r\n" + space8 +
+                    "rightNow = block.timestamp;\r\n" + space4 + "}\r\n"
+                this.contractContentFunction += "function createAwads (address _student) public {\r\n" + space8 +
+                    "require(owner == msg.sender || awadsMaker1 == msg.sender || awadsMaker2 == msg.sender);\r\n" +
+                    space8 + "if(schoolAwadsId == 0){\r\n" + space8 + space4 +
+                    "schoolAwadsId = schoolAwadsId + 1;\r\n" + space8 + space4 +
+                    "schoolAwadsIdToOwner[schoolAwadsId] = _student;\r\n" + space8 + space4 +
+                    "rightNow = block.timestamp;\r\n" + space8 +
+                    "} else if (openTime > (block.timestamp - rightNow)) {\r\n" + space8 + space4 +
+                    "schoolAwadsId = schoolAwadsId + 1;\r\n" + space8 + space4 +
+                    "schoolAwadsIdToOwner[schoolAwadsId] = _student;\r\n" + space8 + "}\r\n" + space4 + "}\r\n\r\n"
+                this.contractContentFunction += "function change (address _to) public  {\r\n" + space8 +
+                    "if(owner == msg.sender){\r\n" + space8 + "changerApprovals[0] = _to;\r\n" + space8 +
+                    "} else if( awadsMaker1 == msg.sender ){\r\n" + space8 + "changerApprovals[1] = _to;\r\n" + space8 +
+                    "} else if( awadsMaker2 == msg.sender) {\r\n" + space8 + "changerApprovals[2] = _to;\r\n" + space8 +
+                    "}\r\n" + space4 + "}\r\n\r\n"
+                this.contractContentFunction += "function changeMaker () public {\r\n" + space8 +
+                    "if(changerApprovals[0] == msg.sender){\r\n" + space8 + space4 + " owner = msg.sender;\r\n" +
+                    space8 + "} else if(changerApprovals[1] == msg.sender){\r\n" + space8 + space4 +
+                    "awadsMaker1 = msg.sender;\r\n" + space8 + "} else if(changerApprovals[2] == msg.sender){\r\n" +
+                    space8 + space4 + "awadsMaker2 = msg.sender;\r\n" + space8 + "}\r\n" + space4 + "}\r\n\r\n"
+
+                this.contractCompleteGet()
             }
 
 

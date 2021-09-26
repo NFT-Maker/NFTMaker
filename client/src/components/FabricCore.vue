@@ -1,7 +1,6 @@
 <template>
 
     <div>
-
         <b-card class="mx-2 my-2" header-bg-variant="warning" header-text-variant="dark">
             <!-- 헤더 -->
             <template #header>
@@ -281,6 +280,9 @@
 
                 // cidImg에 cid 저장 서버에 저장할때는 cid.toString()을 저장하면 됨
                 this.cidImg = cid.toString()
+                // 로컬스토리지에 저장
+                localStorage.setItem('ipfsCidImgLink', "https:/" + this.cidImg + ".ipfs.dweb.link");
+                console.log(localStorage.getItem('ipfsCidImgLink'))
 
             },
 
@@ -301,6 +303,10 @@
                     }
                 }
             },
+
+            // test() {
+            //     console.log(localStorage.getItem('ipfsCidImgLink'))
+            // }
 
 
         },

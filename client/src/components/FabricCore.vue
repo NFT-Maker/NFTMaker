@@ -274,7 +274,7 @@ export default {
             basicList: [],
             basicList1: [],
             selectId: 999,
-            // canvas: null,
+            canvas: null,
             // url: "",
         };
     },

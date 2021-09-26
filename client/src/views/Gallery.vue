@@ -29,7 +29,7 @@
                             >NFT 정보 보기</b-button
                         >
 
-                        <b-modal
+                        <!-- <b-modal
                             title="NFT 정보"
                             header-bg-variant="warning"
                             header-text-variant="dark"
@@ -47,6 +47,39 @@
                             </b-card>
 
                             <img :src="`${data[m].url}`" />
+                        </b-modal> -->
+                        <b-modal
+                            title="NFT 정보"
+                            header-bg-variant="warning"
+                            header-text-variant="dark"
+                            body-bg-variant="light"
+                            body-text-variant="dark"
+                            footer-bg-variant="dark"
+                            footer-text-variant="light"
+                            :id="`example-modal-${m}`"
+                            size="xl"
+                        >
+                            <b-img
+                                :src="`${data[m].url}`"
+                                fluid
+                                thumbnail
+                            ></b-img>
+
+                            <!-- <b-card class="mx-2 my-2 warnig">
+                                <h5>발행 컨트랙트 : {{ data[m].CA }}</h5>
+                                <h5>발행 NFT ID : {{ data[m].NFTId }}</h5>
+                                <h5>이미지 url : {{ data[m].url }}</h5>
+                            </b-card> -->
+                            <b-card class="mt-1" title="NFT ID" fluid>
+                                {{ data[m].NFTId }}
+                            </b-card>
+                            <b-card class="mt-1" title="Contract Address" fluid>
+                                {{ data[m].CA }}
+                            </b-card>
+
+                            <b-card class="mt-1" title="IPFS Url" fluid>
+                                {{ data[m].url }}
+                            </b-card>
                         </b-modal>
                     </b-card>
                 </b-card-group>

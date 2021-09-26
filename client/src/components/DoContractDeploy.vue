@@ -4,7 +4,7 @@
         <div class="mx-2 my-2 row" deck>
             <div class="col-5">
                 <b-card
-                    class="mx-2 my-2"
+                    class="my-2"
                     header-bg-variant="warning"
                     header-text-variant="dark"
                 >
@@ -21,7 +21,7 @@
             <div class="col-7">
                 <b-card
                     body-class="text-center"
-                    class="mx-2 my-2"
+                    class="my-2"
                     header-bg-variant="warning"
                     header-text-variant="dark"
                     no-body
@@ -50,16 +50,13 @@
                                 </b-form-radio-group>
                             </b-form-group>
 
-                            <div class="mt-3">
-                                Selected: <strong>{{ sel_man }}</strong>
-                            </div>
 
                             <b-form-tags
                                 input-id="tags-basic"
                                 v-model="val_man"
+                                placeholder="ex) 0x377163e7CF813C3fe8507808c2b101fbed1ec36D"
                             ></b-form-tags>
-                            <p class="mt-2">Value: {{ val_man }}</p>
-                            <b-button @click="funMan()">콘솔</b-button>
+                            <b-button class="mt-3" block  variant="dark"  @click="funMan()">설정 후 클릭</b-button>
                             <!--  -->
                         </b-tab>
 
@@ -79,10 +76,7 @@
                                 </b-form-radio-group>
                             </b-form-group>
 
-                            <!-- 추후 삭제 -->
-                            <div class="mt-3">
-                                Selected: <strong>{{ sel_lim }}</strong>
-                            </div>
+                  
 
                             <b-input-group
                                 v-show="sel_lim == 'first'"
@@ -92,14 +86,12 @@
                                     type="number"
                                     min="0"
                                     v-model="val_lim"
-                                    placeholder="Enter your name"
+                                    placeholder="ex) 100"
                                 >
                                 </b-form-input>
                             </b-input-group>
 
-                            <!-- 추후 삭제 -->
-                            <p class="mt-2">Value: {{ val_lim }}</p>
-                            <b-button @click="funLim()">콘솔</b-button>
+                            <b-button class="mt-3" block  variant="dark"  @click="funLim()">설정 후 클릭</b-button>
                         </b-tab>
                         <!-- -------------------발행주기 ------------->
                         <b-tab title="발행 주기">
@@ -117,10 +109,7 @@
                                 </b-form-radio-group>
                             </b-form-group>
 
-                            <!-- 추후 삭제 -->
-                            <div class="mt-3">
-                                Selected: <strong>{{ sel_per }}</strong>
-                            </div>
+                      
 
                             <b-input-group
                                 v-show="sel_per == 'first'"
@@ -130,14 +119,13 @@
                                     type="number"
                                     min="0"
                                     v-model="val_per"
-                                    placeholder="Enter your name"
+                                    placeholder="ex) 1"
                                 >
                                 </b-form-input>
                             </b-input-group>
 
-                            <!-- 추후 삭제 -->
-                            <p class="mt-2">Value: {{ val_per }}</p>
-                            <b-button @click="funPer()">콘솔</b-button>
+                           
+                            <b-button class="mt-3" block  variant="dark"  @click="funPer()">설정 후 클릭</b-button>
                         </b-tab>
 
                         <!------------------- 발행권한 ----------------->
@@ -157,10 +145,7 @@
                                 </b-form-radio-group>
                             </b-form-group>
 
-                            <div class="mt-3">
-                                Selected: <strong>{{ sel_aut }}</strong>
-                            </div>
-                            <b-button @click="funAut()">콘솔</b-button>
+                            <b-button class="mt-3" block  variant="dark"  @click="funAut()">설정 후 클릭</b-button>
                         </b-tab>
 
                         <!------------------- 여기다가 선택값 ----------------->
@@ -173,41 +158,50 @@
                 </b-card>
 
                 <b-card
-                    class="mx-2 my-2"
+                    class="my-2"
                     header-bg-variant="warning"
                     header-text-variant="dark"
+                    
                 >
                     <template #header>
                         <h5 class="mb-0">NFT 컨트렉트 생성</h5>
                     </template>
-                    <b-button
-                        variant="warning"
-                        class="mx-1 my-1 "
-                        @click="contract_Owner()"
-                        >기본
-                    </b-button>
-                    <!-- <b-button variant="warning" class="mx-1 my-1" @click="contract_schoolAwads()">상장</b-button> -->
-                    <br />
+
+                       <!-- <b-button variant="warning" class="mx-1 my-1" @click="contract_schoolAwads()">상장</b-button> -->
                     <!-- <b-button variant="dark" class="mx-1 my-1" @click="init()">지갑연결</b-button> -->
                     <!-- <b-button variant="dark" class="mx-1 my-1" @click="contractSaveStore()">컨트렉트 스토어에 저장</b-button> -->
+                    <div class="mx-1 my-2">1. NFT 컨트렉트 기능을 모두 설정한 뒤 아래 컨트렉트 생성 버튼을 누르세요!</div>
                     <b-button
-                        variant="dark"
-                        class="mx-1 my-1"
+                        variant="outline-dark"
+                        class="mx-1 my-1 "
+                        block
+                        @click="contract_Owner()"
+                        >컨트렉트 생성
+                    </b-button>
+                    <div class="mx-1 my-2">2. 왼쪽에 NFT 컨트렉트코드가 생성되었습니다! 아래 컨트렉트 컴파일 버튼을 누르세요!</div>
+                 
+                    <b-button
+                        variant="outline-dark"
+                    class="mx-1 my-1"
+                    block
                         @click="contractCompile()"
                         >컨트렉트 컴파일</b-button
                     >
+                    <div class="mx-1 my-2">3. 아래 컨트렉트 발행 버튼을 통해 NFT 컨트렉트를 발행하세요!</div>
+
                     <b-button
-                        variant="dark"
-                        class="mx-1 my-1"
+                        variant="primary"
+              class="mx-1 my-1 "
+              block
                         @click="contractDeploy()"
                         >컨트렉트 발행</b-button
                     >
-                    <b-button
+                    <!-- <b-button
                         variant="dark"
                         class="mx-1 my-1"
                         @click="[(show = true)]"
                         >NFT 컨트렉트 보기</b-button
-                    >
+                    > -->
                 </b-card>
             </div>
             <!-- contractLibrary<input type="text" v-model="contractLibrary"><br> -->
@@ -356,6 +350,7 @@ export default {
                 },
             ],
             val_per: "first",
+            tex_per: "",
             tex_per1: "",
             tex_per3: "",
             tex_per4: "",
@@ -613,7 +608,7 @@ export default {
                     "        require(owner[msg.sender] = true);\r\n";
             } else if (this.sel_man == "second") {
                 this.tex_man = "    mapping(address => bool) public owner;\r\n";
-                this.tex_man1 = "        owner[msg.sender] = true\r\n";
+                this.tex_man1 = "        owner[msg.sender] = true;\r\n";
                 this.tex_man3 =
                     "        require(owner[msg.sender] = true);\r\n";
                 //  for문 돌려야지

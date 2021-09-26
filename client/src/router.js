@@ -3,10 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Fabric from "./views/Fabric.vue";
 import Web3 from "./views/Web3.vue";
-import TestDoHard from "./views/TestDoHard.vue";
-import TestDoSimple from "./views/TestDoSimple.vue";
 import Server from "./views/Server.vue";
-import SelectContractCode from "./views/SelectContractCode.vue";
 import Home1 from "./views/Home1.vue";
 import Select from "./views/Select.vue";
 import HowToImg from "./views/HowToImg.vue";
@@ -35,24 +32,9 @@ export default new Router({
             component: Web3,
         },
         {
-            path: "/testDoHard",
-            name: "TestDoHard",
-            component: TestDoHard,
-        },
-        {
-            path: "/testDoSimple",
-            name: "TestDoSimple",
-            component: TestDoSimple,
-        },
-        {
             path: "/server",
             name: "Server",
             component: Server,
-        },
-        {
-            path: "/selectContractCode",
-            name: "SelectContractCode",
-            component: SelectContractCode,
         },
         {
             path: "/home1",

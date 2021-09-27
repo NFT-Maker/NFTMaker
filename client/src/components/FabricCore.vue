@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card
+        <b-card-group deck
             class="mx-2 my-2"
             header-bg-variant="warning"
             header-text-variant="dark"
@@ -11,17 +11,13 @@
             </template>
 
             <!-- 캔버스 -->
-            <div
-                class="mx-auto"
-                style="width: 600px; hight: 600px; border: 5px solid blue"
-            >
+  
                 <canvas
                     ref="can"
                     id="canvas"
-                    width="1000"
-                    height="1000"
+           
                 ></canvas>
-            </div>
+
 
             <!-- 부가기능 -->
             <b-card class="my-3">
@@ -151,7 +147,7 @@
                     </b-button>
                 </div>
             </b-card>
-        </b-card>
+        </b-card-group>
 
         <!-- ---------------------- 사이드 --------------------------------- -->
         <!-- 사이드 IPFS 이미지 보기 -->
@@ -159,6 +155,10 @@
 
         <b-sidebar id="sidebar-IPFS" title="편집도구" bg-variant="light">
             <template #footer="{ hide }">
+                <b-form-input v-model="textAdd1"></b-form-input>
+                <b-button @click="addText()">텍스트 추가</b-button>
+                
+                
                 <div
                     class="d-flex bg-dark text-light align-items-center px-3 py-2"
                 >
@@ -282,6 +282,8 @@ export default {
             contract: {},
             abi: [],
             abi1: [],
+            textAdd1: "",
+            textAdd2: "20"
         };
     },
 
@@ -303,16 +305,14 @@ export default {
         this.canvas = canvas;
         console.log(canvas);
         console.log(this.canvas);
+canvas.backgroundColor="#fff"
+
 
         //캔버스에 사각형 추가
-        const rect1 = new fabric.Rect({
-            fill: "red",
-            width: 200,
-            height: 200,
-        });
+  
 
-        //종합적으로 추가
-        canvas.add(rect1);
+    
+   
 
         // 이미지 넣기
         // fabric.Image.fromURL(
@@ -346,13 +346,7 @@ export default {
             reader.readAsDataURL(e.target.files[0]);
         };
 
-        // 텍스트 추가
-        var text = new fabric.Text("add Text", {
-            left: 100,
-            top: 100,
-            fontWeight: "blod",
-        });
-        canvas.add(text);
+      
 
         //삭제기능
         var deleteIcon =
@@ -420,6 +414,8 @@ export default {
                 console.log(this.$store.state.abi);
             });
         }
+    
+    
     },
 
     updated() {},
@@ -588,6 +584,11 @@ export default {
                 .NFT(account, url)
                 .send({ from: account });
         },
+        addText() {
+              var text = new fabric.Text(this.textAdd1, { left: 100, top: 100 });
+this.canvas.add(text);
+        }
+     
     },
 };
 </script>
@@ -595,5 +596,10 @@ export default {
 #canvas {
     position: absolute;
     border: 3px solid black;
+    
 }
+
+#canvas{ margin:0 auto ;
+                     display: block;
+                  }
 </style>

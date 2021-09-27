@@ -2,7 +2,7 @@
     <div>
         <b-card-group
             deck
-            class="mx-2 my-2"
+            class="mx-3 my-4"
             header-bg-variant="warning"
             header-text-variant="dark"
         >
@@ -13,15 +13,26 @@
 
             <!-- 캔버스 -->
 
-            <canvas ref="can" id="canvas"></canvas>
+            <canvas ref="can" id="canvas" width="500" height="600"></canvas>
 
             <!-- 부가기능 -->
-            <b-card class="my-3">
-                <!-- 캔버스 사이즈 변경 -->
+            <b-card>
                 <div class="my-2">
                     <!-----------------   서버 연동 이미지 불러오기  ----------------------->
 
-                    <div>
+                    <b-button
+                        variant="outline-dark"
+                        class="mt-3"
+                        block
+                        @click="
+                            $refs.fileInput1.$el
+                                .querySelector('input[type=file]')
+                                .click()
+                        "
+                        >이미지 추가</b-button
+                    >
+
+                    <div class="mt-3">
                         <b-form-select
                             style="max-width: 50rem;"
                             value="999"
@@ -42,14 +53,12 @@
                                 >{{ m.path }}</option
                             >
                         </b-form-select>
-                        <b-button
-                            variant="dark"
-                            class="mx-1 my-1"
-                            @click="tejin()"
+                        <b-button variant="dark" class="" @click="tejin()"
                             >서식 추가
                         </b-button>
                     </div>
-                    <div>
+
+                    <div class="mt-3">
                         <b-form-select
                             style="max-width: 50rem;"
                             value="999"
@@ -67,24 +76,24 @@
                                 >{{ m.path }}</option
                             >
                         </b-form-select>
-                        <b-button
-                            variant="dark"
-                            class="mx-1 my-1"
-                            @click="tejin()"
+                        <b-button variant="dark" class="" @click="tejin()"
                             >꾸미기 추가
                         </b-button>
                     </div>
+
                     <!-- 서버 연동 끝 -->
-                    <b-button
-                        variant="dark"
-                        class="mx-1 my-1"
-                        @click="
-                            $refs.fileInput1.$el
-                                .querySelector('input[type=file]')
-                                .click()
-                        "
-                        >이미지 추가</b-button
-                    >
+
+                    <b-input-group class="mt-3">
+                        <b-form-input v-model="textAdd1"></b-form-input>
+                        <b-input-group-append>
+                            <b-button variant="dark" @click="addText()"
+                                >텍스트 추가</b-button
+                            >
+                        </b-input-group-append>
+                    </b-input-group>
+
+                    <!-- 이미지 추가 -->
+
                     <b-form-file
                         accept="image/*"
                         id="uploader"
@@ -93,28 +102,28 @@
                         style="display:none;"
                     >
                     </b-form-file>
-                    <b-button v-b-modal.modal-1 class="mx-1 my-1" variant="dark"
-                        >캔버스 사이즈 변경</b-button
-                    >
-                    <b-button id="download" class="mx-1 my-1" variant="dark"
-                        >이미지 다운로드</b-button
-                    >
-                    <b-button
-                        variant="dark"
-                        class="mx-1 my-1"
-                        @click="ipfsUpload()"
-                        >IPFS 이미지 업로드
-                    </b-button>
-                    <b-button
-                        variant="dark"
-                        class="mx-1 my-1"
-                        @click="[(show = true), ipfsDownload()]"
-                        >IPFS 이미지 미리보기
-                    </b-button>
+
+                    <b-button-group class="mt-3 col">
+                        <b-button v-b-modal.modal-1 variant="dark" disabled
+                            >캔버스 사이즈 변경</b-button
+                        >
+                        <b-button id="download" variant="dark"
+                            >이미지 다운로드</b-button
+                        >
+                        <b-button variant="dark" @click="ipfsUpload()"
+                            >IPFS 이미지 업로드
+                        </b-button>
+                        <b-button
+                            variant="dark"
+                            @click="[(show = true), ipfsDownload()]"
+                            >IPFS 이미지 미리보기
+                        </b-button>
+                    </b-button-group>
 
                     <b-button
                         variant="warning"
-                        class="mx-1 my-1"
+                        class="my-3"
+                        block
                         v-if="this.$store.state.settingNum == 0"
                         @click="goMakeContract()"
                     >
@@ -123,7 +132,7 @@
 
                     <b-button
                         variant="warning"
-                        class="mx-1 my-1"
+                        class="my-3"
                         v-if="this.$store.state.settingNum == 1"
                         @click="goGallery()"
                     >
@@ -132,7 +141,7 @@
 
                     <b-button
                         variant="warning"
-                        class="mx-1 my-1"
+                        class="my-3"
                         v-if="this.$store.state.settingNum == 2"
                         :title="
                             `${this.$store.state.contract}` + '에서 NFT 발행'
@@ -147,7 +156,7 @@
 
         <!-- ---------------------- 사이드 --------------------------------- -->
         <!-- 사이드 IPFS 이미지 보기 -->
-        <b-button v-b-toggle.sidebar-IPFS>편집도구</b-button>
+        <!-- <b-button v-b-toggle.sidebar-IPFS>편집도구</b-button>
 
         <b-sidebar id="sidebar-IPFS" title="편집도구" bg-variant="light">
             <template #footer="{ hide }">
@@ -161,9 +170,9 @@
                     <b-button size="sm" @click="hide">닫기</b-button>
                 </div>
             </template>
-            <!-- 기능들 -->
+            
             <b-card class="mx-2"> </b-card>
-        </b-sidebar>
+        </b-sidebar> -->
 
         <!-- ---------------------- 모달 --------------------------------- -->
 

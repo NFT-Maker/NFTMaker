@@ -512,9 +512,42 @@ export default {
                 `http://localhost:3000/download/${this.basicList1[0].type}/${this.basicList1[0].path}`,
                 (oImg) => {
                     this.canvas.add(oImg);
-                }
+                },
+                { crossOrigin: "anonymous" }
             );
         },
+        // tejin() {
+        //     const img = new Image();
+        //     console.log("여기니", fabric);
+        //     img.onload = () => {
+        //         this.basicList1 = this.basicList.filter(
+        //             (c) => c.basic_id == this.selectId
+        //         );
+        //     };
+        //     img.crossOrigin = "Anonymous";
+        //     img.src = `http://localhost:3000/download/${this.basicList1[0].type}/${this.basicList1[0].path}`;
+
+        //     fabric.Image.fromURL(img.src, (oImg) => {
+        //         this.canvas.add(oImg);
+        //     });
+        // },
+        // async tejin() {
+        //     this.basicList1 = this.basicList.filter(
+        //         (c) => c.basic_id == this.selectId
+        //     );
+
+        //     var serverImagePath = `http://localhost:3000/download/${this.basicList1[0].type}/${this.basicList1[0].path}`;
+        //     console.log(serverImagePath);
+        //     var serverImage = await new Promise((resolve) =>
+        //         serverImagePath.toBlob(resolve, "image/png")
+        //     );
+
+        //     console.log(serverImage);
+
+        //     await fabric.Image.fromURL(serverImage, (oImg) => {
+        //         this.canvas.add(oImg);
+        //     });
+        // },
         async mint(account, url) {
             // console.log("3");
             // console.log(this.$store.state.abi);

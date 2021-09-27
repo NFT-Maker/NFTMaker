@@ -123,9 +123,6 @@ export default {
     },
     unmounted() {},
     methods: {
-        // NFTDataSelect(m) {
-        //     this.DataNFT = m;
-        // },
         grid() {
             this.$api("/api/list1", "post", {
                 param: [this.$store.state.account],

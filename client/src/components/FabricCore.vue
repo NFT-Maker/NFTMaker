@@ -1,6 +1,7 @@
 <template>
     <div>
-        <b-card-group deck
+        <b-card-group
+            deck
             class="mx-2 my-2"
             header-bg-variant="warning"
             header-text-variant="dark"
@@ -11,13 +12,8 @@
             </template>
 
             <!-- 캔버스 -->
-  
-                <canvas
-                    ref="can"
-                    id="canvas"
-           
-                ></canvas>
 
+            <canvas ref="can" id="canvas"></canvas>
 
             <!-- 부가기능 -->
             <b-card class="my-3">
@@ -157,8 +153,7 @@
             <template #footer="{ hide }">
                 <b-form-input v-model="textAdd1"></b-form-input>
                 <b-button @click="addText()">텍스트 추가</b-button>
-                
-                
+
                 <div
                     class="d-flex bg-dark text-light align-items-center px-3 py-2"
                 >
@@ -283,7 +278,7 @@ export default {
             abi: [],
             abi1: [],
             textAdd1: "",
-            textAdd2: "20"
+            textAdd2: "20",
         };
     },
 
@@ -305,14 +300,9 @@ export default {
         this.canvas = canvas;
         console.log(canvas);
         console.log(this.canvas);
-canvas.backgroundColor="#fff"
-
+        canvas.backgroundColor = "#fff";
 
         //캔버스에 사각형 추가
-  
-
-    
-   
 
         // 이미지 넣기
         // fabric.Image.fromURL(
@@ -345,8 +335,6 @@ canvas.backgroundColor="#fff"
 
             reader.readAsDataURL(e.target.files[0]);
         };
-
-      
 
         //삭제기능
         var deleteIcon =
@@ -414,8 +402,6 @@ canvas.backgroundColor="#fff"
                 console.log(this.$store.state.abi);
             });
         }
-    
-    
     },
 
     updated() {},
@@ -585,10 +571,9 @@ canvas.backgroundColor="#fff"
                 .send({ from: account });
         },
         addText() {
-              var text = new fabric.Text(this.textAdd1, { left: 100, top: 100 });
-this.canvas.add(text);
-        }
-     
+            var text = new fabric.Text(this.textAdd1, { left: 100, top: 100 });
+            this.canvas.add(text);
+        },
     },
 };
 </script>
@@ -596,10 +581,10 @@ this.canvas.add(text);
 #canvas {
     position: absolute;
     border: 3px solid black;
-    
 }
 
-#canvas{ margin:0 auto ;
-                     display: block;
-                  }
+#canvas {
+    margin: 0 auto;
+    display: block;
+}
 </style>

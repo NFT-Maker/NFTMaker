@@ -97,15 +97,14 @@ app.post("/api/test11", async (req, res) => {
 
 //solc 사용  solc 가 node.js 기반이기때문에 여기서 처리 후 프론트로 보내줘야함
 app.post("/compile", async (req, res) => {
-
-   const  SafeMathSourceCode = fs.readFileSync("./contract/safemath.sol");
+    const SafeMathSourceCode = fs.readFileSync("./contract/safemath.sol");
     console.log(req.body.param[0]);
 
     var input = {
         language: "Solidity",
         sources: {
             "nftMaker.sol": {
-                content: req.body.param[0]
+                content: req.body.param[0],
             },
         },
         settings: {
@@ -118,9 +117,7 @@ app.post("/compile", async (req, res) => {
     };
 
     try {
-        var output = JSON.parse(
-            solc.compile(JSON.stringify(input))
-        );
+        var output = JSON.parse(solc.compile(JSON.stringify(input)));
 
         for (var contractName in output.contracts["nftMaker.sol"]) {
             var bytecode =

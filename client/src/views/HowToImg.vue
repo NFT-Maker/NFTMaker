@@ -39,14 +39,12 @@
             </b-card>
 
             <b-card
-                @click="alreadyContract()"
                 title="배포된 컨트렉트로 NFT 발행"
                 img-src="../assets/img/화면/nft03.png"
                 img-alt="Image"
-                style="cursor:pointer; "
                 img-top
             >
-                <b-card-text>
+                <b-card-text style="height: 40px">
                     배포된 컨트렉트 주소를 통해 NFT를 발행할 수 있습니다.
                 </b-card-text>
 

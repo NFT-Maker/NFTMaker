@@ -25,7 +25,7 @@
 }
 
 .spinner-border {
-    @extend .spinner-border;
+    /* @extend .spinner-border; */
     height: 4rem;
     width: 4rem;
 }

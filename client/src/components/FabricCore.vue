@@ -258,6 +258,7 @@
 ></script>
 <script>
 import { fabric } from "fabric";
+// import main from "../../dapp/index";
 
 export default {
     computed: {
@@ -269,6 +270,247 @@ export default {
     components: {},
     data() {
         return {
+            mainAbi: [
+                {
+                    anonymous: false,
+                    inputs: [
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_approved",
+                            type: "address",
+                        },
+                        {
+                            indexed: false,
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "Approval",
+                    type: "event",
+                },
+                {
+                    anonymous: false,
+                    inputs: [
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_from",
+                            type: "address",
+                        },
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            indexed: false,
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "Transfer",
+                    type: "event",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_who",
+                            type: "address",
+                        },
+                        {
+                            internalType: "string",
+                            name: "_url",
+                            type: "string",
+                        },
+                    ],
+                    name: "NFT",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    name: "NFTCount",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "NFTId",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTToOwner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTUrl",
+                    outputs: [
+                        {
+                            internalType: "string",
+                            name: "",
+                            type: "string",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "approve",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                    ],
+                    name: "balanceOf",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_balance",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "owner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "ownerOf",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "takeOwnership",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "transfer",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+            ],
+            mainCA: "0xE6b4A5770a606E1b0E334c8e5136057f47048B4e",
             reader: new FileReader(),
             cidImg: "",
             cidImgLink: "",
@@ -399,17 +641,10 @@ export default {
         // 0번 컨트랙트 만들기에서 할것임
         // 2번 이전 화면에서 이미 저장해 둠
         if (this.$store.state.settingNum == 1) {
-            this.$store.commit(
-                "contractSave",
-                "0xE6b4A5770a606E1b0E334c8e5136057f47048B4e"
-            );
-            this.$api("/api/list", "post", {
-                param: [this.$store.state.contract],
-            }).then((result) => {
-                console.log(result);
-                this.$store.commit("abiSave", result[0].CA_abi);
-                console.log(this.$store.state.abi);
-            });
+            this.$store.commit("contractSave", this.mainCA);
+
+            this.$store.commit("abiSave", this.mainAbi);
+            console.log(this.$store.state.abi);
         }
     },
 
@@ -546,10 +781,10 @@ export default {
             this.abi1 = eval(this.$store.state.abi);
             // console.log(this.abi);
             console.table(this.abi1);
-
+            console.log("안녕", this.mainAbi);
             this.contract = new this.$store.state.web3.eth.Contract(
-                this.abi1,
-                "0xE6b4A5770a606E1b0E334c8e5136057f47048B4e"
+                this.mainAbi,
+                this.mainCA
             );
 
             console.log("왔니?", this.contract);

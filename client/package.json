@@ -1,70 +1,70 @@
 {
-  "name": "ethereum-payment-vuejs",
-  "version": "0.1.0",
-  "description": "Simple ethereum dapp using vuejs as UI framework",
-  "author": "formentor-studio.com",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "dapp:build": "node dapp/compile.js; mocha dapp/test",
-    "dapp:test": "mocha dapp/test"
-  },
-  "dependencies": {
-    "axios": "^0.21.4",
-    "bootstrap": "^4.5.3",
-    "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.18.0",
-    "fabric": "^4.6.0",
-    "ipfs": "^0.58.6",
-    "module": "^1.2.5",
-    "moment": "^2.29.1",
-    "sass-loader": "^12.1.0",
-    "solc": "^0.8.7-fixed",
-    "sweetalert2": "^11.1.6",
-    "vue": "^2.6.14",
-    "vue-router": "^3.5.2",
-    "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.1.0",
-    "web3": "^1.5.2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.13",
-    "@vue/cli-plugin-eslint": "^4.5.13",
-    "@vue/cli-service": "^4.5.13",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^7.18.0",
-    "ganache-cli": "^6.12.2",
-    "mocha": "^9.1.1",
-    "node-sass": "^6.0.1",
-    "vue-template-compiler": "^2.6.14"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "ethereum-payment-vuejs",
+    "version": "0.1.0",
+    "description": "Simple ethereum dapp using vuejs as UI framework",
+    "author": "formentor-studio.com",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "dapp:build": "node dapp/compile.js; mocha dapp/test",
+        "dapp:test": "mocha dapp/test"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+    "dependencies": {
+        "axios": "^0.21.4",
+        "bootstrap": "^4.5.3",
+        "bootstrap-vue": "^2.21.2",
+        "core-js": "^3.18.0",
+        "fabric": "^4.6.0",
+        "ipfs": "^0.58.6",
+        "module": "^1.2.5",
+        "moment": "^2.29.1",
+        "sass-loader": "^12.1.0",
+        "solc": "^0.8.7-fixed",
+        "sweetalert2": "^11.1.6",
+        "vue": "^2.6.14",
+        "vue-router": "^3.5.2",
+        "vuex": "^3.6.2",
+        "vuex-persistedstate": "^4.1.0",
+        "web3": "^1.5.2"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^4.5.13",
+        "@vue/cli-plugin-eslint": "^4.5.13",
+        "@vue/cli-service": "^4.5.13",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^7.32.0",
+        "eslint-plugin-vue": "^7.18.0",
+        "ganache-cli": "^6.12.2",
+        "mocha": "^9.1.1",
+        "node-sass": "^6.0.1",
+        "vue-template-compiler": "^2.6.14"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {
+            "no-console": "warn"
+        },
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions"
     ],
-    "rules": {
-      "no-console": "warn"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
-  "keywords": [],
-  "license": "MIT"
+    "keywords": [],
+    "license": "MIT"
 }

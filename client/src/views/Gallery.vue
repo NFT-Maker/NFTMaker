@@ -111,18 +111,270 @@ export default {
             imgList: [],
             // v-for 이용해서 그림 불러오기
             data: [],
+            mainabi: [
+                {
+                    anonymous: false,
+                    inputs: [
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_approved",
+                            type: "address",
+                        },
+                        {
+                            indexed: false,
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "Approval",
+                    type: "event",
+                },
+                {
+                    anonymous: false,
+                    inputs: [
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_from",
+                            type: "address",
+                        },
+                        {
+                            indexed: true,
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            indexed: false,
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "Transfer",
+                    type: "event",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_who",
+                            type: "address",
+                        },
+                        {
+                            internalType: "string",
+                            name: "_url",
+                            type: "string",
+                        },
+                    ],
+                    name: "NFT",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    name: "NFTCount",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "NFTId",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTToOwner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "NFTUrl",
+                    outputs: [
+                        {
+                            internalType: "string",
+                            name: "",
+                            type: "string",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "approve",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                    ],
+                    name: "balanceOf",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_balance",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "owner",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "ownerOf",
+                    outputs: [
+                        {
+                            internalType: "address",
+                            name: "_owner",
+                            type: "address",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "takeOwnership",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [
+                        {
+                            internalType: "address",
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            internalType: "uint256",
+                            name: "_tokenId",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "transfer",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+            ],
+            mainCA: "0xE6b4A5770a606E1b0E334c8e5136057f47048B4e",
             CA: "",
             DataNFT: 0,
-            aa: "",
         };
     },
     setup() {},
     created() {},
     mounted() {
+        this.first();
         this.grid();
     },
     unmounted() {},
     methods: {
+        first() {
+            console.log("first");
+            var mainC = new this.$store.state.web3.eth.Contract(
+                this.mainabi,
+                this.mainCA
+            );
+            // console.log("mainc", mainC);
+
+            this.NFTIdCall(mainC, this.mainCA);
+            // console.log("mainc", mainC);
+        },
         grid() {
             this.$api("/api/list1", "post", {
                 param: [this.$store.state.account],
@@ -147,8 +399,8 @@ export default {
             });
         },
 
-        async NFTIdCall(aa, ca) {
-            await aa.methods
+        async NFTIdCall(contract, contractAccount) {
+            await contract.methods
                 .NFTId()
                 .call()
                 .then((result) => {
@@ -161,33 +413,33 @@ export default {
                     for (var j = 0; j < result; j++) {
                         // console.log("포문도니", j);
                         // console.log(this.contract);
-                        this.wait(aa, j, ca);
+                        this.wait(contract, j, contractAccount);
                     }
                     // console.log("url 배열", this.url);
                 });
         },
-        wait(aa, jj, ca) {
+        wait(contract, forNftCount, contractAccount) {
             // console.log("그림");
-            aa.methods
-                .NFTToOwner(jj)
+            contract.methods
+                .NFTToOwner(forNftCount)
                 .call()
                 .then((result) => {
-                    // console.log("nft 아이디", jj);
+                    // console.log("nft 아이디", forNftCount);
                     // console.log("nft 주인", result);
                     // console.log("내어카운트", this.$store.state.account);
                     if (result == this.$store.state.account) {
-                        // console.log("안녕?", jj);
-                        this.myNFT.push(jj);
+                        // console.log("안녕?", forNftCount);
+                        this.myNFT.push(forNftCount);
                         // console.log(this.myNFT);
-                        aa.methods
-                            .NFTUrl(jj)
+                        contract.methods
+                            .NFTUrl(forNftCount)
                             .call()
                             .then((result) => {
                                 console.log("ipfsurl", result);
                                 this.url.push(result);
                                 this.data.push({
-                                    CA: ca,
-                                    NFTId: jj,
+                                    CA: contractAccount,
+                                    NFTId: forNftCount,
                                     url: result,
                                 });
                                 // console.log(this.data);

@@ -11,3 +11,4 @@ NFT 를 생활 속으로!
 
 프레임워크 : Vue
 블록체인 : Ethereum(Ropsten)
+시연영상 : https://www.youtube.com/watch?v=3MAGfFM2BfA
